@@ -1,5 +1,5 @@
 title = "tivasyk.blog"
-baseURL = "https://example.com"
+baseURL = "https://tivasyk.github.io"
 theme = "bilberry-hugo-theme"
 
 enableRobotsTXT = true
