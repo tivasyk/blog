@@ -11,7 +11,7 @@ DefaultContentLanguage = "uk-UA"
 googleAnalytics = ""
 
 # Enable / Disable comments on the articles via Disqus.
-disqusShortname = "tivasyk"
+disqusShortname = "tivasyk-blog"
 
 [params]
   # Favicon for the browser's favorites and tabs
