@@ -1,7 +1,6 @@
 ---
 title: "гич оркестр: любіть україну"
-date: 2017-11-12T15:11:24-05:00
-draft: true
+date: 2017-11-12T16:31:14-05:00
 
 featuredImage: ""
 categories: [музика]
@@ -14,4 +13,5 @@ soundcloud: "https://soundcloud.com/hycz/liubit-ukrajinu"      # https://soundcl
 tunein:     ""      # t117894382
 mixcloud:   ""      # scienceforthepeople/445-ai-ant-intelligence
 ---
+
 просто зненацька пригадав цю мелодію.
