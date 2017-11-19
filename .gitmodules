@@ -1,3 +1,6 @@
 [submodule "bilberry-hugo-theme"]
 	path = bilberry-hugo-theme
 	url = https://github.com/Lednerb/bilberry-hugo-theme
+[submodule "public"]
+	path = public
+	url = https://github.com/tivasyk/tivasyk.github.io.git
