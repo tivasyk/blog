@@ -1,0 +1,17 @@
+---
+layout: post
+title: 'linux: підключення старої фотокамери'
+date: '2014-09-20T21:58:00.000+03:00'
+author: tivasyk
+tags:
+- життя
+- linux
+- підказки
+- фотографія
+modified_time: '2014-09-22T11:39:23.276+03:00'
+thumbnail: http://1.bp.blogspot.com/-rX5Cr_waufI/VB3EuFcWIiI/AAAAAAAAebQ/mjBp6UqQgZU/s72-c/canon_powershot_a60_linux_mount.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-5664422899567551929
+blogger_orig_url: http://www.tivasyk.info/2014/09/linux.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-rX5Cr_waufI/VB3EuFcWIiI/AAAAAAAAebQ/mjBp6UqQgZU/s1600/canon_powershot_a60_linux_mount.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" src="http://1.bp.blogspot.com/-rX5Cr_waufI/VB3EuFcWIiI/AAAAAAAAebQ/mjBp6UqQgZU/s1600/canon_powershot_a60_linux_mount.jpg" height="112" width="200" /></a></div>маю в господарстві стареньку цифрову фотокамеру <b>canon powershot a60</b>. апарат вже можна вважати пенсіонером — це був мій перший цифровичок, придбаний ще у 2003 році одразу після народження першого синочка. попри те, що, на превеликий жаль, не всі знімки та відео з того часу збереглися, але ця камера бачила перші тимошкові кроки, записувала на відео перші його слова…<br /><br />можна сказати, <b>родинна реліквія</b>. ніяк не можна викидати.<br /><br />на додачу, цей canon ще й нівроку знімає після заміни матриці, і зі своїми 2-ма мегапікселями легко дає фору більшости сучасних смартфонів з їхніми 8-ми та 13-мегапіксельними «дірочками». саме тимко зараз нею і користується час від часу.<br /><br />камера підключається до комп’ютера, як ptp-пристрій, але на linux не монтується, як накопичувач, тож до сьогодні я мусив щоразу витягати 256-мегабайтну (!) картку compatc flash і шукати по шухлядах карт-рідер.<br /><br />але сьогодні карт-рідера не знайшлося. можливо, загубив під час переїзду, чи залишив на старій квартирі, або й просто лежить десь у ще не розібраному клунку? довелося шукати в тенетах <b>рецепт підключення ptp-пристроїв</b>… <a href="http://roger.steneteg.org/304/mounting-a-ptp-device/" target="_blank">знайшов</a>.<br /><br /><a name='more'></a>коротко:<br /><br />1. завчасу створив теку /media/camera з правами собі на перегляд/запиc:<br /><blockquote class="tr_bq"><code>sudo mkdir /media/camera<br />sudo chmod a+rwx /media/camera</code></blockquote><br />2. затягнув пакунок gphotofs з репозиторіїв:<br /><blockquote class="tr_bq"><code>sudo apt-get install gphotofs</code></blockquote><br />3. підключив камеру до usb та змонтував:<br /><blockquote class="tr_bq"><code>gphotofs /media/camera</code></blockquote><br />4. перекинувши світлини на ноутбук і почистивши карту пам’яті, відмонтував камеру:<br /><blockquote class="tr_bq"><code>fusermount -u /media/camera</code></blockquote><br />все. занотував <b>собі на згадку</b>, бо ще не раз доведеться це робити. і… тепер в мене є карт-рідер для compact flash =)

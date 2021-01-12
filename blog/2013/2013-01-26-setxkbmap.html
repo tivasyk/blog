@@ -1,0 +1,16 @@
+---
+layout: post
+title: всі опції setxkbmap
+date: '2013-01-26T10:49:00.002+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- клавіатура
+- підказки
+modified_time: '2016-06-10T17:14:03.201+03:00'
+thumbnail: http://2.bp.blogspot.com/-xmOmwzhyuPc/UP59HumP8aI/AAAAAAAASE8/j5J5U7iltCk/s72-c/Canadian_Multilingual_Standard_kbd-s.png
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-5422359464707340691
+blogger_orig_url: http://www.tivasyk.info/2013/01/setxkbmap.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-xmOmwzhyuPc/UP59HumP8aI/AAAAAAAASE8/j5J5U7iltCk/s1600/Canadian_Multilingual_Standard_kbd-s.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="66" src="http://2.bp.blogspot.com/-xmOmwzhyuPc/UP59HumP8aI/AAAAAAAASE8/j5J5U7iltCk/s200/Canadian_Multilingual_Standard_kbd-s.png" width="200" /></a></div>учора налаштував собі на ноутбуці (<a href="http://www.tivasyk.info/2012/09/blog-post_29.html" target="_blank">crunchbang 11 waldorf</a>) <a href="http://www.tivasyk.info/2013/01/recaps.html" target="_blank">перемикання розкладок за capslock</a>, перевірив — працює, почав звикати. <br /><br />аж сьогодні… раптом виявляю, що деякі символи <a href="http://www.tivasyk.info/2013/01/blog-post_22.html" target="_blank">у канадській розкладці</a> доступні в комбінації з <i>altgr</i>, не можу набрати — поки затиснутий правий <i>alt</i>, клавіатура тимчасово переключена в українську розкладку o_O<br /><br />як, чому? учора все було гаразд!..<br /><br /><a name='more'></a>виявилося, що якимось чином, експериментуючи, я залишив у своєму скрипті <i>fixkeyboard</i> опцію <i>grp:switch</i> (і видалив «зайвий» пустий <i>-option</i>)… ні того, ні іншого не слід було робити.<br /><br />а в дописі про recaps <a href="http://www.tivasyk.info/2013/01/recaps.html" target="_blank">все правильно</a>.<br /><br />до речі, <i>man setxkbmap</i> дуже скупий на детальну інформацію про <b>можливі значення опцій</b> команди, — але <a href="http://blog.ssokolow.com/archives/2011/12/24/getting-your-way-with-setxkbmap/" target="_blank">виявилося</a>, що в непримітному текстовому файлі <i>/urs/share/X11/xkb/rules/base.lst</i> їх <b>усі перелічено</b>, тільки відкривай та вивчай.<br /><br />так от, <i>grp:switch</i> якраз відповідає за перемикання розкладок за допомогою <i>altgr</i>. 

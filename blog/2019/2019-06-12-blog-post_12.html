@@ -1,0 +1,18 @@
+---
+layout: post
+title: ало, вагрант? це суперпуті!
+date: '2019-06-12T18:56:00.001+03:00'
+author: tivasyk
+tags:
+- ssh
+- windows
+- linux
+- vagrant
+- підказка
+modified_time: '2019-06-12T22:20:14.980+03:00'
+thumbnail: https://1.bp.blogspot.com/-lRWTKoF-vKU/XQEf5pXTXOI/AAAAAAABXxo/6nR-ktqqpwUlvKPrz_305hvbwdfQyiy8QCLcBGAs/s72-c/screenshot.2019-06-12_02_lomo.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-2601097635714312798
+blogger_orig_url: http://www.tivasyk.info/2019/06/blog-post_12.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-lRWTKoF-vKU/XQEf5pXTXOI/AAAAAAABXxo/6nR-ktqqpwUlvKPrz_305hvbwdfQyiy8QCLcBGAs/s1600/screenshot.2019-06-12_02_lomo.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="790" data-original-width="961" height="263" src="https://1.bp.blogspot.com/-lRWTKoF-vKU/XQEf5pXTXOI/AAAAAAABXxo/6nR-ktqqpwUlvKPrz_305hvbwdfQyiy8QCLcBGAs/s320/screenshot.2019-06-12_02_lomo.jpg" width="320" /></a></div>щоби за-ssh-тися до «коробки» vagrant за допомогою superputty/putty/kitty, доведеться:<br /><br />а) <a href="http://the.earth.li/~sgtatham/putty/0.63/htmldoc/Chapter8.html#puttygen-conversions" target="_blank">конвертувати</a> приватний ключ ssh до формату ppk за допомогою puttygen;<br /><br />б) вказати <a href="http://the.earth.li/~sgtatham/putty/0.63/htmldoc/Chapter3.html#using-cmdline" target="_blank">додатковий параметр</a> для з’єднання (див. зняток екрану):<br /><br /><pre><code>-i &lt;шлях до файлу .ppk&gt;</code></pre><br />гаразд, тепер можна далі читати «ansible up and running».<br /><b></b><br /><a name='more'></a><div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-ifFsWf5dYyc/XQFQX9BhUeI/AAAAAAABXx4/JnSbm9BPrygkzDW5GaNEFLYiDWrVG22IwCLcBGAs/s1600/screenshot.2019-06-12_03_lomo.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="577" data-original-width="962" height="191" src="https://1.bp.blogspot.com/-ifFsWf5dYyc/XQFQX9BhUeI/AAAAAAABXx4/JnSbm9BPrygkzDW5GaNEFLYiDWrVG22IwCLcBGAs/s320/screenshot.2019-06-12_03_lomo.jpg" width="320" /></a></div><b>оновлено. </b>не зовсім гаразд… щоби віртуальна машина а (ansible) могла підключитися до машини s (server) потрібно на неї перекинути (з теки&nbsp;<i>.vagrant\machines\&lt;назва&gt;\virtualbox\</i> на фізичній машині) файл ключа private_key (наприклад, за допомогою winscp), і забрати всі права доступу, окрім для власника:<br /><br /><pre><code>chmod og-rwx private_key</code></pre><br />після цього має бути ок. перевірка за допомогою ssh (з машини a):<br /><br /><pre><code>ssh vagrant@192.168.8.1 -p 8122 -i ./private_key</code></pre><br />якщо підключається — тоді гаразд.

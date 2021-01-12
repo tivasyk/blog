@@ -1,0 +1,18 @@
+---
+layout: post
+title: на bash’тані тетріси дозріли
+date: '2014-04-23T22:40:00.002+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- ігри
+- linux
+- bash
+- позитив
+modified_time: '2016-03-24T10:31:02.729+02:00'
+thumbnail: https://2.bp.blogspot.com/-WNG56-FK0tM/U1gMAmy5fQI/AAAAAAAAakg/cCJCJ94Pa40/s72-c/screenshot_2014-04-23-1398278509_1366x768_scrot.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-8126733213527361488
+blogger_orig_url: http://www.tivasyk.info/2014/04/bash.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-WNG56-FK0tM/U1gMAmy5fQI/AAAAAAAAakg/cCJCJ94Pa40/s1600/screenshot_2014-04-23-1398278509_1366x768_scrot.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="111" src="https://2.bp.blogspot.com/-WNG56-FK0tM/U1gMAmy5fQI/AAAAAAAAakg/cCJCJ94Pa40/s1600/screenshot_2014-04-23-1398278509_1366x768_scrot.jpg" width="200" /></a></div>несподівано натрапив на <a href="http://top-scripts.blogspot.com/2011/01/bash-tetris.html" target="_blank">цікаву реалізацію тетріса</a>… на чистому bash’і.<br /><br />тепер я мушу витратити час і <b>розібрати це «на запчастини»</b>! хоча б для того, щоби пофіксити одну «фічу» цього скрипта і зафіксувати кольори блоків, як цього <a href="http://en.wikipedia.org/wiki/Tetris#Colors_of_Tetriminos" target="_blank">вимагає стандарт</a> the tetris company.<br /><br /><a name='more'></a>насправді ж, коли вже це можливо — то й братимуться за це чимало людей, просто заради спорту; досить пошукати й швидко знайдеться чимало варіантів. і якщо вже розбирати на запчастини — варто, мабуть, почати з чудово відкоментованої <a href="https://github.com/kt97679/tetris/blob/master/tetris.sh" target="_blank">реалізації кирила тимофєєва</a> (aka <span class="author">kt97679</span>), що знайшлася на github’і.<br /><br />і, до речі, в неї та ж сама біда з кольорами, тож є що виправляти найпершим ділом:<br /><br /><code>((next_piece_color = RANDOM % ${#colors[@]}))</code>

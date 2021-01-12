@@ -1,0 +1,16 @@
+---
+layout: post
+title: щось таке дозріває на баштані (продовження)
+date: '2019-07-25T22:25:00.002+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- bash
+modified_time: '2019-07-25T22:32:20.558+03:00'
+thumbnail: https://1.bp.blogspot.com/--4YQF08VPpM/XTn_hrTJgLI/AAAAAAABZu4/_7qVuwx09eUfH8dAwzxEswZKwpsEO_vpwCLcBGAs/s72-c/screenshot.2019-07-25.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-967449275609037786
+blogger_orig_url: http://www.tivasyk.info/2019/07/blog-post_25.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/--4YQF08VPpM/XTn_hrTJgLI/AAAAAAABZu4/_7qVuwx09eUfH8dAwzxEswZKwpsEO_vpwCLcBGAs/s1600/screenshot.2019-07-25.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="302" data-original-width="904" height="106" src="https://1.bp.blogspot.com/--4YQF08VPpM/XTn_hrTJgLI/AAAAAAABZu4/_7qVuwx09eUfH8dAwzxEswZKwpsEO_vpwCLcBGAs/s320/screenshot.2019-07-25.jpg" width="320" /></a></div><a href="http://www.tivasyk.info/2019/07/blog-post_23.html" target="_blank">табуляцію</a> доведеться трохи переписати (в процесі) — різділити коротке табулювання (зберігши довільний крок: 4 чи 8 символів тощо) та довге (розбивання на колонки).<br /><br />треба вигадати, як поєднати шаблони й динамічний вивід списків: приміром, перелік розділів (storage на знятку) формується динамічно за виводом df і може містити довільну кількість рядків… але як цю довільну кількість кодувати в шаблоні? поки-що статично.<br /><br />тестове кодування попереджень кольором (див. навантаження процесора на знятку) працює, але треба переписати в одну компактну функцію.<br /><br />час здмухувать пил з коду <a href="http://www.tivasyk.info/2017/02/gauge.html" target="_blank">gauge</a>, щоби замінити дужки з відсотками на більш читабельну графіку.<br /><br />є така ще ідея: на старті парсити шаблони і складати перелік &lt;міток&gt; — щоби функція збирання даних взагалі не «лізла» по те, чого немає в шаблоні.<br /><br /><b>поновлено</b> (25 липня 2019). температура процесора 37°с виглядає заспокійливо — але не вірю: надто низько, плюс ніколи не коливається. здається, lm-sensors просто не працює як слід з моєю материнкою (hp 2820h).

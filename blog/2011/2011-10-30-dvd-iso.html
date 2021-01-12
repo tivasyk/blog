@@ -1,0 +1,16 @@
+---
+layout: post
+title: копіювання dvd в образ iso
+date: '2011-10-30T22:39:00.001+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+modified_time: '2011-11-08T10:51:35.890+02:00'
+thumbnail: http://3.bp.blogspot.com/-VXcbYkggVT4/Tq215FHJusI/AAAAAAAAL8Y/jXvOoPOU35Y/s72-c/samsung_se_s084.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-5118777792193563401
+blogger_orig_url: http://www.tivasyk.info/2011/10/dvd-iso.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/-VXcbYkggVT4/Tq215FHJusI/AAAAAAAAL8Y/jXvOoPOU35Y/s1600/samsung_se_s084.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="110" src="http://3.bp.blogspot.com/-VXcbYkggVT4/Tq215FHJusI/AAAAAAAAL8Y/jXvOoPOU35Y/s200/samsung_se_s084.jpg" width="200" /></a></div>ніколи мені не подобався <i>brasero</i> — а цього разу відмовився створити iso-образ dvd-диска в підключеному до usb зовнішньому оптичному дисководі. «біс із тобою» — думаю собі й лізу в google шукати рецепт для командного рядка: це ж linux, тут можливо навіть неможливе, якщо трішки погуглити…<br /><br />отже, вузлики собі на згадку. ось так дивимося, яким пристроєм підмонтовано дисковод:<br /><blockquote class="tr_bq"><span style="font-size: x-small;"><code>mount | grep ^'/dev'</code></span></blockquote><a name='more'></a>вивід в терміналі матиме десь такий вигляд:<br /><blockquote class="tr_bq"><span style="font-size: x-small;"><code>/dev/sda1 on / type ext4 (rw,errors=remount-ro,commit=0)<br />/dev/sda5 on /home type ext4 (rw,errors=remount-ro,commit=0)<br />/dev/sr0 on /media/disk1 type udf (ro,nosuid,nodev,uid=1000,gid=1000,iocharset=utf8,umask=0077,dmode=0500,uhelper=udisks)</code></span></blockquote>очевидно (чи ні? =), що оптика — третій рядок, пристрій /dev/sr0, змонтований в /media/disk1. далі копіювання вмісту dvd в файл iso:<br /><blockquote class="tr_bq"><span style="font-size: x-small;"><code>sudo dd if=/dev/sr0 of=/home/&lt;username&gt;/&lt;filename&gt;.iso</code></span></blockquote>тут u<i>sername</i> та <i>filename</i> міняємо на логін користувача та назву файлу відповідно. чекаємо… і можна відкладати в архів. пізніше монтувати <i>dvd</i> для перегляду, попередньо створивши точку монтування (/media/disk.iso) за необхідності:<br /><blockquote class="tr_bq"><span style="font-size: x-small;"><code>sudo mkdir -p /media/disk.iso <br />sudo mount -o loop -t iso9660 &lt;filename&gt;.iso /media/disk.iso</code></span></blockquote>все.

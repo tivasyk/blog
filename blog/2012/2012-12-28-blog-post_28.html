@@ -1,0 +1,16 @@
+---
+layout: post
+title: прискорення миші
+date: '2012-12-28T23:56:00.001+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+modified_time: '2012-12-28T23:56:13.098+02:00'
+thumbnail: http://4.bp.blogspot.com/-7a8ve_3pHLw/UNyXl4yWmKI/AAAAAAAAReg/_sunjEHH4QQ/s72-c/2012-12-27--1356633706_1366x768_scrot.png
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-544555368603180189
+blogger_orig_url: http://www.tivasyk.info/2012/12/blog-post_28.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://4.bp.blogspot.com/-7a8ve_3pHLw/UNyXl4yWmKI/AAAAAAAAReg/_sunjEHH4QQ/s1600/2012-12-27--1356633706_1366x768_scrot.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;" target="_blank"><img border="0" height="112" src="http://4.bp.blogspot.com/-7a8ve_3pHLw/UNyXl4yWmKI/AAAAAAAAReg/_sunjEHH4QQ/s200/2012-12-27--1356633706_1366x768_scrot.png" width="200" /></a></div>crunchbang 11 (<a href="http://www.tivasyk.info/2012/09/blog-post_29.html" target="_blank">той, що waldorf</a>) зі стільницею <i>openbox</i> має в комплекті простеньку панельку налаштувань, котра дає доступ до основних параметрів миші, але не дозволяє <b>керувати швидкістю та прискоренням курсора</b>.<br /><br />але це linux, і є інший, цікавіший спосіб це зробити: <b>xinput</b> (підказку знайшов <a href="http://cortman.wordpress.com/2012/09/06/how-to-set-mousetrackpad-speed-with-xinput/" target="_blank">ось тут</a>).<br /><br /><i>xinput</i> без параметрів (або з параметром <i>--list</i>) показує перелік пристроїв вводу в системі (див. <a href="http://4.bp.blogspot.com/-7a8ve_3pHLw/UNyXl4yWmKI/AAAAAAAAReg/_sunjEHH4QQ/s1600/2012-12-27--1356633706_1366x768_scrot.png" target="_blank">скріншот</a>) — назви та відповідні ідентифікатори (id) пристроїв.<br /><br /><a name='more'></a><i>xinput --get-feedbacks &lt;id&gt;</i> звітує про поточні налаштування , множника (<i>accelNum</i>), подільника (<i>accelDenom</i>) та порогу (<i>threshold</i>)&nbsp; прискорення курсора вказаного (id) пристрою вводу.<br /><br />наскільки я зрозмів, власне коефіцієнт прискорення розраховується як <i>accelNum</i>/<i>accelDenom</i> (тобто 1,5 це 3/2), а <i>threshold</i> — відстань, яку повинен пройти курсор за 10 мс для вмикання прискорення.<br /><br />нарешті <i>xinput --set-ptr-feedback &lt;id&gt; &lt;threshold&gt; &lt;accelNum&gt; &lt;accelDenom&gt;</i> встановлює нові параметри прискорення курсора. в моєму випадку (microsoft arc mouse) найкомфортніша комбінація виявилася така:<br /><br /><i>xinput --set-ptr-feedback &lt;id&gt; 10 3 2</i><br /><br />єдина проблема в тому, що… налаштування не є персистентними тій самій мишці під час кожного завантаження системи може бути присвоєно різні ідентифікатори, залежно від того, що ще підключено. якщо поборю лінощі — спробую накидати який скрипт, котрий би «впізнавав» потрібну мишу на старті й встановлював необхідні параметри прискорення.<br /><br /><b>p.s.</b> раніше я вже писав про <a href="http://www.tivasyk.info/2009/08/blog-post_27.html" target="_blank">налаштування автоматичного відключення тачпада</a> під час друку на клавіатурі в linux.

@@ -1,0 +1,15 @@
+---
+layout: post
+title: exfat своїми руками
+date: '2017-11-04T23:37:00.004+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+modified_time: '2017-11-04T23:38:19.370+02:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-7641044102077783147
+blogger_orig_url: http://www.tivasyk.info/2017/11/exfat.html
+---
+
+ну як своїми руками… просто gparted не підтримує форматування флешок в <a href="https://uk.wikipedia.org/wiki/ExFAT" target="_blank">exfat</a> з суто політичних причин, а відправити на пенсію <a href="https://uk.wikipedia.org/wiki/FAT32" target="_blank">fat32</a> хочеться. тож доводиться робити з командного рядочка — на щастя, це вельми просто (нотую собі на згадку). це все, звісно ж, під linux.<br /><br />перевірка, яким пристроєм зареєструвалася флешка, і вибір розділу (якщо їх там декілька):<br /><br /><code>fdisk -l</code><br /><br />за потреби — відмонтувати розділ (для прикладу взяв sdb1):<br /><br /><code>umount /dev/sdb1</code><br /><br />форматування (тут Linux — просто мітка розділу):<br /><br /><code>sudo mkfs.exfat -n Linux /dev/sdb1</code><br /><br />має бути готово. але краще перевірити; дивно, але сам fdisk показує exfat як fat32 — тому краще тим же gparted'ом.

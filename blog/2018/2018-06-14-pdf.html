@@ -1,0 +1,16 @@
+---
+layout: post
+title: простий скрипт для стиснення файлів pdf
+date: '2018-06-14T02:15:00.002+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+- bash
+modified_time: '2018-06-14T02:15:49.843+03:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-6916716508691505565
+blogger_orig_url: http://www.tivasyk.info/2018/06/pdf.html
+---
+
+побачив на форумі manjaro <a href="https://forum.manjaro.org/t/how-to-compress-massive-amounts-of-pdfs/49754?u=tivasyk" target="_blank">питаннячко</a>: як стиснути (точніше, перекомпресувати для зменшення розміру) велику кількість файлів pdf, не витрачаючи час на завантаження до онлайнового сервісу на кшталт <a href="https://www.ilovepdf.com/compress_pdf" target="_blank">ilovepdf</a>?<br /><br />таку магію робить утиліта comvert з пакету imagemagic:<br /><br /><code>convert -density 150x150 -quality 30 -compress jpeg input.pdf output.pdf</code><br /><br />треба тільки «загорнути» цю команду в цикл і перебрати всі pdf'и в поточній теці:<br /><br /><iframe src="https://pastebin.com/embed_iframe/ED9c0q5L" style="border: none; height: 300px; width: 100%;"></iframe><br /><br />цей скрипт намагається перекомпресувати всі файли pdf у поточній теці, але не перезаписує їх, а створює файли <i>*_recompressed.pdf</i>, інформуючи про хід справи.

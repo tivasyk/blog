@@ -1,0 +1,17 @@
+---
+layout: post
+title: покращене просте запрошення в терміналі (продовження)
+date: '2017-03-16T04:28:00.001+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+- bash
+modified_time: '2017-03-18T03:37:21.315+02:00'
+thumbnail: https://3.bp.blogspot.com/-MNZThEDQt9w/WMn2xm9NfZI/AAAAAAABAac/zdcMmHJi4mYGR9BOf967HU0-siF785k1gCLcB/s72-c/Peek%2B2017-03-15%2B22-20.gif
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-7156717898582206988
+blogger_orig_url: http://www.tivasyk.info/2017/03/blog-post_16.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://3.bp.blogspot.com/-MNZThEDQt9w/WMn2xm9NfZI/AAAAAAABAac/zdcMmHJi4mYGR9BOf967HU0-siF785k1gCLcB/s1600/Peek%2B2017-03-15%2B22-20.gif" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="115" src="https://3.bp.blogspot.com/-MNZThEDQt9w/WMn2xm9NfZI/AAAAAAABAac/zdcMmHJi4mYGR9BOf967HU0-siF785k1gCLcB/s200/Peek%2B2017-03-15%2B22-20.gif" width="200" /></a></div>на продовження оповідки <a href="http://www.tivasyk.info/2017/03/blog-post_15.html">про кастомізацію запрошення bash</a> yarema <a href="http://www.tivasyk.info/2017/03/blog-post_15.html?showComment=1489615222486#c3970244607783534746">запитав</a>, чи подужаю я змайструвати запрошення, котре автоматично скорочуватиме надміру довгі шляхи до поточної директорії. я взявся спробувати — і за кілька хвилин накидав досить примітивний варіант, котрий, тим не менш, працює.<br /><br />ось код для .bashrc <a href="http://pastebin.com/1ecvwKzk" target="_blank">на pastebin</a> (див. наприкінці допису). додати довелося лише ось цей фрагмент:<br /><br /><pre><code>$(if [[ ${#PWD} -gt 30 ]]; then echo "${PWD:0:14}..${PWD:(-14)}"; else echo "${PWD}"; fi)</code></pre><br />працює справді примітивно: якщо довжина шляху (<code>${#PWD}</code>) більша за 30 символів — беремо 14 символів від початку (<code>${PWD:0:14}</code>) та стільки ж від кінця (<code>${PWD:(-14)}</code>), додавши між ними дві крапки. і жодного виклику sed, — самі лише вбудовані функції bash.<br /><br />результат на анімованому знятку. мені сподобалося, залишив і собі.<br /><br /><b>чому примітивно?</b><br />по-перше, замість шляху до домашньої теки користувача не підставляється ~, та й замість простого «вирізання» середини варто було б зробити розумну заміну внутрішніх сегментів адреси:<br /><br /><pre><code>~/Dropbox/../write</code></pre><br />але то вже буде задачка на інший раз.<br /><br /><b>p.s.</b> …і, звісно ж, кольорове кодування $ залежно від коду завершення — поламалося. зараз міркуватиму, як поремонтувати.<br /><br /><iframe src="//pastebin.com/embed_iframe/1ecvwKzk" style="border: none; width: 100%;"></iframe>

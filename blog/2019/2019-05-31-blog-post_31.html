@@ -1,0 +1,15 @@
+---
+layout: post
+title: добуваємо трошки ентропії для шифрування!
+date: '2019-05-31T17:02:00.000+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказка
+modified_time: '2019-05-31T18:09:15.578+03:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-2475658549470617245
+blogger_orig_url: http://www.tivasyk.info/2019/05/blog-post_31.html
+---
+
+вчора зіштовхнувся з такою ситуацією: якщо на віртуальній машині (локально, на <a href="https://aws.amazon.com/free" target="_blank">aws</a> тощо) з linux розпочати <b>генерацію пари криптоключів</b>…<br /><br /><code>gpg2 --gen-key</code><br /><br />то можна дуже довго просидіти перед екраном з таким от текстом, і в підсумку <b>нічого не висидіти</b>:<br /><br /><pre>We need to generate a lot of random bytes. It is a good idea to perform<br />some other action (type on the keyboard, move the mouse, utilize the<br />disks) during the prime generation; this gives the random number<br />generator a better chance to gain enough entropy.</pre><br /><h4>чому?</h4>для генерації надійних криптоключів потрібна… гхм, <b>випадковість</b>. міру випадковості, що широко застосовується в комп’ютерних технологіях, називають <a href="https://uk.wikipedia.org/wiki/%D0%86%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D1%96%D0%B9%D0%BD%D0%B0_%D0%B5%D0%BD%D1%82%D1%80%D0%BE%D0%BF%D1%96%D1%8F" target="_blank">інформаційною ентропією</a>, або ентропією шеннона, або коротко (хоч і не дуже правильно) просто ентропією. звичайні комп’ютери не мають генераторів випадкових чисел*, але <a href="https://www.blackhat.com/docs/us-15/materials/us-15-Potter-Understanding-And-Managing-Entropy-Usage-wp.pdf" target="_blank">можуть «збирати» випадковість</a>, нотуючи час&nbsp;виникнення деяких подій (дискові операції, мережеві повідомлення, ввід з клавіатури й миші). випадковість накопичується, і згодом операційна система її використовує, коли треба.<br /><br />ось так можна поглянути, скільки ентропії доступно в linux:<br /><br /><caode>watch -n 1 cat /proc/sys/kernel/random/entropy_avail</caode><br /><br />для генерації пари криптоключів з довжиною основи 2048 біт потрібно приблизно 300 біт інформаційної ентропії. у віртуальної машини доступу до випадкових подій значно менше, ніж у фізичної, тому її резерв ентропії, як правило, значно нижчий — особливо одразу після старту.<br /><br /><h4>що робити?</h4>найпростіше — згенерувати багато дискових операцій! наприклад, в сусідньому терміналі запустити щось подібне (читає весь диск і копіює в нікуди), і дати «покрутитися» кілька секунд:<br /><br /><code>(sudo) dd if=/dev/sda of=/dev/null status=progress</code><br /><br />або щось таке (), щоби уникнути потреби в sudo:<br /><br /><code>find / | xargs file</code><br /><br />…і спостерігати, як зразу пожвавиться накопичував ентропії! можна повертатися до генерації криптоключів.<br /><br />* це не зовсім вірно; приміром, <a href="http://www.tivasyk.info/2014/04/blog-post_9393.html">малинка</a> — <a href="https://hackaday.com/2017/11/02/what-is-entropy-and-how-do-i-get-more-of-it/" target="_blank">має</a>&nbsp;о_О

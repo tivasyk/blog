@@ -1,0 +1,17 @@
+---
+layout: post
+title: заточені conky, нарешті
+date: '2010-03-20T02:12:00.002+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- нетбук
+- позитив
+modified_time: '2010-03-20T12:05:16.579+02:00'
+thumbnail: http://3.bp.blogspot.com/_wFmUV6FUCKU/S6QQuBU48uI/AAAAAAAAH2g/twN3l8rs3JQ/s72-c/conky_05.png_resize.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-6628616602561968401
+blogger_orig_url: http://www.tivasyk.info/2010/03/conky.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/_wFmUV6FUCKU/S6QQuBU48uI/AAAAAAAAH2g/twN3l8rs3JQ/s1600-h/conky_05.png_resize.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="116" src="http://3.bp.blogspot.com/_wFmUV6FUCKU/S6QQuBU48uI/AAAAAAAAH2g/twN3l8rs3JQ/s200/conky_05.png_resize.jpg" width="200" /></a></div>давно вже <a href="http://www.tivasyk.info/2009/09/conky.html">грозився довести до ума</a> конфіг для conky, <a href="http://www.tivasyk.info/2009/09/conky_24.html">з календарем</a>, з «вилизаними» інтервалами, з без нестандартних шрифтів… та все руки не доходили. але підчитавши <a href="http://ubuntolog.wordpress.com/tag/conky/">дещо в блозі ubuntolog’а</a> та поглянувши на його симпатичні скріншоти, взявся таки за напилок =)<br /><br />всю красу видно на новому знимку екрана — можна порівняти до попередніх варіантів і насолоджуватися =) справа — годинник з календарем і системний монітор, зліва внизу — інформація від аудіопрогравача <i>mpd</i> про поточний трек. вся ця краса «їсть» в середньмому 1% процесорного часу — і це на «дитячому» <i>intel atom</i>’і нетбука.<br /><br /><b><a name='more'></a>оновлено.</b> готові файли з конфігурацією можна забирати з <a href="http://drop.io/tivasyk_sickboy">drop.io</a>:<br /><ul><li><a href="http://drop.io/tivasyk_sickboy/asset/conkyrc-new-zip">основний конфіг .conkyrc</a> (zip 2,2 кб)</li><li><a href="http://drop.io/tivasyk_sickboy/asset/conkyrc-player-zip">інформер mpd .conky_player</a> (zip 1,4 кб)</li></ul>попереджу, що навіть готовий конфіг — це все-таки напівфабрикат, який, цілком можливо, доведеться редагувати. та й взагалі, весь linux — конструктор для нелінивих =) в найпростішому випадку (conky встановлений і працює, шрифти dejavu є в системі, комп’ютер — нетбук acer) достатньо кинути обидва файли в домашню теку (/home/&lt;користувач&gt;). основний конфіг (<i>.conkyrc</i>) підхопиться після перезапуску conky (<i>killall conky &amp;&amp; conky &amp;</i>), а інформер плеєра доведеться запустити окремо (<i>conky -c .conkyrc_player</i>).

@@ -1,0 +1,16 @@
+---
+layout: post
+title: дивний глюк xfce
+date: '2011-12-10T15:33:00.001+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+modified_time: '2011-12-10T15:48:24.903+02:00'
+thumbnail: http://2.bp.blogspot.com/-oP7bv18VbLc/TqVqiJhC7QI/AAAAAAAAL44/zROkIXHvjHs/s72-c/screenshot_linux_conky_5columns.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-7857059930208861311
+blogger_orig_url: http://www.tivasyk.info/2011/12/xfce.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-oP7bv18VbLc/TqVqiJhC7QI/AAAAAAAAL44/zROkIXHvjHs/s1600/screenshot_linux_conky_5columns.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="111" src="http://2.bp.blogspot.com/-oP7bv18VbLc/TqVqiJhC7QI/AAAAAAAAL44/zROkIXHvjHs/s200/screenshot_linux_conky_5columns.jpg" width="200" /></a></div>вдруге вже втрапляю на дивний глюк xfce, котрий проявляється в тому, що менеджер вікон xfwm, схоже, не стартує після перезавантаження… всі нові вікна з’являються в лівому верхньому куті, позбавлені заголовків, не працюють комбінації клавіш керування вікнами (мінімізація/розгортання, переміщення тощо), не перемикаються стільниці, панель задач пуста… і купа інших негараздів.<br /><br />вперше, пригадую, полінувався досліджувать проблему і просто по-ламерському перевстановив систему. цього разу погуглив і <a href="http://forum.xfce.org/viewtopic.php?pid=21023#p21023" target="_blank">з’ясував, у чім річ</a>. занотую собі на згадку.<br /><br /><a name='more'></a>коротко: якщо під час вимикання (чи й засинання?) один з процесів не в змозі зберегти стан, менеджер сесій ігнорує цей факт — і наступного разу проблемний процес не стартує. якщо ним виявляється менеджер вікон — вуаля, проблема.<br /><br />рішення перше, просте: видалити <i>~/.cache/sessions</i>, перезавантажити.<br /><br />рішення друге, правильне: (пере)запустити менеджер вікон (alt+f2, <i>xfwm4</i>).<br /><br /><b>p.s.</b> проблема в мене виникала, здається, коли ноутбук, полишений надовго в режимі сну, розряджав повністю батарею…

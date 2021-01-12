@@ -1,0 +1,15 @@
+---
+layout: post
+title: про погоду
+date: '2017-03-12T01:41:00.001+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+modified_time: '2017-03-13T21:12:48.229+02:00'
+thumbnail: https://4.bp.blogspot.com/-3vszIpPNdBw/WMSG_0KaGiI/AAAAAAABAFo/jya0Y_FnR-EUk6vJSilKnIKjuVykLOuRQCLcB/s72-c/%25D0%2597%25D0%25BD%25D1%2596%25D0%25BC%25D0%25BE%25D0%25BA%2B%25D0%25B5%25D0%25BA%25D1%2580%25D0%25B0%25D0%25BD%25D1%2583_2017-03-11_17-42-23_lomo.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-987910114063320160
+blogger_orig_url: http://www.tivasyk.info/2017/03/blog-post_12.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://4.bp.blogspot.com/-3vszIpPNdBw/WMSG_0KaGiI/AAAAAAABAFo/jya0Y_FnR-EUk6vJSilKnIKjuVykLOuRQCLcB/s1600/%25D0%2597%25D0%25BD%25D1%2596%25D0%25BC%25D0%25BE%25D0%25BA%2B%25D0%25B5%25D0%25BA%25D1%2580%25D0%25B0%25D0%25BD%25D1%2583_2017-03-11_17-42-23_lomo.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="112" src="https://4.bp.blogspot.com/-3vszIpPNdBw/WMSG_0KaGiI/AAAAAAABAFo/jya0Y_FnR-EUk6vJSilKnIKjuVykLOuRQCLcB/s200/%25D0%2597%25D0%25BD%25D1%2596%25D0%25BC%25D0%25BE%25D0%25BA%2B%25D0%25B5%25D0%25BA%25D1%2580%25D0%25B0%25D0%25BD%25D1%2583_2017-03-11_17-42-23_lomo.jpg" width="200" /></a></div>є мільйон способів перевірити поточну погоду чи отримати прогноз просто з командного рядка в linux. деякі сильно заморочені, інші вельми красиві. занотую собі два найпростіших, котрі сподобалися.<br /><br /><h3>inxi</h3>в комплекті з manjaro linux йде чудовий скрипт inxi — показує звіти про склад системи, і серед іншого вміє показувать поточну погоду з трьома рівнями деталізації для вказанох локації.<br /><br />одним рядком:<br /><br /><pre><code>inxi -W Kyiv,Ukraine</code></pre><br />детальніше з тиском, вітром, вологістю в чотири рядки:<br /><br /><pre><code>inxi -xxx -W Kyiv,Ukraine</code></pre><br />обмеження: лише поточна погода. ніколи не розумів як слід, для чого воно треба, але дехто налаштовує автоматичну зміну шпалер на комп'ютері залежно від погоди за вікном.<br /><br /><h3>wttr.in</h3>цікавий сервіс (<strike>хоч і московита якогось робота, здається</strike> — і, виявляється, <a href="http://www.tivasyk.info/2017/03/blog-post_12.html?showComment=1489429768571#c55290178374541702">українець робив</a>!), що показує погоду на сьогодні плюс два дні наперед для вказаної локації. чим цікавий? повністю текстовий вивід, адаптований для терміналу:<br /><br /><pre><code>curl wttr.in/Kyiv</code></pre><br />але можна і просто <a href="http://wttr.in/Kyiv" target="_blank">у веб-оглядачі відкрити</a>, результат буде той самий: текстова таблиця з погодою на три дні.<br /><br />залишилося щось із цього, — inxi або wttr.in — «причепити» на alias weather в .bashrc — і більше немає необхідності відкривати веб-оглядач і питати гугл про погоду. ну, але це якщо ви проводите більше часу в терміналі, ніж у фейсбуці =)

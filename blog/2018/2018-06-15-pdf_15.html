@@ -1,0 +1,17 @@
+---
+layout: post
+title: кращий скрипт для стиснення файлів pdf
+date: '2018-06-15T07:33:00.000+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+- bash
+modified_time: '2018-06-15T07:33:45.209+03:00'
+thumbnail: https://3.bp.blogspot.com/--fKGHNsoE34/WyNACmf17qI/AAAAAAABQjE/HpRaPSxHNaMp_ACPNt1tG6ygAx4tmc8ngCLcBGAs/s72-c/Screenshot_20180614_224813.jpeg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-3188888001759299914
+blogger_orig_url: http://www.tivasyk.info/2018/06/pdf_15.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://3.bp.blogspot.com/--fKGHNsoE34/WyNACmf17qI/AAAAAAABQjE/HpRaPSxHNaMp_ACPNt1tG6ygAx4tmc8ngCLcBGAs/s1600/Screenshot_20180614_224813.jpeg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="179" data-original-width="421" height="136" src="https://3.bp.blogspot.com/--fKGHNsoE34/WyNACmf17qI/AAAAAAABQjE/HpRaPSxHNaMp_ACPNt1tG6ygAx4tmc8ngCLcBGAs/s320/Screenshot_20180614_224813.jpeg" width="320" /></a></div>велика проблема <a href="http://www.tivasyk.info/2018/06/pdf.html">з попереднім скриптом для стиснення pdf</a> у тім, що imagemagick конвертує всю сторінку в jpeg (або інший графічний формат), і повністю втрачає текстову інформацію — інструменти пошуку та&nbsp; копіювання тексту не працюватимуть в конвертованих файлах. тож я задумався…<br /><br />…і накидав інший невеличкий скрипт, який використовує ghostscript замість imagemagick:<br /><br /><iframe src="https://pastebin.com/embed_iframe/GU77umgQ" style="border: none; height: 300px; width: 100%;"></iframe><br /><br />за замовчуванням скрипт намагається перекомпресувати усі файли pdf (*.pdf) у поточній теці, але приймає також маску (в лапках!) як єдиний параметр: gspdfs "file*.pdf".<br /><br />випробував цей та попередній скрипти на кількох pdf'ах: текстовому, відсканованому (ч/б), графічному (кольорова плоска графіка) та фото — результати на знятку.

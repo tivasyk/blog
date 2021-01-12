@@ -1,0 +1,15 @@
+---
+layout: post
+title: рішення проблеми розміру відео vlc на екрані 4k
+date: '2017-01-24T01:48:00.000+02:00'
+author: tivasyk
+tags:
+- linux
+- підказки
+modified_time: '2017-01-24T19:26:48.362+02:00'
+thumbnail: https://1.bp.blogspot.com/-SyE7FGmHmjw/WIaTJ72smZI/AAAAAAAA9E8/qRncL7lglg8QtgpI51KNvd2q0HOC1Ct5ACLcB/s72-c/2017-01-23_174947_2560x1440_resize.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-5162128043202173260
+blogger_orig_url: http://www.tivasyk.info/2017/01/vlc-4k.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-SyE7FGmHmjw/WIaTJ72smZI/AAAAAAAA9E8/qRncL7lglg8QtgpI51KNvd2q0HOC1Ct5ACLcB/s1600/2017-01-23_174947_2560x1440_resize.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="116" src="https://1.bp.blogspot.com/-SyE7FGmHmjw/WIaTJ72smZI/AAAAAAAA9E8/qRncL7lglg8QtgpI51KNvd2q0HOC1Ct5ACLcB/s200/2017-01-23_174947_2560x1440_resize.jpg" width="200" /></a></div>нова версія <b>vlc</b> для linux (в моєму випадку 3.0.0) має <b>проблему з відображенням відео на екранах hd чи 4k</b>: картинка займає ліву нижню чверть вікна програми (скріншот).<br /><br />рецепт лікування знайшовся <a href="https://forum.videolan.org/viewtopic.php?f=13&amp;t=135590" target="_blank">на форумах videolan</a>: потрібно налаштувати масштабування інтерфейсу qt перед стартом vlc:<br /><br /><pre><code>QT_SCREEN_SCALE_FACTORS=0.5 vlc</code></pre><br />зрозуміло, що не обов'язково щоразу друкувати так багато, можн експортувати змінну у файлі конфігурації ~/.bashrc, створити аліас для vlc з &nbsp;в тому ж таки ~/.bashrc тощо. головне, що після цього відео відтворюється нормально.

@@ -1,0 +1,17 @@
+---
+layout: post
+title: вивід за шаблонами
+date: '2019-07-18T07:51:00.001+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+- bash
+modified_time: '2019-07-18T15:43:48.638+03:00'
+thumbnail: https://1.bp.blogspot.com/-6O1tFu7brPg/XS_6h6AD2cI/AAAAAAABZhk/sZ29pAEZGXE-43orGpb8xMRPjnvjxcFHgCLcBGAs/s72-c/tivasyk_2019-07-18_bash_templates.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-8320919688329516921
+blogger_orig_url: http://www.tivasyk.info/2019/07/blog-post_18.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-6O1tFu7brPg/XS_6h6AD2cI/AAAAAAABZhk/sZ29pAEZGXE-43orGpb8xMRPjnvjxcFHgCLcBGAs/s1600/tivasyk_2019-07-18_bash_templates.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="287" data-original-width="580" height="158" src="https://1.bp.blogspot.com/-6O1tFu7brPg/XS_6h6AD2cI/AAAAAAABZhk/sZ29pAEZGXE-43orGpb8xMRPjnvjxcFHgCLcBGAs/s320/tivasyk_2019-07-18_bash_templates.jpg" width="320" /></a></div>на годиннику 00:42, але щось не спиться. отже, вивід за шаблонами і в кольорах — це дуже, дуже просто. взірець коду bash на pastebin, результат — на знятку екрана.<br /><br />є нюанси:<br /><ul><li>проста табуляція тексту в інвертованих кольорах (tput rev) — не функциклює;</li><li>якусь складнішу табуляцію, яку досить просто зробити за допомогою printf — зовсім не так просто зробити, якщо форматувати весь рядок для printf завчасу;</li><li>перемикання кольору — це escape-послідовності по 4 байти… відповідно визначення довжини рядка для, скажімо, центрування — не працюватиме як слід;</li><li>може ще через щось ще не перечепився…</li></ul><br /><center><iframe src="https://pastebin.com/embed_iframe/xhyytL6F" style="border: none; height: 300px; width: 100%;"></iframe></center><br /><br />

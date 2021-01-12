@@ -1,0 +1,13 @@
+---
+layout: post
+title: докери приїхали, контейнерів навезли
+date: '2019-07-11T02:39:00.001+03:00'
+author: tivasyk
+tags: [комп'ютери, linux, docker, підказка]
+modified_time: '2019-07-11T02:40:17.907+03:00'
+thumbnail: https://1.bp.blogspot.com/-QR5LpQB-3LA/XSZu_rTyG_I/AAAAAAABZR4/ze9fKNLXcjEc4QIr_Wo4hkm6ZfC1PMqCgCLcBGAs/s72-c/tivasyk_owncloud_on_docker_2019-07-10.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-1992601982455962518
+blogger_orig_url: http://www.tivasyk.info/2019/07/blog-post_11.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-QR5LpQB-3LA/XSZu_rTyG_I/AAAAAAABZR4/ze9fKNLXcjEc4QIr_Wo4hkm6ZfC1PMqCgCLcBGAs/s1600/tivasyk_owncloud_on_docker_2019-07-10.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="900" data-original-width="1600" height="180" src="https://1.bp.blogspot.com/-QR5LpQB-3LA/XSZu_rTyG_I/AAAAAAABZR4/ze9fKNLXcjEc4QIr_Wo4hkm6ZfC1PMqCgCLcBGAs/s320/tivasyk_owncloud_on_docker_2019-07-10.jpg" width="320" /></a></div>комп'ютер з debian без монітора — ще не сервер: від нього жодної користі. потрібні якісь сервіси. мені хотілося їх віртуалізувати, а не встановлювати просто на debian — щоби за потреби (поламаю ж обов'язково) видалити/перевстановити, не займаючи самої операційної системи.<br /><br />спинюся на docker'і: має бути відносно просте, легке з точки зору ресурсів і абстраговане. дякую за підказки в коментарях. для початку запустив… owncloud. ну, давно хотів спробувати.<br /><br />на диво — працює, але…<br /><br />лише по http. як додати ssl/tls — не втну… розробники пишуть, що «з коробки» має працювати з самопідписаним сертифікатом безпеки, але дзуськи — https не відкривається, і це природньо, бо навіть порт для нього (443) в конфігах ніде не згадується.<br /><br />зайве казати, що без шифрування з'єднання такий сервіс, як owncloud — це відкрите запрошення <strike>зґвалтувати</strike> хакнути =/ при цьому, на офіційному сайті <a href="https://doc.owncloud.com/server/admin_manual/installation/docker/" target="_blank">інструкція зі встановлення контейнера</a> навіть не згадує шифрування. поруч є іструкція з налаштування сертифікатів let's encrypt, але неповна, хіба дупу нею підтерти. frustrated.<br /><br />треба гуглити… або кинути к бісу й спробувати щось інше.<br /><br />корисні (й не дуже) посилання:<br /><ul><li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-debian-9" target="_blank">встановлення docker на debian 9</a>&nbsp;(англ.);</li><li><a href="https://doc.owncloud.com/server/admin_manual/installation/docker/" target="_blank">встановлення owncloud як docker-контейнера</a> (англ.) </li></ul>

@@ -1,0 +1,16 @@
+---
+layout: post
+title: мікрофон у skype на linux
+date: '2012-08-25T12:39:00.002+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+- негатив
+modified_time: '2012-08-25T15:02:04.727+03:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-5029218151914485011
+blogger_orig_url: http://www.tivasyk.info/2012/08/skype-linux.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://irsolo.ru/wp-content/uploads/2012/07/ca6e9305_d80e418f43a666abb598899e1a831801_965.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="120" src="http://irsolo.ru/wp-content/uploads/2012/07/ca6e9305_d80e418f43a666abb598899e1a831801_965.jpg" width="200" /></a></div>я би волів, щоби skype разом зі своїм новим власником і всіма нескінченними проблемами використання цього програмного монстра згоріли в пеклі… але велика кількість людей у світі користуються <i>цим</i>, ще й дивляться на тебе косо за спроби запропонувати щось інше: мовляв, ти що, тупий?<br /><br />отже… щоби вилікувати хронічну болячку цієї софтини, внаслідок котрої версія для linux вперто ігнорує всі зареєстровані в системі реальні й віртуальні аудіопристрої, окрім не менш хворого pulseaudio — треба <a href="http://community.skype.com/t5/Linux/Solution-for-not-working-microphone-under-Ubuntu-11-10/td-p/298266" target="_blank">«прибити» pulse</a> хоча би тимчасово:<br /><blockquote><code>echo "autospawn = no" &gt; ~/.pulse/client.conf<br />killall pulseaudio<code></code></code></blockquote>після цього перезавантажити skype і вибрати (логіка + експеримент) потрібні пристрої для відтворення та запису звуку в налаштуваннях програми.<br /><br />про побічні ефекти «лікування» мовчу. фікс потрібен <a href="http://www.tivasyk.info/2011/08/blog-post_21.html" target="_blank">на батьківській машині</a>, — в себе видаляю к бісу <i>skype</i>.<br /><br /><b>оновленння</b> (25 серпня 2012). а на батьківській машині фікс не спрацював. зате допомогло (як не дивно) банальне встановлення пульту pulseaudio (<i>pavucontrol</i>) та перевірка стану інтегрованого мікрофона (він був вимкнений). 

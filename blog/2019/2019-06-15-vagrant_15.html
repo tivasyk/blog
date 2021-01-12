@@ -1,0 +1,17 @@
+---
+layout: post
+title: тому що infrastructure as code!
+date: '2019-06-15T00:01:00.003+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- bash
+- vagrant
+- підказка
+modified_time: '2019-06-15T00:09:55.892+03:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-4995650515607047819
+blogger_orig_url: http://www.tivasyk.info/2019/06/vagrant_15.html
+---
+
+ще трохи про <a href="http://www.tivasyk.info/2019/06/vagrant_12.html" target="_blank">створення віртуальних машин за допомогою vagrant</a>. перейдімо до автоматизованої конфігурації (provisioning)… як?<br /><br />іх єсть у мєня. себто, вичитав і пробую:<br /><pre><code><br />config.vm.define "ansible" do |ansible|<br /> ansible.vm.box = BOX_BASE<br /> ansible.vm.hostname = "ansible"<br /> ansible.vm.network "private_network", ip: "192.168.8.10"<br /> ansible.vm.network :forwarded_port, guest: 22, host: 8022<br /> <br /> # Provisioning: <br /> # ...install ansible<br /> ansible.vm.provision "ansible", type: "shell", path: "scripts/setup_ansible.sh"<br /> # ...install some useful tools: lf file manager and micro text editor<br /> ansible.vm.provision "tools", type: "shell", path: "scripts/setup_tools.sh"<br />end<br /><br /></code></pre>два простеньких скрипти bash лежать на хості, але запускаються на віртуалці ansible одразу після старту:<br /><ul><li><b>scripts/setup_ansible.sh</b> — зовсім примітивний, встановлює ansible із залежностями з репозиторіїв debian;</li><li><b>scripts/setup_tools.sh</b> — не набагато складніший, затягує бінарники двох маленьких софтин, без яких незручно: lf (файловий менеджер) та micro (текстовий редактор).</li></ul>навіщо два? бо тренувався запускати окремо, наприклад:<br /><br /><pre><code>&gt; vagrant provision ansible --provision-with tools</code></pre><br />але навіщо все це — ти ж вивчав мережі!? тому що <a href="https://uk.wikipedia.org/wiki/%D0%86%D0%BD%D1%84%D1%80%D0%B0%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0_%D1%8F%D0%BA_%D0%BA%D0%BE%D0%B4" target="_blank">infrastructure as code</a> кермує, і все рухається до цього — навіть cisco.<br /><br /><a name='more'></a><b>p.s. </b>скрипт <i>setup_tools.sh</i>, собі на згадку (далеко не ідеально, але працює):<br /><br /><iframe src="https://pastebin.com/embed_iframe/ZvQnpLhm" style="border: none; height: 300px; width: 100%;"></iframe>

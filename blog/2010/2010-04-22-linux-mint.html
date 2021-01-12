@@ -1,0 +1,18 @@
+---
+layout: post
+title: 'українська розкладка для linux mint: остаточне рішення'
+date: '2010-04-22T22:38:00.002+03:00'
+author: tivasyk
+tags:
+- англійська мова
+- комп'ютери
+- linux
+- підказки
+- українська мова
+modified_time: '2013-01-25T12:44:31.913+02:00'
+thumbnail: http://2.bp.blogspot.com/_wFmUV6FUCKU/S1_4pYbZGZI/AAAAAAAAHME/e9YuO72fDhw/s72-c/KB_Ukrainian_Unicode.png
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-132720129733921107
+blogger_orig_url: http://www.tivasyk.info/2010/04/linux-mint.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/_wFmUV6FUCKU/S1_4pYbZGZI/AAAAAAAAHME/e9YuO72fDhw/s1600-h/KB_Ukrainian_Unicode.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="66" src="http://2.bp.blogspot.com/_wFmUV6FUCKU/S1_4pYbZGZI/AAAAAAAAHME/e9YuO72fDhw/s200/KB_Ukrainian_Unicode.png" width="200" /></a></div>от скажіть, що таке не щастить і як його побороти? в <i>linux mint</i> вже третю версію поспіль не все гаразд з налаштуванням розкладки клавіатури:<br /><ul><li>linux mint 6 xfce — не працював перемикач <i>ctrl+shift</i></li><li>linux mint 7 xfce — аплет для панелі періодично «злітав»</li><li>linux mint 8 xfce — аплет не бачить <a href="http://www.tivasyk.info/2010/01/blog-post_27.html">єдино правильної української розкладки</a></li></ul>звісно, це грубе викладення, але не вдаватимусь в уточнення. просто опишу рішення, котре щоразу мене рятує.<br /><br /><a name='more'></a><h3>розкладка</h3>налаштування розкладки повністю повторює вже <a href="http://www.tivasyk.info/2009/05/linux-mint.html">описане для linux mint 6</a>, тільки замість версії <i>winkeys</i> треба вказати <i>unicode</i> --- розкладка присутня в системі, але її неможливо вибрати через графічний інтерфейс, тож доводиться порпатися в терміналі.<br /><br />одним рядком створюємо потрібний командний файл <i>fixkeyboard</i> в домашній теці:<br /><blockquote><code>echo -e '#!/bin/bash\nsetxkbmap -layout "us,ua(unicode)" -option "grp:ctrl_shift_toggle"' &gt; ~/fixkeyboard</code></blockquote>переносимо його в теку <i>/usr/bin</i> (вказавши свій пароль для <i>sudo</i>):<br /><blockquote><code>sudo mv -f ~/fixkeyboard /usr/bin</code></blockquote>і встановлюємо атрибути для виконання:<br /><blockquote><code>sudo chmod a+x /usr/bin/fixkeyboard</code></blockquote>готово, можна протестувати, набравши <i>fixkeyboard</i> в терміналі й переключивши розкладку за допомогою <i>ctrl+shitf</i>; а щоби налаштування автоматично відбувалося щоразу після перезапуску системи, треба додати <i>fixkeyboard</i> до автозапуску програм (<a href="http://www.tivasyk.info/2009/05/linux-mint.html">скріншоти</a>).<br /><br /><h3>індикатор</h3>якщо попередньо було налаштовано стандартний аплет xfce для індикації поточної розклади (наприклад, з варіантом winkeys) — він буде працювати і після запуску <i>fixkeyboard</i>.<br /><br />але за потреби можна замінити хорошою програмою <i>sbxkb</i> — на неї <a href="http://ubuntolog.wordpress.com/2009/12/26/sbxkb/">натрапив у блозі убунтолога</a>, завантажити deb-пакунок можна <a href="http://ubuntolog.wordpress.com/2009/12/26/sbxkb/">звідти ж</a>. знову-таки, програму доведеться додати в автозапуск (або просто дописати новим рядком до файлу <i>fixkeyboard</i>).

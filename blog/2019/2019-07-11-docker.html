@@ -1,0 +1,17 @@
+---
+layout: post
+title: де мої файли, docker?!
+date: '2019-07-11T18:45:00.000+03:00'
+author: tivasyk
+tags:
+- docker
+- комп'ютери
+- linux
+- owncloud
+modified_time: '2019-08-02T20:40:49.564+03:00'
+thumbnail: https://1.bp.blogspot.com/-PGjkb1h-Amo/XSdXamf91MI/AAAAAAABZSQ/SvupuRWOkiobO8Inmdnm4K1Lq7MLmUUjQCLcBGAs/s72-c/tivasyk_docker_services%2B%25282019-07-11%2529.png
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-7939839091477211627
+blogger_orig_url: http://www.tivasyk.info/2019/07/docker.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"></div><a href="https://1.bp.blogspot.com/-PGjkb1h-Amo/XSdXamf91MI/AAAAAAABZSQ/SvupuRWOkiobO8Inmdnm4K1Lq7MLmUUjQCLcBGAs/s1600/tivasyk_docker_services%2B%25282019-07-11%2529.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="431" data-original-width="501" height="272" src="https://1.bp.blogspot.com/-PGjkb1h-Amo/XSdXamf91MI/AAAAAAABZSQ/SvupuRWOkiobO8Inmdnm4K1Lq7MLmUUjQCLcBGAs/s320/tivasyk_docker_services%2B%25282019-07-11%2529.png" width="320" /></a>поки що перелік потрібних мені сервісів у контейнерах docker, з урахуванням <a href="http://www.tivasyk.info/2019/07/blog-post_11.html" target="_blank">досвіду з owncloud</a>, виглядає так:<br /><ul><li>traefik (зворотній проксі);</li><li>owncloud (синхронізація файлів);</li><li>pihole (dns проксі для фільтрації реклами та блокування різних вконтактів)</li></ul><div>окремо, не в контейнері, стоїть webmin (адміністрування сервера через веб-інтерфейс).</div><div><br /></div><div>але є одне <b>питання</b>: припустімо, я хочу додати ще один контейнер з сервісом dlna для роздачі файлів, складених на owncloud, на інші пристрої (телевізор)… де шукати файли? <a href="https://owncloud.org/news/how-to-set-up-an-owncloud-in-3-minutes/" target="_blank">підказка зі встановлення owncloud в контейнері</a>&nbsp;стверджує, що вони мають бути в <i>/var/lib/docker/volumes</i> — але ніт, порожньо!</div><div><br /><b>поновлено</b> (11 липня 2019). stupid me: <i>/var/lib/docker</i> таки повен цікавого, але все у власності root’а і сховане від решти. гаразд, одну проблему вирішено, на черзі traefik та ssl/tls. і, до речі, нагадування собі: не забути <a href="https://unix.stackexchange.com/questions/131311/moving-var-home-to-separate-partition" target="_blank">винести /var на окремий диск</a> (коли додам).<br /><br /></div><div>читати:</div><div><ul><li><a href="https://owncloud.org/news/how-to-set-up-an-owncloud-in-3-minutes/" target="_blank">встановлення owncloud в контейнері</a>;</li><li><a href="https://owncloud.org/news/docker-owncloud-traefik-reverse-proxy-lets-encrypt-ssl/" target="_blank">інтеграція з traefik</a>;</li><li><a href="https://owncloud.org/news/docker-series-pt-3-automatically-easily-backup-restore-dockerized-owncloud/" target="_blank">резервне копіювання контейнера owncloud</a>;</li><li><a href="https://codability.in/docker-networking-explained/" target="_blank">як влаштовано віртуальну мережу docker</a></li></ul></div>

@@ -1,0 +1,19 @@
+---
+layout: post
+title: розбирання виводу команди на лексеми
+date: '2019-07-18T17:51:00.002+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- програмування
+- linux
+- підказки
+- bash
+- позитив
+modified_time: '2019-07-18T21:14:42.662+03:00'
+thumbnail: https://3.bp.blogspot.com/-DDgQk0ytMlU/XTCEIlPmGZI/AAAAAAABZh4/GfvHkIzZwuwEngLMiVvaBQY3t54yfMBeQCK4BGAYYCw/s72-c/screenshot.2019-07-18%2B%25281%2529.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-3863959315684922624
+blogger_orig_url: http://www.tivasyk.info/2019/07/blog-post_97.html
+---
+
+<a href="http://3.bp.blogspot.com/-DDgQk0ytMlU/XTCEIlPmGZI/AAAAAAABZh4/GfvHkIzZwuwEngLMiVvaBQY3t54yfMBeQCK4BGAYYCw/s1600/screenshot.2019-07-18%2B%25281%2529.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="165" src="https://3.bp.blogspot.com/-DDgQk0ytMlU/XTCEIlPmGZI/AAAAAAABZh4/GfvHkIzZwuwEngLMiVvaBQY3t54yfMBeQCK4BGAYYCw/s320/screenshot.2019-07-18%2B%25281%2529.jpg" width="320" /></a><a href="http://www.tivasyk.info/2019/07/blog-post_18.html" target="_blank">не виспався</a>, але байдуже. на bashтані буде спекотно сьогодні: зараз навчимося розбирати вивід команди uptime на лексеми і зберігати дані не в жорстко кодованих змінних, а в загальному масиві з мітками.<br /><br />дилетант запитає: з розбором зрозуміло, але навіщо ці складнощі з масивами?! а припустімо, мій простенький монітор збиратиме й показуватиме сто параметрів, і зненацька знадобилося додати ще десять. за примітивного підходу для цього довелося б:<br /><ul><li>розібрати вивід ще кількох команд на кшталт uptime і скласти дані в десять нових змінних;</li><li>додати десять нових міток до шаблонів виводу;</li><li>додати десять нових замін до функції підстановки даних в шаблони.</li></ul><div>перший етап — цікава задачка. другий — просто питання дизайну виводу. а третій етап — це <b>дурна робота</b>, і її можна повністю уникнути, якщо складати дані як іменовані поля до одного архіву. тоді функція підстановки даних за шаблоном перетворюється з величезного переліку міток і замін… на один короткий (в коді) і читабельний цикл (про це — згодом).</div><br /><b>важливо!</b> цей код — лише ілюстрація принципу; вивід uptime надто волатильний, щоби його так розбирати для реальної задачі — краще обчислювати з даних у /proc/uptime.<br /><br />код на pastebin:<br /><center><iframe src="https://pastebin.com/embed_iframe/ru0H1TzB" style="border: none; height: 300px; width: 100%;"></iframe></center>

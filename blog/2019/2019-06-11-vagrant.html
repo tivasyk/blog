@@ -1,0 +1,18 @@
+---
+layout: post
+title: у мене завелися vagrant’и
+date: '2019-06-11T20:56:00.000+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- цікаве
+- windows
+- linux
+- vagrant
+modified_time: '2019-06-12T18:45:40.169+03:00'
+thumbnail: https://1.bp.blogspot.com/-5smqWfVe2uY/XP_pw3VlBMI/AAAAAAABXwo/KFoNPCkQE44h6gLgY53ZJoF_-_K2vuBuACLcBGAs/s72-c/screenshot.11_vagrant_on_windows.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-3263328370004870845
+blogger_orig_url: http://www.tivasyk.info/2019/06/vagrant.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-5smqWfVe2uY/XP_pw3VlBMI/AAAAAAABXwo/KFoNPCkQE44h6gLgY53ZJoF_-_K2vuBuACLcBGAs/s1600/screenshot.11_vagrant_on_windows.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="967" data-original-width="1600" height="193" src="https://1.bp.blogspot.com/-5smqWfVe2uY/XP_pw3VlBMI/AAAAAAABXwo/KFoNPCkQE44h6gLgY53ZJoF_-_K2vuBuACLcBGAs/s320/screenshot.11_vagrant_on_windows.jpg" width="320" /></a></div>нам не показували <a href="https://www.vagrantup.com/" target="_blank">vagrant</a> в коледжі, навіть не згадували, а даремно: виявилося, що це досить зручний спосіб автоматизації розгортання інфраструктури — зокрема, в моєму випадку, якогось тестового середовища для вивчення <a href="http://www.tivasyk.info/2019/05/blog-post.html" target="_blank">ansible</a>.<br /><br />простий рецепт подано в <a href="https://www.goodreads.com/book/show/25151340-ansible" target="_blank">«ansible up and running»</a>, щойно випробував на windows — завелося з пів оберта, і за кілька хвилин мав тестову віртуальну машину з ubuntu, не довелося навіть завантажувать дистрибутив (точніше, vagrant робить це сам).<br /><br /><a name='more'></a>отже, собі на згадку…<br /><br /><h4>підготовка</h4>завантажити та встановити <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">virtualbox </a>та <a href="https://www.vagrantup.com/downloads.html" target="_blank">vagrant</a>&nbsp;для windows.<br /><br /><h4>віртуальна машина</h4>в powershell:<br /><br /><code>mkdir C:\Playbooks<br />cd C:\Playbooks<br />vagrant init ubuntu/trusty64<br />vagrant up</code><br /><br />все далі робимо в теці C:\Playbooks (ну, або де там робили vagrant init...)<br /><br /><h4>доступ ssh</h4>перевірка доступу з vagrant:<br /><br /><code>vagrant ssh</code><br /><br />якщо працює — нотуємо адресу ip (127.0.0.1), порт (2222), користувача (vagrant) і розташування файлу ключа ssh (private_key):<br /><br /><code>vagrant ssh-config</code><br /><br />і перевіряємо прямий доступ:<br /><br /><code>ssh vagrant@127.0.0.1 -p 2222 -i .\.vagrant\machines\default\virtualbox\private_key</code><br /><br />читаю далі.<br /><br /><b>p.s.</b> чудові покрокові інструкції для запуску простої віртуалки з vagrant — <a href="https://shanemcd.org/tag/vagrant/" target="_blank">у блозі shanemcd.org</a>.

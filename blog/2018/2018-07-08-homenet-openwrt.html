@@ -1,0 +1,17 @@
+---
+layout: post
+title: 'почитати: homenet на openwrt'
+date: '2018-07-08T18:38:00.000+03:00'
+author: tivasyk
+tags:
+- інтернет
+- цікаве
+- позитив
+- openwrt
+modified_time: '2019-03-14T21:16:38.140+02:00'
+thumbnail: https://3.bp.blogspot.com/-U7KdYhoIUSo/W0Iv9m1slZI/AAAAAAABRMI/nOp0l91-_jEFYkex-s0KvDdsQDtNgoYnQCLcBGAs/s72-c/IMG_20180708_110319.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-110154292173483082
+blogger_orig_url: http://www.tivasyk.info/2018/07/homenet-openwrt.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://3.bp.blogspot.com/-U7KdYhoIUSo/W0Iv9m1slZI/AAAAAAABRMI/nOp0l91-_jEFYkex-s0KvDdsQDtNgoYnQCLcBGAs/s1600/IMG_20180708_110319.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="578" data-original-width="1028" height="179" src="https://3.bp.blogspot.com/-U7KdYhoIUSo/W0Iv9m1slZI/AAAAAAABRMI/nOp0l91-_jEFYkex-s0KvDdsQDtNgoYnQCLcBGAs/s320/IMG_20180708_110319.jpg" width="320" /></a></div>за $10 придбав на kijiji <a href="http://www.tivasyk.info/2017/12/125-kijij.html" target="_blank">ще один маршрутизатор d-link dir-835</a>, — аби поекспериментувати з dd-wrt та openwrt, не ризикуючи лишитися без інтернету вдома.<br /><br />поки що приділив йому хіба 15 хвилин: openwrt на диво просто і швидко <a href="https://openwrt.org/toh/d-link/dir-835" target="_blank">встановився</a>, без шаманських танців з бубнами, лишалося тільки налаштувати роздачу підключення без дротів і…<br /><br />…і тоді я випадково втрапив на підказки з налаштування homenet на openwrt (homewrt). якщо я правильно зрозумів суть, homewrt — це практична реалізація «розумної» (читай: автоконфігурованої) домашньої мережі на базі адресації ipv6 (з підтримкою ipv4, втім). переваги:<br /><ul><li>підтримка кількох рутерів у домашній мережі;</li><li>підтримка кількох підключень до провайдерів інтернету; </li><li>окрема віртуальна мережа для кожного інтерфейсу;</li><li>автовизначення імен (dns) в домашній мережі;</li><li>…і все це — з <b>автоконфігурацією</b> (встромив-працює).</li></ul>вирішив, що в це обов'язково треба вчитатися:<br /><ul><li><a href="https://tools.ietf.org/html/rfc7368" target="_blank">архітектурні засади домашніх мереж ipv6</a> [rfc7368]</li><li><a href="http://www.homewrt.org/" target="_blank">веб-сайт homewrt</a></li><li><a href="https://toreanderson.github.io/2015/10/02/homenet-the-future-of-home-networking.html" target="_blank">огляд переваг homenet</a> [блог торе андерсона]</li><li><a href="https://toreanderson.github.io/2015/10/11/making-a-homenet-router-out-of-openwrt.html" target="_blank">налаштування homenet з openwrt в графічному інтерфейсі luci</a> [блог торе андерсона]</li><li><a href="https://www.irif.fr/~jch/software/homenet/howto.html" target="_blank">налаштування homenet з openwrt в текстовому рядку</a> [блог юліуша хробочека]</li></ul>але це читання «на згодом»: коли буде складено літню сесію, рутер з налаштованим openwrt замінить dir-835 із заводською прошивкою, а той звільниться для експериментів.

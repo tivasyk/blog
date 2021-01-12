@@ -1,0 +1,16 @@
+---
+layout: post
+title: bash прочищає мізки
+date: '2016-03-29T01:01:00.001+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- bash
+modified_time: '2016-03-29T08:09:22.161+03:00'
+thumbnail: https://4.bp.blogspot.com/-9zfhGG1VdoY/VvmkoeE7gMI/AAAAAAAAvlg/h9CpnPPTIok_VNVfiSIB8Gead61c0UCnw/s72-c/2016-03-29--1459200628_1366x768_scrot_logo.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-2372496156262368489
+blogger_orig_url: http://www.tivasyk.info/2016/03/bash.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://4.bp.blogspot.com/-9zfhGG1VdoY/VvmkoeE7gMI/AAAAAAAAvlg/h9CpnPPTIok_VNVfiSIB8Gead61c0UCnw/s1600/2016-03-29--1459200628_1366x768_scrot_logo.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="111" src="https://4.bp.blogspot.com/-9zfhGG1VdoY/VvmkoeE7gMI/AAAAAAAAvlg/h9CpnPPTIok_VNVfiSIB8Gead61c0UCnw/s200/2016-03-29--1459200628_1366x768_scrot_logo.jpg" width="200" /></a></div>складаю «правильний» скрипт для перевіки нової пошти на gmail просто в командному рядку. правильний в тому сенсі, що не одним рядком на колінці (таке <a href="https://www.google.com.ua/search?sclient=psy-ab&amp;q=bash+gmail+check&amp;oq=bash+gmail+check&amp;gs_l=serp.3..0i22i30l3.6359345.6363927.0.6364137.16.14.0.2.2.0.222.1683.5j8j1.14.0....0...1c.1.64.psy-ab..0.16.1640.Fcas3fiXzZ0&amp;pbx=1&amp;bav=on.2,or.&amp;bvm=bv.117868183,d.bGQ&amp;biw=1158&amp;bih=642&amp;ech=1&amp;psi=kov5VuqwIKWhyAPZuIKQCg.1459194771312.3&amp;ei=kov5VuqwIKWhyAPZuIKQCg&amp;emsg=NCSR&amp;noj=1" target="_blank">нескладно нагуглити</a>), а з перевірками на дурня, акуратним кодом тощо.<br /><br />не стільки той gmail потрібен, як добре прочищає мізки і дозволяє повправлятися в bash'уванні.<br /><br />що вже працює:<br /><ul><li>основа коду з читанням логіну (параметр командного рядка) та пароля (щоби не зберігати в скрипті); </li><li>завантаження фіду gmail з діагностикою помилок зʼєднання/автентифікації;</li><li>відображення кількости непрочитаних.</li></ul>доробити в першій робочій версії:<br /><ul><li>детальний розбір фіду та відображення відправника, теми та часу останніх N непрочитаних. </li></ul>ідеї на потім:<br /><ul><li>параметри командного рядка для відображення лише кількости непрочитаних чи детального переліку повідомлень;</li><li>(можливо) тимчасове зберігання захешованого пароля, щоби не вводити щоразу в одній сесії?</li><li><b>поновлено </b>(2016-03-29): двоетапна автентифікація gmail? </li></ul>можливо, ще щось вигадається.

@@ -1,0 +1,17 @@
+---
+layout: post
+title: onboard відкривається, onboard закривається
+date: '2018-12-23T19:42:00.000+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- клавіатура
+- linux
+- підказки
+- bash
+modified_time: '2018-12-23T19:42:06.444+02:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-5400747496005229587
+blogger_orig_url: http://www.tivasyk.info/2018/12/onboard-onboard.html
+---
+
+екранна клавіатура onboard досить бідна на опції командного рядка… але відкривати та закривати її програмно таки <a href="https://bazaar.launchpad.net/~onboard/onboard/1.3/view/head:/README" target="_blank">можна</a> — за допомогою повідомлень dbus.<br /><br />відкриваємо:<br /><br /><code>onboard &amp;&amp; dbus-send --type=method_call --print-reply --dest=org.onboard.Onboard /org/onboard/Onboard/Keyboard org.onboard.Onboard.Keyboard.Show &gt; /dev/null</code><br /><br />"onboard &amp;&amp;" на початку — простіше, ніж перевіряти, чи програму вже запущено.<br /><br />закриваємо:<br /><br /><code>dbus-send --type=method_call --print-reply --dest=org.onboard.Onboard /org/onboard/Onboard/Keyboard org.onboard.Onboard.Keyboard.Hide &gt; /dev/null</code><br /><br />перемикаємо (toggle):<br /><br /><code>dbus-send --type=method_call --print-reply --dest=org.onboard.Onboard  /org/onboard/Onboard/Keyboard org.onboard.Onboard.Keyboard.ToggleVisible &gt;  /dev/null</code>

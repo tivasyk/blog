@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "новий початок: jekyll"
+date:   2019-07-31 10:00
+categories: blog
+tag: [комп'ютери, linux, jekyll, docker]
+---
+
+сьогодні хотів увімкнути https для [щоденника на blogger’і](http://tivasyk.blogspot.com), — не вийшло, але і якийсь час (поки godaddy не поновив якісь свої записи) бачив 404 замість своїх записів. пригадав, що давно, дуже давно не робив жодних аварійних копій вмісту. подумав, що, можливо, час втілити давню ідею: перевести щоденник на текстові файли з розміткою markdown чи asciidoc, скористатися двигунцем на кшталт jekyll для генерації статичного сайту і хостити вдома, на своєму сервері. так, downtime не може бути такий, як з google, зате весь вміст зберігається в мене і завжди доступний (копію можна легко тримати в хмарі, на google drive чи dropbox).
+
+колись я вже [щось подібне пробував]({% post_url 2017/2017-11-12-github %}) — тільки з двигунцем hugo, а не jekyll, не в контейнері docker, і з публікацією через github, а не на власному сервері.
+
+отже, [jekyll в контейнері](https://ddewaele.github.io/running-jekyll-in-docker) крутиться, перший допис на випробу — ось він, тестова версія доступна ззовні за адресою [blog.malynka.duckdns.org](http://blog.malynka.duckdns.org). трохи пограюся — хто зна, може й залишиться як основний щоденник. тоді доведеться переносити майже дві тисячі дописів, що накопичилися в мене за 18 років.
+
+корисні посилання:
+
+* [jekyll в контейнері docker](https://ddewaele.github.io/running-jekyll-in-docker/)
+* [тема mminima-reboot](https://github.com/aterenin/minima-reboot)
+* [форматування markdown: basic syntax](https://www.markdownguide.org/basic-syntax)
+* [форматування makrdown: extended sysntax](https://www.markdownguide.org/extended-syntax)

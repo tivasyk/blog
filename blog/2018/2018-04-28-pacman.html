@@ -1,0 +1,15 @@
+---
+layout: post
+title: pacman з'їв мої гігабайти
+date: '2018-04-28T19:10:00.000+03:00'
+author: tivasyk
+tags:
+- linux
+- підказки
+modified_time: '2018-04-28T19:10:57.525+03:00'
+thumbnail: https://2.bp.blogspot.com/-Ye5CtNyvy6o/WuRoCxYMBiI/AAAAAAABPLs/H90Rc-nk8psJfgMrGuEfEwRm1Alr-A1xgCLcBGAs/s72-c/Screenshot_20180428_082328_lomo.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-801379284797512425
+blogger_orig_url: http://www.tivasyk.info/2018/04/pacman.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://2.bp.blogspot.com/-Ye5CtNyvy6o/WuRoCxYMBiI/AAAAAAABPLs/H90Rc-nk8psJfgMrGuEfEwRm1Alr-A1xgCLcBGAs/s1600/Screenshot_20180428_082328_lomo.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="957" data-original-width="1024" height="299" src="https://2.bp.blogspot.com/-Ye5CtNyvy6o/WuRoCxYMBiI/AAAAAAABPLs/H90Rc-nk8psJfgMrGuEfEwRm1Alr-A1xgCLcBGAs/s320/Screenshot_20180428_082328_lomo.jpg" width="320" /></a></div>щойно виявив, що кеш менеджера пакунків pacman (/var/cache/pacman) займав… трохи більше 10 гігабайт, і накопичив, здається (як перевірити, окрім як візуально?), чи не всі версії встановлених програм та бібліотек відколи систему встановлено.<br /><br /><code>pacman -Sc</code><br /><br />видалив усе, окрім пакунків з поточними версіями — позбувся близько 8 гігабайт сміття, лишилося 2,5 гб пакунків. задумався:<br /><br />а) як налаштувати менеджер пакунків, щоби він зберігав лише поточну версію?<br /><br />б) що такого потрібного аж на 1,7 гб накопичилося у /var/log в системі, котра не використовується ані як сервер, ані як більш чи менш серйозна робоча станція?

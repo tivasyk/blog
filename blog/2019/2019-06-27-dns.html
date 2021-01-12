@@ -1,0 +1,15 @@
+---
+layout: post
+title: пінг-понг з dns’ом
+date: '2019-06-27T16:26:00.002+03:00'
+author: tivasyk
+tags:
+- інтернет
+- цікаве
+- підказка
+modified_time: '2019-06-27T16:26:29.379+03:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-5206605838554570363
+blogger_orig_url: http://www.tivasyk.info/2019/06/dns.html
+---
+
+не знав, може стати в пригоді колись: є такий сервіс xip.io, він робить одну до геніального елементарну річ:<br /><br /><pre><code>nslookup <b>192.168.8.11</b>.xip.io<br />Server:  dns.test.lab<br />Address:  10.0.30.16<br /><br />Non-authoritative answer:<br />Name:    192.168.8.11.xip.io<br />Address:  <b>192.168.8.11</b></code></pre><br />тобто на dns-запити повертає адресу ip, яку отримав у складі fqdn типу <i>&lt;ipv4&gt;.xip.io</i> та <i>www.&lt;ipv4&gt;.xip.io</i>. і все.<br /><br />навіщо? інколи для тестування потрібна тимчасова доменна адреса, але без мороки з реєстрацією dns, або навіть прив’язана до локального (немаршрутизованого) ip.<br /><br /><b>p.s.</b> знайшов у <a href="https://www.goodreads.com/book/show/25151340-ansible" target="_blank">«ansible up and running»</a>.

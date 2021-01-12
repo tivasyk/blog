@@ -1,0 +1,15 @@
+---
+layout: post
+title: 'календар для conky: просто'
+date: '2009-09-24T16:17:00.003+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+modified_time: '2010-02-23T14:05:15.681+02:00'
+thumbnail: http://4.bp.blogspot.com/_wFmUV6FUCKU/SrtxRAAKYqI/AAAAAAAAGC0/xS8-U4gCqE4/s72-c/conky_04.png
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-7766963148166900973
+blogger_orig_url: http://www.tivasyk.info/2009/09/conky_24.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://4.bp.blogspot.com/_wFmUV6FUCKU/SrtxRAAKYqI/AAAAAAAAGC0/xS8-U4gCqE4/s1600-h/conky_04.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" src="http://4.bp.blogspot.com/_wFmUV6FUCKU/SrtxRAAKYqI/AAAAAAAAGC0/xS8-U4gCqE4/s200/conky_04.png" /></a></div>conky вміє календар =) для цього написані спеціальні скрипти: <a href="http://conky.linux-hardcore.com/?page_id=193">calendario.sh</a> чи <a href="http://conky.linux-hardcore.com/?page_id=810">conkycalendar.py</a>, проте… насправді гіківський спосіб — то взагалі впоратися без сторонніх скриптів, лише поєднанням кількох команд оболонки! можливо, не так гнучко, зате елегантно.<br /><br />а ще — надзвичайно пізнавально, бо довелося детально розбиратися (раніше лінувався) з тим, як працюють <a href="http://en.wikipedia.org/wiki/Cal_%28Unix%29">cal</a>, <a href="http://en.wikipedia.org/wiki/Sed">sed</a> та якого дідька <i>fold</i> не хоче правильно розбивати кириличний текст на рядки =)<br /><br /><span id="fullpost"><a name='more'></a>власне, ось рядок, котрий треба додати до файлу конфігурації .conkyrc, щоби отримати календар як на скріншоті:<br /></span><br /><blockquote><span id="fullpost"><span id="fullpost"><span style="font-size: 85%;"><code>${voffset 5}${font DejaVu Sans Mono:size=10}${execpi 60 DJS=`date +%_d`; cal -m | sed '1d' | sed '/./!d' | sed 's/$/ /' | sed 's/^/${alignc -2} /' | sed /" $DJS "/s/" $DJS "/" "'${color red}${font DejaVu Sans Mono:bold:size=10}'"$DJS"'${font DejaVu Sans Mono:size=10}${color}'" "/}</code></span><br /></span></span></blockquote><span id="fullpost"><span id="fullpost">складненько? ну хіба що трошечки =) ідею та код запозичено там-таки, <a href="http://conky.linux-hardcore.com/?page_id=193">у блозі conky hardcore</a>, і трохи «допиляно» для відображення назв днів українською та мінімалістичного форматування в загальному стилі конфігу.<br /></span></span>

@@ -1,0 +1,18 @@
+---
+layout: post
+title: gns3 на manjaro linux — працює
+date: '2018-05-05T06:10:00.000+03:00'
+author: tivasyk
+tags:
+- навчання
+- комп'ютери
+- linux
+- підказки
+- gns3
+modified_time: '2018-05-05T17:45:16.067+03:00'
+thumbnail: https://2.bp.blogspot.com/-ikmxwm8NDps/Wu0YGcR0UaI/AAAAAAABPQ4/Rx8KTyxXR4YZkw6aVUxTEH2iZx_DJqPUwCLcBGAs/s72-c/Screenshot_20180504_223035_lomo.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-6932788942828936670
+blogger_orig_url: http://www.tivasyk.info/2018/05/gns3-manjaro-linux.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://2.bp.blogspot.com/-ikmxwm8NDps/Wu0YGcR0UaI/AAAAAAABPQ4/Rx8KTyxXR4YZkw6aVUxTEH2iZx_DJqPUwCLcBGAs/s1600/Screenshot_20180504_223035_lomo.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="720" data-original-width="1280" height="180" src="https://2.bp.blogspot.com/-ikmxwm8NDps/Wu0YGcR0UaI/AAAAAAABPQ4/Rx8KTyxXR4YZkw6aVUxTEH2iZx_DJqPUwCLcBGAs/s320/Screenshot_20180504_223035_lomo.jpg" width="320" /></a></div><a href="http://www.tivasyk.info/2018/05/virtualbox-gns3.html" target="_blank">подужав</a>: <b>gns3 працює на manjaro linux</b>, поки що віртуальному, і крутить образи маршрутизатора і комутатора cisco.<br /><br />це таки було нетривіально… головним чином тому, що всі підказки в мережі, що мені траплялися, або застарілі, або неповні — включно з вікі arch linux.<br /><br />але в підсумку всі програмні компоненти (сам gns3, бібліотеки та додаткові інструменти) встановилися з aur'а, без необхідності щось збирати з сирців; довелося трохи поблукати темними закапелками інтернетів, щоби знайти образи пристроїв cisco (iou) на випробу…<br /><br />наче працює. тепер треба навчитися цим користуватися — і братися до <a href="https://www.freeccnaworkbook.com/workbooks/ccna" target="_blank">free ccna workbook</a> на дозвіллі.<br /><br /><h4><a name='more'></a>підказки</h4>вже <b>мав встановлені</b> та налаштовані…<br /><ul><li>virtualbox</li><li>wireshark</li><li>python </li><li>(можливо, ще щось із того, що треба gn3) </li></ul><b>встановлював</b> для gns3…<br /><ul><li>[aur] python-aiohttp-cors-gns3, <span class="plainlinks archwiki-template-pkg">python-yarl-gns3</span></li><li>[aur] <span class="plainlinks archwiki-template-pkg"></span>gns3-gui, gns3-server</li><li>[aur] ubridge, vpcs</li><li>(решту потрібного gns3 додав сам як залежності) </li></ul><b>образи cisco…</b> з цим чимало плутанини в тенетах, довелося шукати й експериментувати. знайшов збірку образів iou (ios для unix), з якої витяг два:<br /><ul><li>i86bi-linux-l2-adventerprisek9-15.2d.bin (l2 — комутатор) </li><li>i86bi-linux-l3-adventerprisek9-15.5.2T.bin ((l3 — маршрутизатор) </li></ul><b>ліцензія…</b> скрипт keygen.py був у комплекті з образами; він не працює з python3, але запускається з попередньою версією:<br /><code><br />python2 keygen.py</code><br /><br />він генерує короткий текстовий рядок на кшалт: <i>gns3-vm=xxxxxxxxxxxxxxxx;</i> (ліва частина — ім'я машини, на якій генерується код, права — унікальний код, крапка з комою важливі!), який треба зберегти до файлу iourc.txt в такому форматі:<br /><code><br />[license]<br />gns3-vm=<i>xxxxxxxxxxxxxxxx;</i></code><br /><br />цей файл знадобиться згодувати gns3 разом з образами рутера (l3) і свіча (l2) в налаштуваннях пристроїв iou.<br /><br /><b>p.s.</b> це я занотував собі на згадку. якщо кому треба детальніших підказок — питайте, поки я ще пам'ятаю, як воно робиться =)

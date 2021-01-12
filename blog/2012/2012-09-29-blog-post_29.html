@@ -1,0 +1,16 @@
+---
+layout: post
+title: вальдорфська школа перемагає
+date: '2012-09-29T02:47:00.001+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- позитив
+modified_time: '2012-09-29T02:48:30.766+03:00'
+thumbnail: http://3.bp.blogspot.com/-2_QgJ-8k-DY/UGYtzJpZZZI/AAAAAAAAPj4/In2BgJSQpMY/s72-c/linux_crunchbang11_01.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-3856791508351268292
+blogger_orig_url: http://www.tivasyk.info/2012/09/blog-post_29.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/-2_QgJ-8k-DY/UGYtzJpZZZI/AAAAAAAAPj4/In2BgJSQpMY/s1600/linux_crunchbang11_01.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;" target="_blank"><img border="0" height="111" src="http://3.bp.blogspot.com/-2_QgJ-8k-DY/UGYtzJpZZZI/AAAAAAAAPj4/In2BgJSQpMY/s200/linux_crunchbang11_01.jpg" width="200" /></a></div><a href="http://www.tivasyk.info/2012/09/linux.html" target="_blank">crunchbang переміг</a> — головним чином через недбалість укладачів archbang <a href="http://www.tivasyk.info/2012/09/linux.html?showComment=1347966971022#c5797478046316300179" target="_blank">до оформлення</a> дистра.<br /><br />реліз 20120924 встановився не без невеличкої проблеми, яку навіть цікаво було вирішити (суть і вирішення далі), потім ще трішки погрався з оформленням… і на ноуті тепер симпатичний <b>crunchbang 11 waldorf</b> (<a href="http://3.bp.blogspot.com/-2_QgJ-8k-DY/UGYtzJpZZZI/AAAAAAAAPj4/In2BgJSQpMY/s1600/linux_crunchbang11_01.jpg" target="_blank">скріншот</a>).<br /><br />до речі, на старому доброму deviantart’і час від часу можна втрапити на щось корисне — як <a href="http://iamfreeman.deviantart.com/art/Black-Background-Set-161870450?q=boost%3Apopular%20in%3Acustomization%2Fwallpaper%2Fminimalistic%2Fdark&amp;qo=6&amp;offset=10#comments" target="_blank">от ця невеличка колекція шпалерин в темних тонах</a> (прев’ю видно на скріншоті), котра чудово доповнила оформлення waldorf’а.<br /><br />процесом і результатом задоволений.<br /><br /><a name='more'></a><b>проблема з інсталяцією</b> crunchbang 11 waldorf (20120924) <a href="http://crunchbanglinux.org/forums/post/260616" target="_blank">описана на форумі #!</a>: якщо тека /home міститься на окремому дисковому розділі, поточна версія інсталятора debian «забуває» створити таблицю fstab, через що цей розділ не монтується автоматично під час першого запуску, і система не дозволяє залогінитися.<br /><br />рішення трішки нетривіальне, але загалом не складне:<br /><ul><li>одразу після встановлення перезапустити пк з liveusb;</li><li>підключитися до мережі, apt-get’нути <i>disk-manager</i> (для простоти наступного кроку);</li><li>руками створити файл <i>/etc/fstab</i> і додати згенерований disk-manager’ом рядок для монтування потрібного розділу в <i>/home</i>;</li><li>(опціонально) видалити вміст теки <i>/home</i>, яку інсталятор створив в системному розділі;</li><li>руками (в thunar’і, nautilus’і чи mount’ом) підключити розділ з правильним <i>/home</i>…</li><li>…і в домашній теці користувача створити файл <i>.xinitrc</i>, додавши рядок <i>exec openbox-session</i>;</li><li>все акуратно відмонтувати і перезавантажитися вже без liveusb.</li></ul>повинно працювати.

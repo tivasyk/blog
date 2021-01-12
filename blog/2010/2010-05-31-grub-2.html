@@ -1,0 +1,15 @@
+---
+layout: post
+title: порядок автозавантаження grub 2
+date: '2010-05-31T20:25:00.001+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+modified_time: '2010-06-04T19:37:32.313+03:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-809149574664046669
+blogger_orig_url: http://www.tivasyk.info/2010/05/grub-2.html
+---
+
+якийсь час мучився, не знаючи, як змусити новий <i>grub 2</i>&nbsp;автоматом завантажувати не перше у переліку ядро (чи іншу операційну систему), а довільно вибране. детально <a href="http://www.linux.com/community/blogs/changing-the-default-boot-with-ubuntu-910-grub-2.html">проблема описана ось тут, приміром</a> — а в глибині стрічки коментарів є і згадка про варіант вирішення. занотую собі на майбутнє.<br /><br />у файлі <i>/etc/default/grub</i> необхідно виправити один рядок:<br /><blockquote><code>GRUB_DEFAULT=0</code></blockquote>замість 0 треба вказати номер рядка (починаючи від 0!), який треба завантажувати — в моєму випадку 2 (третій рядок). після цього необхідно виконати конфігуратор <i>grub 2</i> (звісно, від&nbsp;<i>root</i>’а):<br /><blockquote><code>sudo update-grub</code></blockquote>готово.

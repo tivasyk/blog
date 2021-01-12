@@ -1,0 +1,17 @@
+---
+layout: post
+title: меню пристроїв для openbox’а
+date: '2012-09-29T20:24:00.000+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+- позитив
+modified_time: '2012-09-29T20:25:45.445+03:00'
+thumbnail: http://1.bp.blogspot.com/-9k_SiAOD62Y/UGcsFt8DNeI/AAAAAAAAPlU/xqTL6ep_GMU/s72-c/linux_obdevicemenu_01.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-370095051760134599
+blogger_orig_url: http://www.tivasyk.info/2012/09/openbox.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-9k_SiAOD62Y/UGcsFt8DNeI/AAAAAAAAPlU/xqTL6ep_GMU/s1600/linux_obdevicemenu_01.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="112" src="http://1.bp.blogspot.com/-9k_SiAOD62Y/UGcsFt8DNeI/AAAAAAAAPlU/xqTL6ep_GMU/s200/linux_obdevicemenu_01.jpg" width="200" /></a></div>продовжую залюбки розбиратися <a href="http://www.tivasyk.info/2012/09/blog-post_29.html" target="_blank">з цим новим конструктором</a> <strike>lego</strike> crunchbang: цього разу прикрутив openbox’у зручненьке <b>меню для швидкого доступу до підключених накопичувачів</b>, usb та оптики.<br /><br />софтинка називається <i>obdevicemenu</i> та <a href="http://sourceforge.net/projects/obdevicemenu/" target="_blank">знаходиться на sourceforge’і</a>; в архіві за посиланням є все необхідне для простого встановлення, включно зі зрозумілим readme:<br /><ul><li>скопіювати файл <i>obdevicemenu</i> з архіва до теки <i>/usr/bin</i>;</li><li>скопіювати конфіг <i>obdevicemenu.conf</i> до теки <i>/etc</i>;</li><li>додати <i>pipemenu</i> до конфіга меню <i>openbox</i>:</li></ul><blockquote class="tr_bq"><code> &lt;menu id="devices" label="Devices" execute="/usr/bin/obdevicemenu" /&gt;</code></blockquote>…і перевірити наявність залежностей в системі. в мене все завелося одразу, результат на скріншоті.

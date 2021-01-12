@@ -1,0 +1,15 @@
+---
+layout: post
+title: пінгвін сховав шрифти? шукаємо...
+date: '2008-04-01T11:06:00.003+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+modified_time: '2008-04-01T11:25:24.005+03:00'
+thumbnail: http://4.bp.blogspot.com/_wFmUV6FUCKU/R_HwoJXsocI/AAAAAAAABV0/L1UVgHU1iNg/s72-c/fonts_conf_screen.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-3846264500183698370
+blogger_orig_url: http://www.tivasyk.info/2008/04/linux-opensuse-ttf-true-type.html
+---
+
+<a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://4.bp.blogspot.com/_wFmUV6FUCKU/R_HwoJXsocI/AAAAAAAABV0/L1UVgHU1iNg/s1600-h/fonts_conf_screen.jpg"><img style="margin: 0pt 0pt 10px 10px; float: right; cursor: pointer;" src="http://4.bp.blogspot.com/_wFmUV6FUCKU/R_HwoJXsocI/AAAAAAAABV0/L1UVgHU1iNg/s200/fonts_conf_screen.jpg" alt="" id="BLOGGER_PHOTO_ID_5184189218580898242" border="0" /></a>де шукати файли шрифтів у linux, і у opensuse зокрема?<br /><br />найперше, до чого приводить логіка: запускаємо пошук файлів з розширенням ttf (шрифти у форматі true type), і отримуємо... величезний перелік тек, в яких є такі файли. звідси перший висновок: шрифти в linux розкидані по всій системі, і лише "лінива" програма не приносить з собою при встановленні власний шрифт чи кілька -- найчастіше це лишні копії вже встановлених раніше з самим дистрибутивом.<br /><br />поганий шлях. отже, відкриваємо браузер та гуглимо... виявляється, перелік основних системних тек, куди linux найперше звертається за шрифтами, є у конфігураційному файлі <span style="font-style: italic;">fonts.conf</span> у теці <span style="font-style: italic;">/etc/fonts</span>!<br /><br />відкриваємо будь-яким текстовим редактором, бачимо щось приблизно таке (див. скріншот). от і перелік тек. редагувати файл fonts.conf, принаймні в opensuse -- не варто, його все-одно перезаписує конфігуратор шрифтів kde та yast...<br /><br />почитати:<br /><ul><li><a href="http://www.opennet.ru/base/X/font_ctl.txt.html">керування шрифтами в linux</a> (рос.)<br /></li></ul>

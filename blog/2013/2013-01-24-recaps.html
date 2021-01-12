@@ -1,0 +1,16 @@
+---
+layout: post
+title: recaps для перемикання розкладки
+date: '2013-01-24T15:18:00.001+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- клавіатура
+- підказки
+modified_time: '2016-06-10T17:14:03.195+03:00'
+thumbnail: http://3.bp.blogspot.com/-Qz6FiY29cro/UQExmDCFclI/AAAAAAAASIg/B-DvrIQg15U/s72-c/screenshot_tipp10.com_04_20130124.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-435561895693221738
+blogger_orig_url: http://www.tivasyk.info/2013/01/recaps.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/-Qz6FiY29cro/UQExmDCFclI/AAAAAAAASIg/B-DvrIQg15U/s1600/screenshot_tipp10.com_04_20130124.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="115" src="http://3.bp.blogspot.com/-Qz6FiY29cro/UQExmDCFclI/AAAAAAAASIg/B-DvrIQg15U/s200/screenshot_tipp10.com_04_20130124.jpg" width="200" /></a></div>мені дуже <a href="http://www.tivasyk.info/2013/01/standard-deteriotation-sensors.html" target="_blank">сподобався tipp10.com</a>, тож пожертвував авторові $5 на розвиток. єдине, мабуть, чого бракує мені зараз в онлайновій версії — календарного звіту (<a href="http://www.tivasyk.info/2013/01/blog-post_18.html" target="_blank">як в keybr.com</a>) з візуалізацією часу, витраченого на заняття, середньої швидкості набору та частоти помилок.<br /><br />але це дрібниці. тим часом хочеться перевчитися перемикати розкладку з давно звичного правого <i>ctrl-shift</i> на… <i>capslock</i>. навіщо? тому що, по-перше, windows чомусь в канадській розкладці резервує правий <i>ctrl</i> під якісь комбінації клавіш, і перемикання не працює, — в linux все гаразд.<br /><br />і по-друге, так швидше і <b>не потрібно відривати руки від клавіатури</b>.<br /><br /><a name='more'></a><div class="separator" style="clear: both; text-align: center;"><a href="http://www.gooli.org/tools/recaps/recaps.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="136" src="http://www.gooli.org/tools/recaps/recaps.png" width="200" /></a></div>знову-таки, в linux перемикання розкладок легко і просто прив’язується до <i>capslock</i>’а, а в windows… як завше, потрібні якісь милиці. цього разу помічною стала <a href="http://www.gooli.org/blog/recaps/" target="_blank">малесенька софтинка recaps</a>, що випадково <a href="http://blog.tsybulko.org/2010/08/caps-lock-windows.html?showComment=1299245065024#c3135090763374624891" target="_blank">знайшлася</a> під час пошуку рішення на різних форумах.<br /><br /><i>recaps</i> допомагає також конвертувати текст, набраний випадково не в тій розкладці (<i>ctrl+capslock</i>). щоправда, деякі програми (sublime text 2, firefox) чомусь розпізнають цю комбінацію як «вибрати все» (<i>ctrl+a</i>), що дивно.<br /><br /><b>оновлено</b> (24.01.2013). ну і для повноти оповіді — відповідна невеличка поправка в мій <a href="http://www.tivasyk.info/2013/01/blog-post_22.html" target="_blank">абсолютний клавіатурний рецепт</a> (aka ось так це робиться в linux):<br /><blockquote><code>echo -e '#!/bin/bash\nsetxkbmap -option -layout "ca(multi),ua(unicode)" -option "<span style="color: red;">grp:caps_toggle,grp_led:caps</span>"' &gt; ~/bin/fixkeyboard </code></blockquote>собі на згадку.<br /><br />

@@ -1,0 +1,19 @@
+---
+layout: post
+title: 'dictd: нотатки щодо налаштування'
+date: '2011-01-24T17:32:00.001+02:00'
+author: tivasyk
+tags:
+- англійська мова
+- комп'ютери
+- linux
+- підказки
+- французька мова
+- українська мова
+modified_time: '2012-05-19T10:24:22.777+03:00'
+thumbnail: http://1.bp.blogspot.com/_wFmUV6FUCKU/TT2VCzXkkPI/AAAAAAAAJfw/6edfzVDlnBU/s72-c/linux+-+xfce_dict.png
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-1742291860702075251
+blogger_orig_url: http://www.tivasyk.info/2011/01/dictd.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/_wFmUV6FUCKU/TT2VCzXkkPI/AAAAAAAAJfw/6edfzVDlnBU/s1600/linux+-+xfce_dict.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="162" src="http://1.bp.blogspot.com/_wFmUV6FUCKU/TT2VCzXkkPI/AAAAAAAAJfw/6edfzVDlnBU/s200/linux+-+xfce_dict.png" width="200" /></a></div>намагаюся конвертувати словники в форматі <i>stardict</i> до формату <i>dict</i> для використання з локальним сервером <i>dictd</i>… поки що безуспішно — принаймні франко-російський словник (здається, зконвертований для <i>stardict </i>з <i>lingvo</i>) не хоче після конвертації нормально відображатися (див. <a href="http://1.bp.blogspot.com/_wFmUV6FUCKU/TT2VCzXkkPI/AAAAAAAAJfw/6edfzVDlnBU/s1600/linux+-+xfce_dict.png">скріншот</a>).<br /><br />але принаймні розібрався з роботою <i>dictd</i> — вдруге, бо вже <a href="http://linux.org.ua/cgi-bin/yabb/YaBB.pl?num=1254147442/0#0">колись той самий шлях проходив</a>, коли встановлював на нетбук англійські словники. отже…<br /><br /><b></b><br /><a name='more'></a><b>перше.</b> встановлення <i>dictd</i> — елементарне, з репозиторіїв:<br /><blockquote><code>sudo apt-get install dictd</code> </blockquote>файл конфігурації лежить у теці <i>/etc/dictd</i> і зветься <i>dictd.conf</i> — одразу містить достатні налаштування для локального використання сервера, лізти ручками не слід. після встановлення менеджер пакунків сам запустить демон, найпростіша перевірка:<br /><blockquote><code>pidof dictd</code></blockquote>має показати номер процесу. якщо нічого — сервер не стартував з якоїсь причини.<br /><br /><b>друге.</b> встановлюємо словники. для тестування можна взяти будь-який словник з репозиторіїв — вони встановлюються елементарно з репозиторіїв, наприклад:<br /><blockquote><code>sudo apt-get-install mueller7-dict</code></blockquote>це практично єдиний корисний словник в репах (славнозвісний мюллерівський англо-російський). решта, за поодинокими винятками, більше нагадують бази для перевірки орфографії, ніж мовні словники.<br /><br />але припустімо, що вдалося розжитися якимись хорошими словниками у форматі dict (файли <i>.dict[.zd]</i> та <i>.index</i>) — тоді складаємо їх в теку <i>/usr/share/dictd</i>. після цього запускаємо конфігуратор словникової бази <i>dictd</i>:<br /><blockquote><code>sudo dictdconfig -w</code></blockquote>після цього перезапускаємо сам сервер dictd:<br /><blockquote><code>sudo /etc/init.d/dictd restart</code></blockquote>…і теоретично сервер бачить і дозволяє використовувать нові словники. але щоби перевірити — потрібен клієнт.<br /><br /><b>третє.</b> встановлюємо клієнтську програму. найпростіший варіант для xfce — словниковий аплет<i></i> на панель, є в репозиторіях:<br /><blockquote><code>sudo apt-get install xfce4-dict</code></blockquote>після цього в налаштуваннях клієнта треба замінити адресу сервера (стандартно dict.org) на <i>localhost</i> — і перевірити (кнопочка <i>інформація</i>), чи клієнт побачив сервер.<br /><br />ну от, десь так… тепер хто би ще підказав, чого <i>dictconv</i> не хоче нормально конвертувати французські словники від stardict’а — і я був би щасливий =)

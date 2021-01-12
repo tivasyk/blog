@@ -1,0 +1,18 @@
+---
+layout: post
+title: 'одним рядком: запускалка для вправ з c#'
+date: '2018-06-06T18:10:00.002+03:00'
+author: tivasyk
+tags:
+- навчання
+- комп'ютери
+- канада
+- linux
+- підказки
+modified_time: '2018-06-06T18:10:37.724+03:00'
+thumbnail: https://2.bp.blogspot.com/-pTHI2r5Ku4E/Wxf4VQXBlcI/AAAAAAABQQc/rXaijclM_80gJarLmHX3xgKjKDs2aS16QCLcBGAs/s72-c/Screenshot_20180606_110105_lomo.jpeg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-3699790200055626692
+blogger_orig_url: http://www.tivasyk.info/2018/06/c.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://2.bp.blogspot.com/-pTHI2r5Ku4E/Wxf4VQXBlcI/AAAAAAABQQc/rXaijclM_80gJarLmHX3xgKjKDs2aS16QCLcBGAs/s1600/Screenshot_20180606_110105_lomo.jpeg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="576" data-original-width="1024" height="180" src="https://2.bp.blogspot.com/-pTHI2r5Ku4E/Wxf4VQXBlcI/AAAAAAABQQc/rXaijclM_80gJarLmHX3xgKjKDs2aS16QCLcBGAs/s320/Screenshot_20180606_110105_lomo.jpeg" width="320" /></a></div>невелика нотатка собі на згадку: однорядкова «запускалка» компіляції та виконання вправ з c#, що ми їх клепаємо десятками зараз в коледжі:<br /><br /><code>id=4.12 ; mcs exercice${id}.cs &amp;&amp; (mono exercice${id}.exe ; rm exercice${id}.exe)</code><br /><br />файли з вихідними текстами всі нумерую за розділом на номером, наприклад: розділ 4, вправа 12: exercice4.12.cs.<br /><br />якщо набрати команду раз — згодом елементарно знайти в історії та повторити, змінивши тільки id. вправа компілюється (mcs), і якщо відкомпілювалася успішно — виконується (mono) і після завершення непотрібний мені файл exe видаляється (rm).

@@ -1,0 +1,15 @@
+---
+layout: post
+title: сенсори та linux
+date: '2018-12-22T03:40:00.000+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+modified_time: '2018-12-23T15:02:53.056+02:00'
+thumbnail: https://2.bp.blogspot.com/-mcv5IMulxxI/XB2VA5shy4I/AAAAAAABULY/pG8JMTIncq4JzmRDU1LV5byAbU-vkX-bACLcBGAs/s72-c/Screenshot_20181221_203255.jpeg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-4434356887157188521
+blogger_orig_url: http://www.tivasyk.info/2018/12/blog-post_22.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://2.bp.blogspot.com/-mcv5IMulxxI/XB2VA5shy4I/AAAAAAABULY/pG8JMTIncq4JzmRDU1LV5byAbU-vkX-bACLcBGAs/s1600/Screenshot_20181221_203255.jpeg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="314" data-original-width="629" height="159" src="https://2.bp.blogspot.com/-mcv5IMulxxI/XB2VA5shy4I/AAAAAAABULY/pG8JMTIncq4JzmRDU1LV5byAbU-vkX-bACLcBGAs/s320/Screenshot_20181221_203255.jpeg" width="320" /></a></div>на продовження <a href="http://www.tivasyk.info/2017/01/blog-post_8.html">давнього допису</a>:<br /><br /><code>lsmod | grep "^hid_sensor"</code><br /><br />на aspire r13 видає вельми цікаві штуки: акселерометр, компас, гіроскоп, датчик освітлення (als)…<br /><br />інша цікавинка:<br /><br /><code>udevadm info --export-db | grep -C 7 hid_sensor</code><br /><br />треба гуглити, як до цього всього дотягнутися зі скрипта оболонки…<br /><br /><b>поновлення</b> (21 грудня 2018): здається, знайшов…<br /><br /><code>watch -n 1 cat /sys/bus/iio/devices/iio:device3/in_accel_x_raw</code><br /><br />показує посекундно кут нахилу ноутбука навколо поздовжньої осі. кодування, схоже, таке: значення 1—1'000 кодують нахил за годинниковою стрілою, а 64'536—65'535 (насправді це від'ємні 16-бітні цілі, старший біт 1) — нахил проти годинникової стрілки.<br /><br />залишилося «наскриптувати» простенький сенсор, котрий запускатиме поворот екрану (цю частину вже маю) при нахилі на ±800—1000 за цією шкалою — себто приблизно в портретну орієнтацію.<br /><br />задачка на <a href="http://www.tivasyk.info/2018/12/linux.html" target="">інший день</a>.

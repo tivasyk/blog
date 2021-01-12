@@ -1,0 +1,15 @@
+---
+layout: post
+title: одним рядком
+date: '2017-02-26T03:20:00.003+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- bash
+modified_time: '2017-03-11T04:20:30.195+02:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-3386739795742618947
+blogger_orig_url: http://www.tivasyk.info/2017/02/blog-post_26.html
+---
+
+написав собі функцію для «розрізання» текстового рядка на слова. <br /><br /><pre><code>split_parameters () {<br />($DEBUG) &amp;&amp; printf "Received: «%s»\n" "$PARAM_STRING"<br />  <br />($DEBUG) &amp;&amp; printf "Start parsing parameters string...\n"<br /><br />  # Parameters string is not empty, contains<br />  #   at least one character<br />  local TOKEN=""<br />  local CHAR=""<br />  local i=0<br /><br />  # Split the raw parameters string into array<br />  while [[ i -lt "${#PARAM_STRING}" ]] ; do<br />    local CHAR="${PARAM_STRING:$i:1}"<br /><br />($DEBUG) &amp;&amp; printf "  Reading %s: «%s» (current token: «%s», string=%s)\n" $i "$CHAR" "$TOKEN" "$STRING"<br />    <br />    case "$CHAR" in<br />      " " )<br />        PARAM_ARRAY+=("$TOKEN")<br />        TOKEN=""<br />        CHAR=""<br />      ;;<br /><br />      * )<br />        # Any other character just goes to the current token<br />        TOKEN="$TOKEN$CHAR"<br />        CHAR=""<br />      ;;<br />    esac<br />    i=$( expr $i + 1 )<br />  done<br /><br />  # Do not forget that token still contains last parameter<br />  PARAM_ARRAY+=("$TOKEN")<br /><br />($DEBUG) &amp;&amp; printf "Finished parsing. Checking array...\n"<br /><br />  # Process the parametrs array to set options and read value<br />  for (( i=0; i &lt;= $(expr ${#PARAM_ARRAY[@]} - 1 ) ; i++ )) ; do<br />    printf "  Element %s: «%s»\n" $i "${PARAM_ARRAY[i]}"<br />  done<br /><br />}<br /></code></pre><br />вельми задоволений собою. але те саме робиться одним рядком:<br /><br /><pre><code>IFS=', ' read -r -a PARAM_ARRAY &lt;&lt;&lt; "$PARAM_STRING"<br /></code></pre><br />насправді, звісно, не все так просто. я знав про рішення з read, але сподівався навчитися зберігати фрагменти між лапками ("…") вкупі, в одному елементі масиву. не вийшло — бо оболонка прибирає ті рядки ще на етапі передачі параметрів скрипту, як я зрозумів.<br /><br />тому повернувся до простішого one-liner'а.<br /><br /><b>p.s.</b> вподобав собі розставляти чекпоінти для зневадження, згодом DEBUG=true вельми спрощує життя, <strike>якщо</strike> коли щось іде не так:<br /><br /><pre><code>($DEBUG) &amp;&amp; printf "…\n"<br /></code></pre>

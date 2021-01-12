@@ -1,0 +1,17 @@
+---
+layout: post
+title: альо, debian слухає!
+date: '2019-07-10T17:56:00.002+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+- мережі
+modified_time: '2019-07-10T17:56:45.838+03:00'
+thumbnail: https://1.bp.blogspot.com/-ooiHt6Ao-QA/XSX0-QMHtgI/AAAAAAABZQ4/fVzP37HsrkUpiVViB9U1AuJ2re5abe9VwCLcBGAs/s72-c/screenshot.2019-07-10%2B%25281%2529.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-6213892096836355147
+blogger_orig_url: http://www.tivasyk.info/2019/07/debian.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-ooiHt6Ao-QA/XSX0-QMHtgI/AAAAAAABZQ4/fVzP37HsrkUpiVViB9U1AuJ2re5abe9VwCLcBGAs/s1600/screenshot.2019-07-10%2B%25281%2529.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="112" data-original-width="612" height="58" src="https://1.bp.blogspot.com/-ooiHt6Ao-QA/XSX0-QMHtgI/AAAAAAABZQ4/fVzP37HsrkUpiVViB9U1AuJ2re5abe9VwCLcBGAs/s320/screenshot.2019-07-10%2B%25281%2529.jpg" width="320" /></a></div>мінімальна інсталяція debian 9 не має netstat… та й не треба, бо є <a href="https://linux.die.net/man/8/lsof" target="_blank">lsof</a>, який також дозволяє перевірити, хто які порти «слухає»:<br /><code></code><br /><pre><code>sudo lsof -i -P -n | grep LISTEN</code></pre><br />насправді lsof уміє значно більше, ніж лише це, <a href="https://danielmiessler.com/study/lsof/" target="_blank">треба читати</a>.<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-faK8dCBOc6A/XSX74j4B3hI/AAAAAAABZRE/H8X_yFpjRZ8SVfUoqhS96IhwBdSEfJfZACLcBGAs/s1600/screenshot.2019-07-10%2B%25282%2529.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="125" data-original-width="571" height="69" src="https://1.bp.blogspot.com/-faK8dCBOc6A/XSX74j4B3hI/AAAAAAABZRE/H8X_yFpjRZ8SVfUoqhS96IhwBdSEfJfZACLcBGAs/s320/screenshot.2019-07-10%2B%25282%2529.jpg" width="320" /></a></div><b>p.s.</b> а чому немає netstat? тому що його тепер (частково) заміняє новіший ss, наприклад:<br /><code></code><br /><pre><code>ss -tu state listening</code></pre><br />детальніше про використання ss теж <a href="https://www.linux.com/learn/intro-to-linux/2017/7/introduction-ss-command" target="_blank">треба читати</a>.

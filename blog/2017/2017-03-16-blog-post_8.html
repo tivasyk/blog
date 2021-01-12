@@ -1,0 +1,17 @@
+---
+layout: post
+title: покращене запрошення в терміналі (фінал)
+date: '2017-03-16T06:55:00.000+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+- bash
+modified_time: '2017-03-16T06:55:08.512+02:00'
+thumbnail: https://4.bp.blogspot.com/-VtLVUlQOnCs/WMoZDzYO6oI/AAAAAAABAbM/byII29aoUxMNk7VEhSXl7OPx788E4mqbgCLcB/s72-c/Peek%2B2017-03-16%2B00-44.gif
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-7374800687375665320
+blogger_orig_url: http://www.tivasyk.info/2017/03/blog-post_8.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://4.bp.blogspot.com/-VtLVUlQOnCs/WMoZDzYO6oI/AAAAAAABAbM/byII29aoUxMNk7VEhSXl7OPx788E4mqbgCLcB/s1600/Peek%2B2017-03-16%2B00-44.gif" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="115" src="https://4.bp.blogspot.com/-VtLVUlQOnCs/WMoZDzYO6oI/AAAAAAABAbM/byII29aoUxMNk7VEhSXl7OPx788E4mqbgCLcB/s200/Peek%2B2017-03-16%2B00-44.gif" width="200" /></a></div>мудрував-мудрував, та не вимудрував: зрозуміло, що перевірка коду завершення попередньої команди має бути першою операцією під час формування промпту… тому значно простіше кодувати кольором перший елемент (номер команди в історії), аніж останній (власне запрошення $).<br /><br />заміну домашньої теки на ~ також подужав, а от «розумне» скорочення шляху сегментами зробити, звісно, можна, — але з такими «вивертами», що результат не вартий тих зусиль і захаращеного .bashrc.<br /><br />отже, фінальна версія запрошення:<br /><ul><li>показує номер команди в історії — червоним, якщо попередня команда завершилася з помилкою;</li><li>виділяє root'а кольором;</li><li>скорочує шлях до поточної директорії, якщо довший за 30 символів, попередньо заміняючи домашню теку на ~;</li><li>показує кількість фонових процесів, якщо є.</li></ul>на цьому й зупинюся. анімований зняток ілюструє, як все виглядає. код <a href="http://pastebin.com/1cdNshur" target="_blank">на pastebin</a>:<br /><br /><iframe src="//pastebin.com/embed_iframe/1cdNshur" style="border: none; width: 100%;"></iframe>

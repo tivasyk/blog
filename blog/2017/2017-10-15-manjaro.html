@@ -1,0 +1,16 @@
+---
+layout: post
+title: рекурсивний manjaro на батарейках (необхідний мінімум)
+date: '2017-10-15T02:57:00.001+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+modified_time: '2017-10-15T02:57:19.664+03:00'
+thumbnail: https://1.bp.blogspot.com/-JhmNnkzx6Fs/WeKaMqaNEbI/AAAAAAABJsE/liyuauJGa2E1idAsmN72MqipWL1WmVhTwCLcBGAs/s72-c/2017-10-14_185631_Screenshot_lomo.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-6128164020999095559
+blogger_orig_url: http://www.tivasyk.info/2017/10/manjaro.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-JhmNnkzx6Fs/WeKaMqaNEbI/AAAAAAABJsE/liyuauJGa2E1idAsmN72MqipWL1WmVhTwCLcBGAs/s1600/2017-10-14_185631_Screenshot_lomo.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="576" data-original-width="1024" height="180" src="https://1.bp.blogspot.com/-JhmNnkzx6Fs/WeKaMqaNEbI/AAAAAAABJsE/liyuauJGa2E1idAsmN72MqipWL1WmVhTwCLcBGAs/s320/2017-10-14_185631_Screenshot_lomo.jpg" width="320" /></a></div>трохи затяглося <a href="http://www.tivasyk.info/2017/10/manjaro-linux_9.html" target="_blank">тестування робочого середовища з manjaro на зовнішньому механічному диску </a>— поки що не ризикую переносити на ssd, бо мав проблеми зі стабільністю між перезавантаженнями, аж до відмови кількох комп'ютерів розпізнавати диск через usb 3.<br /><br />з програм мені потрібно небагато:<br /><ul><li>packet tracer</li><li>virtualbox </li><li>dropbox</li></ul>з першою найцікавіше: якщо взяти пакунок <a href="https://www.netacad.com/group/offerings/packet-tracer" target="_blank">packet tracer 7 з офіційного сайту мережевої академії cisco</a> — він чудово встановиться, але не запускатиметься як слід (за бажання запустити можна, але працюватиме з проблемами). якщо взяти <a href="https://aur.archlinux.org/packages/packettracer/" target="_blank">версію з репозиторію aur</a> — він не встановиться… але скомпілює необхідні залежності, через що… зненацька починає нормально працювати офіційна версія.<br /><br />зі встановленням двох інших програмам жодних проблем нема: virtualbox є в репозиторіях manjaro/arch, а dropbox — в aur'і.<br /><br />на диску я поки що залишив чималий розділ ntfs (300 з гаком гігабайт) на той випадок, якщо доведеться щось переносити між linux та windows… але в підсумку, гадаю, залишу якісь 30 гігабайт для цього, і то в exfat, швидше за все: ntfs виявляється вельми проблемним під linux (зокрема, поточна версія gparted не в змозі коректно змінити розмір розділу, так надто просто втратити дані).<br /><br />

@@ -1,0 +1,17 @@
+---
+layout: post
+title: gauge
+date: '2017-02-24T05:46:00.000+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- bash
+- позитив
+modified_time: '2017-02-24T05:46:24.713+02:00'
+thumbnail: https://3.bp.blogspot.com/-COvS0nHGWn4/WK-mjOjdFtI/AAAAAAAA_S4/H_me1fvA6Yc8Z_INTEUqA878MdjIOgqTACLcB/s72-c/Peek%2B2017-02-23%2B22-09.gif
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-6705031044887324576
+blogger_orig_url: http://www.tivasyk.info/2017/02/gauge.html
+---
+
+<div style="text-align: right;"><i>— петько́, прилади?!</i></div><div style="text-align: right;"><i>— триста!</i></div><div style="text-align: right;"><i>— що «триста»?</i></div><div style="text-align: right;"><i>— а що «прилади»?</i></div><div style="text-align: right;">(бородатий анекдот)</div><br /><div class="separator" style="clear: both; text-align: center;"><a href="https://3.bp.blogspot.com/-COvS0nHGWn4/WK-mjOjdFtI/AAAAAAAA_S4/H_me1fvA6Yc8Z_INTEUqA878MdjIOgqTACLcB/s1600/Peek%2B2017-02-23%2B22-09.gif" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="117" src="https://3.bp.blogspot.com/-COvS0nHGWn4/WK-mjOjdFtI/AAAAAAAA_S4/H_me1fvA6Yc8Z_INTEUqA878MdjIOgqTACLcB/s1600/Peek%2B2017-02-23%2B22-09.gif" width="200" /></a></div>після налаштування отого <a href="http://www.tivasyk.info/2017/02/blog-post_19.html">монітора процесора на іскрах</a> мені дуже захотілося змайструвати ще кілька моніторів — пам'яті, дискового простору<br /><br />тож закатав рукава і попрацював трохи на bash'тані.<br /><br />результат на скрінкасті (чи то пак на <a href="http://slovotvir.org.ua/words/skrinkast" target="_blank">відеознятку</a>). це мій <b>gauge</b> — універсальний псевдографічний візуалізатор відсотків для командного рядка на bash. він приймає як параметр число, і малює горизонтальний або вертикальний індикатор. додатковими параметрами можна наказати йому малювати рамки чи ні, домальовувати числове значення з різними розмірностями тощо.<br /><br />динамічні індикатори на скрінкасті — то тестові скрипти, що в циклі викликають gauge.<br /><br />одна біда: десь я нахімічив, і скрипт глючить, якщо параметри передавати не явно, а запомповувати в stdin, приміром так:<br /><br /><code>echo 45 | gauge</code><br /><br />але я знайду причину, і тоді ніщо не спинить мене наклепати різних індикаторів до системної панельки.

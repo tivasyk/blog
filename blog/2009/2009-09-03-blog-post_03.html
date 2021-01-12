@@ -1,0 +1,15 @@
+---
+layout: post
+title: вбити беззахисного пінгвіна?
+date: '2009-09-03T10:46:00.001+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+modified_time: '2009-09-03T10:49:09.815+03:00'
+thumbnail: http://1.bp.blogspot.com/_wFmUV6FUCKU/Sp9yP_qsIiI/AAAAAAAAF28/xyD_klpRXmQ/s72-c/tux_patient.png
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-1997261830917656057
+blogger_orig_url: http://www.tivasyk.info/2009/09/blog-post_03.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/_wFmUV6FUCKU/Sp9yP_qsIiI/AAAAAAAAF28/xyD_klpRXmQ/s1600-h/tux_patient.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img src="http://1.bp.blogspot.com/_wFmUV6FUCKU/Sp9yP_qsIiI/AAAAAAAAF28/xyD_klpRXmQ/s200/tux_patient.png" border="0" /></a></div>linux стабільний і надійний, вірусів для нього майже нема… проте ніщо не встоїть перед досвіченим юзером, чи не так?<br /><br />мій рецепт для ubuntu/linux mint: активуємо профіль <i>root</i>'а (адміністратора), а пароль до нього з часом забуваємо — особливість ubuntu та похідних в тім, що системою ще цілком можна користуватися,адмініструючи через <i>sudo</i>. в якийсь момент ліземо до файлу <span style="font-style: italic;">/etc/sudoers</span>, щоби налаштувати автозапуск якогось скрипта з правами root'а, залишаємо там якесь сміття, котре не парситься нормально, і… приплили: під своїм профілем системою можна користуватися скільки завгодно, проте система «зафіксована», жодні адміністраторські функції більше не доступні.<br /><br />перевірено на практиці. не робіть так =D<br /><br />гаразд, що далі? є два шляхи: правильний і ламерський.<br /><ul><li><b>правильний</b>: завантажити <a href="http://partedmagic.com/">parted magic</a> (з <a href="http://partedmagic.com/documentation/136-creating-the-livecd-with-infrarecorder.html">livecd</a> або <a href="http://partedmagic.com/documentation/130-creating-the-liveusb.html">liveusb</a>) і відновити файл sudoers…</li><li>…або <b>ламерський</b>: почати все з початку, встановивши систему на нетбук наново.</li></ul>я вибрав другий шлях — і не через ностальгію за регулярною переінсталяцією windows 95/xp, а тому що це нагода <a href="http://www.tivasyk.info/2009/07/aspire-one-a110-ssd.html">перепрошити накопичувач ssd</a> та спробувати <a href="http://www.tivasyk.info/2009/07/linux-mint-xfce.html">реліз-кандидат linux mint 7 xfce</a>.<br /><br />зроблю — позвітую.

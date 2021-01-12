@@ -1,0 +1,17 @@
+---
+layout: post
+title: макет монітора
+date: '2019-07-17T17:30:00.001+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- ідея
+- bash
+modified_time: '2019-07-17T19:06:32.949+03:00'
+thumbnail: https://1.bp.blogspot.com/-smctFRvHvz0/XS8dCnZRjtI/AAAAAAABZgc/pBmj-crJWWEbb5Q1Mz6vB2xRdyY94Rx8ACLcBGAs/s72-c/screenshot.2019-07-17.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-2039403971385159199
+blogger_orig_url: http://www.tivasyk.info/2019/07/blog-post_17.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-smctFRvHvz0/XS8dCnZRjtI/AAAAAAABZgc/pBmj-crJWWEbb5Q1Mz6vB2xRdyY94Rx8ACLcBGAs/s1600/screenshot.2019-07-17.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="541" data-original-width="792" height="218" src="https://1.bp.blogspot.com/-smctFRvHvz0/XS8dCnZRjtI/AAAAAAABZgc/pBmj-crJWWEbb5Q1Mz6vB2xRdyY94Rx8ACLcBGAs/s320/screenshot.2019-07-17.jpg" width="320" /></a></div>накидав у bash’і дуже грубий <b>макет</b> того, що хочеться бачити в моніторі статусу сервера (як на мої примітивні потреби).<br /><br />тут ще бракує деталей (використання процесора, для прикладу), і <b>виглядає зовсім не так</b>, як треба (зі знятку має бути очевидно, що я ще не робираю як слід дані, це майже просто вивід df, free, docker ps тощо). але на макеті я трохи краще зрозумів, що хочеться мати перед очима:<br /><ul><li>викинути к бісу «простирадло» процесів (top, htop, atop тощо) — воно заважає; потрібна лише інформація про найжадібніші до процесора/пам’яті та зомбі;</li><li>читати всі потрібні дані за один захід, за потреби — дистанційно по ssh, потім повністю розпарсити їх, щоби довільно форматувати вивід і накладати кольори;</li><li>використати колір для кодування попереджень та тривог, псевдографіку та spark-подібні графіки для більшої наглядности (підняти з архівів свій напівзавершений&nbsp;<a href="http://www.tivasyk.info/2017/02/gauge.html" target="_blank">gauge</a>);</li><li>ущільнити вивід, додавши деталей — але не жертвуючи читабельністю (дивлюся на atop і ридаю); можливо — використати шаблони, щоби можна було складати довільні виводи «під себе».</li></ul><div><b>p.s.</b> код макету не показую, бо воно страшне, на коліні зліплене. вже коли та якщо зроблю щось путнє — ділитимуся.<br /><br /><b>оновлено</b> (17 липня 2019). хороше нагадування від товариша: почитати, нарешті, про <a href="https://www.zabbix.com/documentation/1.8/manual/about" target="_blank">zabbix</a> та спробувати.</div>

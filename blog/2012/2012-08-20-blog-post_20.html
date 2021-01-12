@@ -1,0 +1,15 @@
+---
+layout: post
+title: питання про годинник
+date: '2012-08-20T16:16:00.003+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+modified_time: '2012-08-20T18:19:07.548+03:00'
+thumbnail: http://1.bp.blogspot.com/-fzJmBDqsxok/UDI2Dh38R4I/AAAAAAAAPbc/GDJJJeuG6CA/s72-c/P8030084_resize.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-4941844244275502973
+blogger_orig_url: http://www.tivasyk.info/2012/08/blog-post_20.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-fzJmBDqsxok/UDI2Dh38R4I/AAAAAAAAPbc/GDJJJeuG6CA/s1600/P8030084_resize.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="150" src="http://1.bp.blogspot.com/-fzJmBDqsxok/UDI2Dh38R4I/AAAAAAAAPbc/GDJJJeuG6CA/s200/P8030084_resize.jpg" width="200" /></a></div>приблизно 10-12% читачів цього щоденника — користувачі <i>linux</i> (сюди не включаю мобільні пристрої на кшалт смартфонів з android’ом). <b>питання до вас</b>.<br /><br />годинник вашого ноутбука чи пк (<i>hardware clock</i>) — виставлений <b>по utc чи за місцевим часом</b>?<br /><br /><a name='more'></a>перевірити можна командою <i>hwclock</i> (потребує root’ових привілеїв) в терміналі:<br /><blockquote class="tr_bq"><code>sudo hwclock</code></blockquote><strike>…і якщо у виводі присутня поправка на зону (+0300 або +0200 для києва, залежно від пори року) — час місцевий, якщо ж поправки немає (0000) — маєте <a href="http://uk.wikipedia.org/wiki/UTC" target="_blank">універсальний координований час</a></strike>. дідько! надурив сам себе і вас: hwclock без параметрів показує локальний час незалежно від того, як виставлено годинник на платі =/<br /><br />ось ця команда показує <b>справжній стан справ</b> (разом з купою додаткової технічної інформації):<br /><blockquote class="tr_bq"><code>sudo hwclock --show --debug</code></blockquote>…і, виявляється, <b>мій годинник в utc</b>:<br /><blockquote class="tr_bq"><code>hwclock from util-linux 2.20.1<br />Using /dev interface to clock.<br />Last drift adjustment done at 1344520273 seconds after 1969<br />Last calibration done at 1344520273 seconds after 1969<br />Hardware clock is on UTC time<br />Assuming hardware clock is kept in UTC time.<br />Waiting for clock tick...<br />...got clock tick<br />Time read from Hardware Clock: 2012/08/20 15:14:23<br />Hw clock time : 2012/08/20 15:14:23 = 1345475663 seconds since 1969<br />пн, 20-сер-2012 18:14:23 +0300  -0.032741 seconds</code></blockquote><b>p.s.</b> світлина <a href="http://www.tivasyk.info/2012/08/blog-post_13.html" target="_blank">з брюгге</a>.

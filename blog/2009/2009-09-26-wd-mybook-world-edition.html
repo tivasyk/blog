@@ -1,0 +1,14 @@
+---
+layout: post
+title: правильне монтування wd mybook world edition
+date: '2009-09-26T11:31:00.002+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+modified_time: '2009-09-27T16:23:28.472+03:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-894280636389468590
+blogger_orig_url: http://www.tivasyk.info/2009/09/wd-mybook-world-edition.html
+---
+
+попереднього разу я собі на пам'ятку <a href="http://www.tivasyk.info/2009/09/blog-post_22.html">занотував команду</a> для підключення до мережевого сховища з командного рядка... як виявилося, цей спосіб мав одну проблему: кириличні символи в назвах файлів та тек на wd mybook'у не відображалися (точніше, замінялися знаками ?).<br /><br />проблема, виявляється, вирішується просто --- невеличкою модифікацією команди. правильне монтування:<br /><span id="fullpost"><blockquote><code><span style="font-size: x-small;">sudo mount -t cifs //[ip адреса nas'а]/PUBLIC /home/[ім'я користувача]/mybook -o user=[логін],pass=[пароль],iocharset=utf8</span></code><br /></blockquote>або <br /><blockquote><code><span style="font-size: x-small;">sudo mount.cifs //[ip адреса nas'а]/PUBLIC /home/[ім'я користувача]/mybook -o user=[логін],pass=[пароль],iocharset=utf8</span><br /><code></code></code><br /></blockquote><br />мабуть, можна і без <i>sudo</i>. команда змонтує вміст nas'а в теку mybook всередині домашньої теки вказаного користувача --- але теку mybook треба створити заздалегідь.<br /><br />окрім того навчився підключатися до nas'а без необхідності шаманити в командному рядку, за допомогою програмки <i>pyneighborhood</i>, що є в комплекті linux mint 7. детальніше розповім за іншим разом.</span>

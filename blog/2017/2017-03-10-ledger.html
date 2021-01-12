@@ -1,0 +1,18 @@
+---
+layout: post
+title: 'ledger: трохи покращення в командному рядку'
+date: '2017-03-10T17:35:00.000+02:00'
+author: tivasyk
+tags:
+- ledger
+- гроші
+- комп'ютери
+- linux
+- підказки
+modified_time: '2017-03-10T17:36:06.746+02:00'
+thumbnail: https://4.bp.blogspot.com/-yfk_vBvV8Ew/WJPMr7STZ7I/AAAAAAAA9Vc/E6YmseUEefY_LAcUhlba6gsRvzF-1SGXQCLcB/s72-c/2017-02-02_191659_2560x1440_lomo.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-5909009225230466035
+blogger_orig_url: http://www.tivasyk.info/2017/03/ledger.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://4.bp.blogspot.com/-yfk_vBvV8Ew/WJPMr7STZ7I/AAAAAAAA9Vc/E6YmseUEefY_LAcUhlba6gsRvzF-1SGXQCLcB/s1600/2017-02-02_191659_2560x1440_lomo.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="133" src="https://4.bp.blogspot.com/-yfk_vBvV8Ew/WJPMr7STZ7I/AAAAAAAA9Vc/E6YmseUEefY_LAcUhlba6gsRvzF-1SGXQCLcB/s200/2017-02-02_191659_2560x1440_lomo.jpg" width="200" /></a></div>закохався в ledger. але друкувати щоразу кілька тих самих опцій, щоби переглянути баланси по рахунках чи звіт про витрати в поточному місяці лінуюся.<br /><br />на щастя, командний рядок linux — це просто диво якесь, наче навмисне вигадане для таких лентюхів, як оце я. отже, замість<br /><code></code><br /><pre><code>ledger --no-color --file /Dropbox/finances/ledger/tivasyk_2017.ledger --begin 2017-03-01 balance Витрати</code></pre><br />чи подібного додав собі таке до .bashrc:<br /><code></code><br /><pre><code>export LEDGER=/Dropbox/finances/ledger/tivasyk_2017.ledger<br />alias expenses="ledger --no-color --file $LEDGER --begin $(date +'%Y-%m-01' -d 'now') balance Витрати"<br />alias balance="ledger --no-color --file $LEDGER balance Активи Пасиви"<br /></code></pre><br />і тепер — поточний баланс по рахунках:<br /><code></code><br /><pre><code>balance</code></pre><br />витрати в поточному місяці:<br /><code></code><br /><pre><code>expenses</code></pre><br />банально, звісно, для кожного, хто бодай трохи користується командним рядком.

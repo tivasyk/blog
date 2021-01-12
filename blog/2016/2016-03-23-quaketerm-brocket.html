@@ -1,0 +1,16 @@
+---
+layout: post
+title: quaketerm і brocket — прості bash’ики
+date: '2016-03-23T22:45:00.004+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+- bash
+modified_time: '2016-04-01T22:52:42.157+03:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-6578974732483595374
+blogger_orig_url: http://www.tivasyk.info/2016/03/quaketerm-brocket.html
+---
+
+днями відкрив для себе два хаки, і тепер навіть не уявляю, як користувався ноутбуком без них раніше:<br /><ul><li>terminator в режимі quake;</li><li>brocket.</li></ul>прості скрипти справді роблять комп'ютер зручнішим.<br /><ul></ul><h3>terminator в режимі quake</h3>спершу був термінал quake, потім та ж красива ідея дала yakuake, tilda і guake. але я давно користуюся terminator'ом, звик до нього. простенький bash-скрипт дозволяє перетворити будь-який термінал на pull-down у стилі quake:<br /><pre>#!/bin/sh<br /><br />TerminalName="Quaketerminal"<br />TerminalX=183<br />TerminalY=0<br />TerminalW=1000<br />TerminalH=500<br /><br /># Check if Terminator window exists<br /># and launch terminator if it doesn't<br />wmctrl -l | grep ${TerminalName}<br />if [ $? -ne 0 ]; then<br />  terminator --title=${TerminalName} --geometry=${TerminalW}x${TerminalH}+${TerminalX}+${TerminalY} &amp;<br />fi<br /><br /># Unshade and bring to front<br />if [ -f $HOME/.quaketerm.shaded ]; then<br />  wmctrl -F -R ${TerminalName}<br />  wmctrl -F -r ${TerminalName} -b remove,below<br />  wmctrl -F -r ${TerminalName} -b remove,shaded<br />  rm $HOME/.quaketerm.shaded<br /><br /># Shade and send to back<br />else<br />  wmctrl -F -r ${TerminalName} -b add,shaded<br />  wmctrl -F -r ${TerminalName} -b add,below<br />  touch $HOME/.quaketerm.shaded<br />fi<br /><br />exit 0</pre><br />чернетку скрипта <a href="https://www.linuxjournal.com/magazine/hack-and-automate-your-desktop-wmctrl" target="_blank">знайшов у тенетах</a>, трохи вдосконалив для себе. я назвав скрипт quaketerm, кинув до $HOME/bin і «причепив» на <i>win-t</i>. працює як годинник. хоча код кривуватий і потребує ще допилювання:<br /><ul><li>задавати ширину терміналу в % від екрану і центрувати автоматично;</li><li>знайти спосіб повертати фокус до попереднього вікна, ховаючи термінал.</li></ul><h3>brocket</h3>ще одна <a href="https://github.com/dmikalova/brocket" target="_blank">цікава знахідка</a>, якої мені давно бракувало, але я цього не усвідомлював: скрипт, котрий перевіряє, чи запущена вже програма, і якщо так — переключає фокус на неї, а якщо ні — запускає (і опційно перекидає на поточну стільницю, або ж переходить на ту, де програму відкрито).<br /><br />тепер достатньо на <i>win-f</i> (або <i>win-w</i>) «повісити» таке:<br /><br /><code>brocket -c firefox</code><br /><br />і більше ніколи не плутатися в кількох копіях вогнелиса на різних стільницях: лише одне активно вікно, всі вкладки в ньому. те саме для файлового менеджера, текстового редактора тощо.

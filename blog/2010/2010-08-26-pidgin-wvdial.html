@@ -1,0 +1,15 @@
+---
+layout: post
+title: pidgin та wvdial
+date: '2010-08-26T15:26:00.002+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+modified_time: '2010-08-26T15:28:34.006+03:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-3513068012464052232
+blogger_orig_url: http://www.tivasyk.info/2010/08/pidgin-wvdial.html
+---
+
+цікавий момент: <i>pidgin</i> не хоче бачити з’єднання, встановленне через <i>wvdial</i> (як правило, це інтерфейс <i>ppp0</i>)… рішення <a href="http://ubuntuforums.org/showthread.php?t=946053">знайшлося швидко</a>: необхідно запускати <i>pidgin</i> з ключиком <i>-f</i>:<br /><blockquote><span class="Apple-style-span" style="font-size: small;">$ pidgin -f</span></blockquote>дивно, але цей ключ не згадується в man’і… нехай. зрозуміло, що робити це вручну не хочеться — отже треба виправити файл <i>pidgin.desktop</i>:<br /><blockquote><span class="Apple-style-span" style="font-size: small;">$ sudo mousepad /usr/share/applications/pidgin.desktop</span></blockquote>(для новачків: замість mousepad можна взяти інший редактор: <i>nano</i>, <i>gedit</i>, <i>kate</i> тощо). виправляємо лише один рядок:<br /><blockquote><span class="Apple-style-span" style="font-size: small;">Exec=pidgin </span><b><span class="Apple-style-span" style="font-size: small;">-f</span></b></blockquote>готово.

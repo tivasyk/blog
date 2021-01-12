@@ -1,0 +1,17 @@
+---
+layout: post
+title: автоповорот екрана для linux
+date: '2018-12-23T22:02:00.001+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- програмування
+- linux
+- bash
+modified_time: '2018-12-23T22:02:22.757+02:00'
+thumbnail: https://4.bp.blogspot.com/-43HYqnawKcQ/XB_mQUPEz-I/AAAAAAABUMA/90gwKagaFKYsKEZN8msLWibMMSMmrwnCACLcBGAs/s72-c/Screenshot_20181223_142103_lomo.jpeg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-3508814168296302007
+blogger_orig_url: http://www.tivasyk.info/2018/12/linux_2.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://4.bp.blogspot.com/-43HYqnawKcQ/XB_mQUPEz-I/AAAAAAABUMA/90gwKagaFKYsKEZN8msLWibMMSMmrwnCACLcBGAs/s1600/Screenshot_20181223_142103_lomo.jpeg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="1600" data-original-width="900" height="320" src="https://4.bp.blogspot.com/-43HYqnawKcQ/XB_mQUPEz-I/AAAAAAABUMA/90gwKagaFKYsKEZN8msLWibMMSMmrwnCACLcBGAs/s320/Screenshot_20181223_142103_lomo.jpeg" width="180" /></a></div>чорнова версія скрипту для автоповороту екрана між портретним та пейзажним режимами для linux — працює.<br /><br />запуск:<br /><br /><code>tabletizer --cont</code><br /><br />якщо не вказати параметр --cont, скрипт відпрацює один раз і завершиться; --cont [інтервал] запускає циклічне опитування акселерометра зі вказаним інтервалом в секундах (за замовчуванням 1 с).<br /><br />виявилося, що гістерезис для повороту все ж таки має враховувати всі три осі, а не лише x, як я собі гадав на початку.<br /><br />залежностей мінімум: <i>xrandr</i>, <i>xinput</i>, <i>grep</i>, <i>sed</i>. перевірено лише на aspire r13 (r7-371t) з arch linux (manjaro kde), але і на інших «трансформерах» та під іншими дистрибутивами теж має працювати (можливо, з невеликими модифікаціями), якщо встановлено відповідні драйвери для linux industrial i/o.<br /><br />можуть бути вади, пов'язані з кількома моніторами чи робочими просторами (як в kde) — поки що не мав часу все перевірити.<br /><br /><iframe src="https://pastebin.com/embed_iframe/CtuEaHkS" style="border: none; height: 300px; width: 100%;"></iframe><br /><br />в планах на колись (коли буде натхнення):<br /><ul><li>«причесати» код, особливо в частині перемикання (гістерезис);</li><li>додати опцію відкривання екранної клавіатури;</li><li>позбутися залежності від sed (малесенький фрагмент, що я запозичив готовий, треба переписати).</li></ul>

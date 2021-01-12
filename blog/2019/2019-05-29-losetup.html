@@ -1,0 +1,15 @@
+---
+layout: post
+title: 'гіперпетлі для пінгвіна: файлова система у файлі (losetup)'
+date: '2019-05-29T21:57:00.000+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказка
+modified_time: '2019-05-29T22:38:54.134+03:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-5283052933485847001
+blogger_orig_url: http://www.tivasyk.info/2019/05/losetup.html
+---
+
+як я міг цього не знати? монтування <a href="https://en.wikipedia.org/wiki/Loop_device" target="_blank">файлу як пристрою</a> (loop device) з файловою системою (по суті, файлова система у файлі) за допомогою losetup — це вельми просто:<br /><br /><b>крок 1</b>. створюємо порожній файл потрібного розміру (128 мб для прикладу):<br /><br /><code>head -c 128M /dev/zero &gt; /path/to/file</code><br /><br /><b>крок 2</b>. шукаємо першу вільну мітку пристрою (/dev/loopX):<br /><br /><code>losetup -f</code><br /><br /><b>крок 3</b>. підключаємо файл file.img як пристрій (для прикладу /dev/loop1):<br /><br /><code>(sudo) losetup /dev/loop1 /path/to/file.img</code><br /><br /><b>крок 4</b>. створюємо файлову систему (ext4 для прикладу):<br /><br /><code>(sudo) mkfs.ext4 /dev/loop1</code><br /><br /><b>крок 5</b>. …і монтуємо пристрій куди треба (/mnt/mount_point):<br /><br /><code>(sudo) mount /dev/loop1 /mnt/mount_point</code><br /><br />користуємося.<br /><br />коли треба відмонтувати:<br /><br /><code>(sudo) umount /dev/loop1</code><br /><br />коли треба взагалі відключити файл і звільнити мітку пристрою:<br /><br /><code>(sudo) losetup -d /dev/loop1</code><br /><br /><b>бонус!</b> якщо маємо файл з уже створеною файловою системою (тобто крок 4 не потрібен) — тоді кроки 2, 3 та 5 можна об’єднати, бо <i>mount</i> вміє це робити сам:<br /><br /><code>(sudo) mount -o loop /path/to/file.img /mnt/mount_point</code><br /><br />ще один&nbsp;<b>бонус!</b> команди для резервування місця під файл, в порядку спадання швидкості (для порівняння в дужках даю час, що знадобився на моєму ноутбуці з ssd):<br /><br /><ul><li>fallocate -l 128M /path/to/file (3 мс)</li><li>dd if=/dev/zero of=/path/to/file (208 мс)</li><li>head -c 128M /dev/zero &gt; /path/to/file (324 мс)</li></ul><br />очевидно, що <i>fallocate </i>не заповнює файл нулями, як це роблять дві інших команди, лише резервує місце (в більшости випадків цього досить).

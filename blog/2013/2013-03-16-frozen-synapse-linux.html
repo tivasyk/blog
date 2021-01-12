@@ -1,0 +1,16 @@
+---
+layout: post
+title: звук для frozen synapse у linux
+date: '2013-03-16T20:47:00.004+02:00'
+author: tivasyk
+tags:
+- ігри
+- linux
+- підказки
+modified_time: '2013-03-16T20:47:47.108+02:00'
+thumbnail: http://2.bp.blogspot.com/-RKcc5QbduQA/UUS65akPusI/AAAAAAAAS_8/17gzW6__ce0/s72-c/frozen-synapse-title_resize.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-4566564551986056477
+blogger_orig_url: http://www.tivasyk.info/2013/03/frozen-synapse-linux.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-RKcc5QbduQA/UUS65akPusI/AAAAAAAAS_8/17gzW6__ce0/s1600/frozen-synapse-title_resize.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="125" src="http://2.bp.blogspot.com/-RKcc5QbduQA/UUS65akPusI/AAAAAAAAS_8/17gzW6__ce0/s200/frozen-synapse-title_resize.jpg" width="200" /></a></div>вихідні. пригадав, що з чотирьох придбаних ігрових збірок <a href="http://www.tivasyk.info/search/?q=humble+bundle" target="_blank">humble bundle</a>, — а це 33 забавки! — десяток я ще взагалі не пробував. цього разу вибрав <a href="http://en.wikipedia.org/wiki/Frozen_Synapse" target="_blank">frozen synapse</a>.<br /><br />перші враження: це як тактична частина легендарної серії <a href="http://en.wikipedia.org/wiki/Tom_Clancy's_Rainbow_Six_(video_game)" target="_blank">tom clancy's raibow six</a> чи трішки менш легендарного (а даремно) <a href="http://en.wikipedia.org/wiki/UFO_Aftermath" target="_blank">ufo: aftermath</a>… тільки без текстур і без сценарію.<br /><br />я люблю текстури й сценарії. але покрокова тактика — це наркотик.<br /><br /><a name='more'></a>встановилося й запустилося без проблем, тільки чомусь і без звуку. причина, як виявилося, <a href="http://forums.mode7games.com/viewtopic.php?p=16346#p16346" target="_blank">відома</a>: в інсталяції поточної версії frozen synapse бракує бібліотеки libopenal.so, рішення — створити лінк на системну бібліотеку в теці &nbsp;зі встановленою забавкою.<br /><br />хитрість в тому, що бібліотеку треба спершу знайти. в&nbsp;моєму випадку вона «заховалася» аж у <i>/usr/lib/i386-linux-gnu/</i>.<br /><br />отже:<br /><blockquote class="tr_bq"><code>ln -s /usr/lib/i386-linux-gnu/libopenal.so.1 /home/tivasyk/games/FrozenSynapse</code></blockquote>створений файл-лінк <i>libopenal.so.1</i> треба перейменувать у <i>libopenal.so</i> (так, знаю, можна однією командою — але так менш очевидно для початківців), і —&nbsp;звук є, можна грати.

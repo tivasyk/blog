@@ -1,0 +1,17 @@
+---
+layout: post
+title: музична придумка для thunar
+date: '2013-03-23T19:35:00.000+02:00'
+author: tivasyk
+tags:
+- музика
+- комп'ютери
+- linux
+- підказки
+modified_time: '2013-03-25T09:32:39.397+02:00'
+thumbnail: http://2.bp.blogspot.com/-XHLCzgDmF1U/UU3k2XAQhuI/AAAAAAAATIg/XLCyH9TmLno/s72-c/screenshot_mpg123_01.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-8736245423231054450
+blogger_orig_url: http://www.tivasyk.info/2013/03/thunar.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-XHLCzgDmF1U/UU3k2XAQhuI/AAAAAAAATIg/XLCyH9TmLno/s1600/screenshot_mpg123_01.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;" target="_blank"><img border="0" height="111" src="http://2.bp.blogspot.com/-XHLCzgDmF1U/UU3k2XAQhuI/AAAAAAAATIg/XLCyH9TmLno/s200/screenshot_mpg123_01.jpg" width="200" /></a></div>занотую собі на згадку чергову придумку для thunar’а — <b>швидкий запуск вибраних музичних файлів</b> на програвання у консольному mpg123 за допомогою thunar’івських «особливих дій»:<br /><blockquote class="tr_bq"><code>terminator -H -T "Audioplayer" -x mpg123 -C %F --loop -1</code></blockquote>тут <i>-С</i> &nbsp;вмикає командний режим (<i>h</i> в поміч), а <i>--loop -1</i> повторює список програвання, в якому опиняться всі&nbsp;вибрані в thunar’і файли (%F). результат на <a href="http://2.bp.blogspot.com/-XHLCzgDmF1U/UU3k2XAQhuI/AAAAAAAATIg/XLCyH9TmLno/s1600/screenshot_mpg123_01.jpg" target="_blank">скріншоті</a>.<br /><br /><a name='more'></a>інші підказки для thunar:<br /><ul style="position: static; z-index: auto;"><li><a href="http://www.tivasyk.info/2010/04/thunar.html" target="_blank">миттєве видалення файлів</a></li><li><a href="http://www.tivasyk.info/2009/11/blog-post_6812.html" target="_blank">масштабування світлин для тенет</a></li></ul><b>p.s. </b>mpg123 мінімалістично прекрасний, але… підтримує лише mp3. якби ще ogg та mwa — було б чудово.<br /><br /><b>p.p.s.</b> от халепа: <i>--loop -1</i> не працює або працює лише для одного (першого) файла в черзі, залежно від того, куди опцію притулити (до чи після <i>%F</i>). ﻿міркую над цим…<br /><br /><br />

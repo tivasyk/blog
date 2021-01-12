@@ -1,0 +1,15 @@
+---
+layout: post
+title: тачпад відключити, курсор заховати
+date: '2013-02-02T00:30:00.001+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+modified_time: '2017-03-11T22:29:41.375+02:00'
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-8468864413520127502
+blogger_orig_url: http://www.tivasyk.info/2013/02/blog-post.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://www.wallpaper4me.com/images/wallpapers/inyourkeyboard-935469.jpeg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" src="http://www.wallpaper4me.com/images/wallpapers/inyourkeyboard-935469.jpeg" height="125" width="200" /></a></div>останнім часом (роки чотири десь) мені в «цих ваших windows’ах» дуже бракує <a href="http://www.tivasyk.info/2009/08/blog-post_27.html" target="_blank">автовідключення тачпада</a> і приховування курсора миші під час друку на клавіатурі… як завше, в linux’і все налаштовується за 30 секунд:<br /><blockquote class="tr_bq"><code>syndaemon -d -K -i 1 -m 100 &amp;<br />unclutter -idle 2 &amp;</code></blockquote>звісно ж, для автоматизації це треба прописати в якийсь скрипт автостарту… в openbox’і це <i>~/.config/openbox/autostart</i>.<br /><br />

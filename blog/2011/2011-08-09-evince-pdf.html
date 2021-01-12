@@ -1,0 +1,16 @@
+---
+layout: post
+title: evince та pdf-форми
+date: '2011-08-09T23:13:00.007+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- підказки
+modified_time: '2011-09-25T13:21:07.235+03:00'
+thumbnail: http://2.bp.blogspot.com/-vhSiByiVlao/TkGUxlufWSI/AAAAAAAALbU/ZsBhc9okZN8/s72-c/evince_icon_500px.png
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-5662972963829141774
+blogger_orig_url: http://www.tivasyk.info/2011/08/evince-pdf.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-vhSiByiVlao/TkGUxlufWSI/AAAAAAAALbU/ZsBhc9okZN8/s1600/evince_icon_500px.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="200" src="http://2.bp.blogspot.com/-vhSiByiVlao/TkGUxlufWSI/AAAAAAAALbU/ZsBhc9okZN8/s200/evince_icon_500px.png" width="200" /></a></div>виникла потреба заповнити pdf-форму. вдома лише машинки з linux, і встановлений штатно з <i>linux mint xfce</i> переглядач <i>evince</i> повинен це вміти… але при спробі зберегти файл з формою <a href="https://bugs.launchpad.net/ubuntu/+source/evince/+bug/492959">звітує про помилку</a>:<br /><blockquote><i>the file could not be saved as &lt;назва файлу&gt;. document is encrypted.</i></blockquote>халепа. гуглю… є така проблема, і <a href="https://bugs.launchpad.net/ubuntu/+source/evince/+bug/492959/comments/12">один з варіантів вирішення</a> простий: декриптувати документ за допомогою якогось простого інструмента — наприклад, <i>qpdf</i>.<br /><br /><a name='more'></a>спершу — встановити <i>qpdf</i>, якщо його нема в дистрибутиві: <br /><blockquote><code>sudo aptitude install qpdf</code></blockquote>а тоді, власне, поста вулична магія: <br /><blockquote><code>qpdf --decrypt &lt;вихідний_документ.pdf&gt; &lt;декриптована_копія.pdf&gt;</code></blockquote>створену копію форми можна переглядати й заповнювати за допомогою <i>evince</i>.<br /><br /><b>поправка.</b> <a href="http://jblevins.org/notes/pdf-forms">дупа</a>. підтверджується практикою: evince (2.30.3) не зберігає заповнену форму, попри все.

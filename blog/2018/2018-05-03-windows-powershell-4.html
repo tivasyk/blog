@@ -1,0 +1,17 @@
+---
+layout: post
+title: тип запуску сервісу windows у powershell 4
+date: '2018-05-03T17:37:00.000+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- windows
+- підказки
+- powershell
+modified_time: '2018-05-03T17:42:42.099+03:00'
+thumbnail: https://4.bp.blogspot.com/-g56HtgqZh_I/Wusfz65FFOI/AAAAAAABPQc/17k5lOddOFcyEVUdAjXk-5139DRDJaw5wCLcBGAs/s72-c/Screenshot_20180503_104026_lomo.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-86489270164032794
+blogger_orig_url: http://www.tivasyk.info/2018/05/windows-powershell-4.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://4.bp.blogspot.com/-g56HtgqZh_I/Wusfz65FFOI/AAAAAAABPQc/17k5lOddOFcyEVUdAjXk-5139DRDJaw5wCLcBGAs/s1600/Screenshot_20180503_104026_lomo.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="845" data-original-width="1280" height="211" src="https://4.bp.blogspot.com/-g56HtgqZh_I/Wusfz65FFOI/AAAAAAABPQc/17k5lOddOFcyEVUdAjXk-5139DRDJaw5wCLcBGAs/s320/Screenshot_20180503_104026_lomo.jpg" width="320" /></a></div>командлет get-service у powershell 4 — це версія в комплекті з windows server 2012, яким ми найчастіше користуємось для практичних робіт у коледжі, — не дає доступу до типу запуску (.starttype) сервісу windows, ця можливість з'являється в powershell 5.1.<br /><br />це тим більше дивно, що set-service у powershell 4 дає можливість встановити цей параметр! <br /><br />ну, це microsoft, що ви хтіли… але що робити? ось еквівалент для powershell 4: <br /><code><br />(Get-CimInstance -ClassName Win32_Service -Filter "Name = 'W32Time'" | Select-Object -Property StartMode).StartMode</code><br /><br />підказку знайшов <a href="http://mikefrobbins.com/2014/04/17/checking-and-setting-the-start-mode-of-a-windows-service-with-powershell/">у тенетах</a>, звісно, і трохи «допиляв» для зручності.

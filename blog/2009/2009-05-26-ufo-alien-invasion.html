@@ -1,0 +1,17 @@
+---
+layout: post
+title: 'ufo: alien invasion на нетбуці'
+date: '2009-05-26T17:00:00.003+03:00'
+author: tivasyk
+tags:
+- комп'ютери
+- ігри
+- linux
+- нетбук
+modified_time: '2010-02-22T22:15:11.565+02:00'
+thumbnail: http://lh4.ggpht.com/tivasyk/SEFbSnBgcRI/AAAAAAAABjk/zhOYeIUrwzI/s72-c/ufo_ai_08.png
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-7807944122344783219
+blogger_orig_url: http://www.tivasyk.info/2009/05/ufo-alien-invasion.html
+---
+
+<a href="http://lh4.ggpht.com/tivasyk/SEFbSnBgcRI/AAAAAAAABjk/zhOYeIUrwzI/s800/ufo_ai_08.png" onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}"><img alt="" border="0" src="http://lh4.ggpht.com/tivasyk/SEFbSnBgcRI/AAAAAAAABjk/zhOYeIUrwzI/s800/ufo_ai_08.png" style="cursor: pointer; float: right; margin: 0pt 0pt 10px 10px; width: 200px;" /></a>коротко: чудовою грою <i>ufo: alien invasion</i> можна розважатися на нетбуці, єдина проблемка — змусити гру запуститися на екрані 1024×600; вирішується елементарно.<br /><br />по-порядку. про <i>ufoai</i> — чудовий рімейк покрокової тактичної серії <i>xcom: ufo defence</i> я вже багато написав:<br /><ul><li> перша згадка: <a href="http://www.tivasyk.info/2007/10/ufo-alien-invasion.html">ufo: alien invasion</a></li><li> встановлення для linux: <a href="http://www.tivasyk.info/2008/05/blog-post_31.html">як... встановлювати програми з бінарних пакетів</a></li><li>як грати: <a href="http://www.tivasyk.info/2008/06/ufo-alien-invasion.html">ufo: alien invasion -- крок за кроком</a> (<a href="http://www.tivasyk.info/2008/06/ufo-alien-invasion.html">частина 1</a>, <a href="http://www.tivasyk.info/2008/06/ufo-alien-invasion-2.html">частина 2</a>)<br /></li></ul><br />по-моєму, це одна з найцікавіших безкоштовних ігор для linux. зрозуміло, що мені захотілося пограти в неї на нетбуці <a href="http://www.tivasyk.info/search?q=aspire+one">aspire one</a>.<br /><br /><br /><a name='more'></a>завантажуємо (поточна версія 2.2.1), встановлюємо і... <i>ufoai</i> запускається, але не розгортається на весь екран 1024×600, а відкриває малюсінька віконце 320×200, в якому не тільки грати неможливо, але й прочитати щось важко. редагування файлу конфігурації вручну не допомагає. поколупавши майже наосліп меню опцій, зміг встановити розподільчу здатність 1024×480 (дві чорні смуги над і під зображенням гри), але далі того справа не пішла.<br /><br />прикро. пішов шукати вирішення <a href="http://ufoai.ninex.info/forum/">на форум ufoai</a>. виявилося, що <a href="http://ufoai.ninex.info/forum/index.php?topic=2869.0">все просто</a>: одна проста опція командного рядка дозволяє відключити автовизначення режиму дисплея. запускаємо гру в терміналі такою командою:<br /><blockquote><span style="font-size: 85%;"><code>ufoai +set vid_mode -1 +set vid_width 1024 +set vid_height 600 + set vid_fullscreen 1</code></span></blockquote>все. <a href="http://www.tivasyk.info/2008/06/ufo-alien-invasion.html">можна грати</a> =)

@@ -1,0 +1,18 @@
+---
+layout: post
+title: то були погані контейнери, а ось хороші!
+date: '2019-07-12T23:01:00.002+03:00'
+author: tivasyk
+tags:
+- docker
+- комп'ютери
+- linux
+- позитив
+- owncloud
+modified_time: '2019-07-12T23:01:43.459+03:00'
+thumbnail: https://1.bp.blogspot.com/-6i97Ke1yoSk/XSjfKF3DcAI/AAAAAAABZVc/r6qzeNkcdeY2FuWJWpk5Hgp_nTtHWZyzgCLcBGAs/s72-c/screenshot.2019-07-12.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-669932831512717238
+blogger_orig_url: http://www.tivasyk.info/2019/07/blog-post_53.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-6i97Ke1yoSk/XSjfKF3DcAI/AAAAAAABZVc/r6qzeNkcdeY2FuWJWpk5Hgp_nTtHWZyzgCLcBGAs/s1600/screenshot.2019-07-12.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="900" data-original-width="1600" height="180" src="https://1.bp.blogspot.com/-6i97Ke1yoSk/XSjfKF3DcAI/AAAAAAABZVc/r6qzeNkcdeY2FuWJWpk5Hgp_nTtHWZyzgCLcBGAs/s320/screenshot.2019-07-12.jpg" width="320" /></a></div>трохи наморочився і потрусив бубном, але… <a href="http://www.tivasyk.info/2019/07/docker.html" target="_blank">traefik + owncloud</a> працюють в контейнерах docker на домашньому сервері.<br /><br />до речі, <a href="https://owncloud.org/news/how-to-set-up-an-owncloud-in-3-minutes/" target="_blank">інструкція до встановлення</a> на сайті owncloud чудова… але не працює. читати обов’язково, для розуміння, як воно робиться, — але вона містить помилки:<br /><ul><li>код owncloud/docker-compose.yml не відформатований, через що контейнер не підніметься;</li><li>порт, на який передресовано owncloud.example.com (в моєму випадку <a href="http://www.tivasyk.info/2016/12/duckdns-ip.html" target="_blank">ім’я від duckdns.org</a>) — 80, але owncloud в контейнері слухатиме 8080, тож у веб-оглядачі побачимо лише bad gateway;</li><li>сховище owncloud поза контейнером, включно з налаштуваннями, тому… якщо була спроба <a href="https://owncloud.org/news/how-to-set-up-an-owncloud-in-3-minutes/" target="_blank">за першою підказкою</a> (без traefik), то встановлення (тимчасового) паролю admin/admin в <i>docker-compose.yml</i> або <i>.env</i> до лампочки — діятиме те, що вже збереглося раніше.</li></ul><div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-8zPMwZ_n_Uk/XSjmg_B5wjI/AAAAAAABZWI/ykLve4NWi3gGSe3Q0kgiRUTJlymhkFgJACLcBGAs/s1600/Screenshot_2019-07-12-15-08-03.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" data-original-height="1600" data-original-width="900" height="320" src="https://1.bp.blogspot.com/-8zPMwZ_n_Uk/XSjmg_B5wjI/AAAAAAABZWI/ykLve4NWi3gGSe3Q0kgiRUTJlymhkFgJACLcBGAs/s320/Screenshot_2019-07-12-15-08-03.png" width="180" /></a></div><div>в підсумку — працює, але треба додати пам’яті, бо 2 гб для owncloud — малувато. ну і не забути перенести /var на окремий диск, так.</div><br />до речі, клієнт owncloud для android коштує <a href="https://play.google.com/store/apps/details?id=com.owncloud.android" target="_blank">$0,99 в google play</a> — небагато, але навіщо платити, якщо на f-droid можна взяти <a href="https://f-droid.org/en/packages/com.owncloud.android/" target="_blank">задарма й легально</a>?<br /><br /><b>p.s.</b> і так, docker — це зручно, виявляється.

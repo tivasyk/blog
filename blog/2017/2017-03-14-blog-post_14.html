@@ -1,0 +1,16 @@
+---
+layout: post
+title: простий таймер для терміналу
+date: '2017-03-14T20:00:00.000+02:00'
+author: tivasyk
+tags:
+- комп'ютери
+- linux
+- bash
+modified_time: '2017-03-14T20:00:51.605+02:00'
+thumbnail: https://2.bp.blogspot.com/-cgEE_T24VsA/WMgrvDguFrI/AAAAAAABAOU/RQJ08WjSZ04Cmz90Q23BBw503YUuEOG8wCLcB/s72-c/%25D0%2597%25D0%25BD%25D1%2596%25D0%25BC%25D0%25BE%25D0%25BA%2B%25D0%25B5%25D0%25BA%25D1%2580%25D0%25B0%25D0%25BD%25D1%2583_2017-03-14_13-36-20_lomo.jpg
+blogger_id: tag:blogger.com,1999:blog-1498862426470895405.post-2934294525298551549
+blogger_orig_url: http://www.tivasyk.info/2017/03/blog-post_14.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://2.bp.blogspot.com/-cgEE_T24VsA/WMgrvDguFrI/AAAAAAABAOU/RQJ08WjSZ04Cmz90Q23BBw503YUuEOG8wCLcB/s1600/%25D0%2597%25D0%25BD%25D1%2596%25D0%25BC%25D0%25BE%25D0%25BA%2B%25D0%25B5%25D0%25BA%25D1%2580%25D0%25B0%25D0%25BD%25D1%2583_2017-03-14_13-36-20_lomo.jpg" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" height="133" src="https://2.bp.blogspot.com/-cgEE_T24VsA/WMgrvDguFrI/AAAAAAABAOU/RQJ08WjSZ04Cmz90Q23BBw503YUuEOG8wCLcB/s200/%25D0%2597%25D0%25BD%25D1%2596%25D0%25BC%25D0%25BE%25D0%25BA%2B%25D0%25B5%25D0%25BA%25D1%2580%25D0%25B0%25D0%25BD%25D1%2583_2017-03-14_13-36-20_lomo.jpg" width="200" /></a></div>знайшов малесенський, практично однорядковий скрипт <a href="https://bbs.archlinux.org/viewtopic.php?pid=582411#p582411" target="_blank">на форумах arch linux</a>. переробив на <a href="https://ss64.com/bash/notify-send.html" target="_blank">сповіщення</a> замість вікна zenity (не люблю модальних вікон), і <a href="http://unix.stackexchange.com/a/163716/217126" target="_blank">додав звук</a> — маю простенький <b>таймер для терміналу</b>:<br /><br /><pre><code>reminder () {<br />  delay=$1<br />  shift<br />  (sleep $delay ; (speaker-test -t sine -f 500)&amp; pid=$! ; sleep 0.1s ; kill -9 $pid ; notify-send "Reminder" "$*\n($(date +'%Y-%m-%d, %H:%M'))" --expire-time 0) &gt; /dev/null &amp;<br />}</code></pre><br />найпростіше використання — додати до .bashrc (і source .bashrc, щоби можна було одразу скористатися), а тоді в терміналі:<br /><br /><pre><code>reminder 10m "Почни вже той курс WikiMook, холєра тебе забирай!"</code></pre><br />за 10 хвилин вигулькне нагадування (якщо встановлено libnotify) як на знятку. формат затримки — як для sleep (див. текст): 30s (секунди), 10m (хвилини), 1h (дні).<br /><br />для чого? мені часто випадає «вхопити» 5-10 хвилин з ноутбуком, а тоді зняти макарони з плити, вимкнути кавоварку (там, вона в нас не автоматична), бігти стрічати доню біля під'їзду тощо, — набрати рядочок в терміналі простіше, ніж весь час зиркати на годинник, і все одно пропустити потрібний час.<br /><br /><b>p.s.</b> і <a href="https://www.fun-mooc.fr/courses/WMFr/86001S02/session02/about" target="_blank">курс wikimook</a>, так…
