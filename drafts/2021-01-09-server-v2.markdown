@@ -35,7 +35,7 @@ tags:
 * адаптер pcie до sata x4 iocrest si-pex40064 (kijiji) = 30,00$
 * адаптер живлення sata до molex для бекплейна (amazon) = 10,34$
 * пам'ять 4×4 гб (amazon) = 105,75$
-* системний ssd 240 гб kingston a400 (amazon) = 45,95$
+* системний ssd 240 гб kingston a400 ([amazon](https://www.amazon.ca/-/fr/Kingston-A400-SATA-SA400S37-240G/dp/B01N5IB20Q)) = 45,95$
 * диски «зі сміттярки» 
   * 2×500 гб seagate momentus thin 2,5" sata (kijiji) = 30,00$
 
@@ -60,6 +60,124 @@ tags:
 
 ![proxmox поверх debian](/assets/images/2021/2021-01-09-server-v2_04.jpg)
 
-аж от тепер можна йти «курити» ansible!
+~~аж от тепер можна йти «курити» ansible~~ довго думав, і врешті-решт відклав ansible на десерт: пограюся, коли вже буде робоча система. окрім цього, деякий час я серйозно схилявся до думки відмовитися від розваги налаштувати все руками на proxmox і спробувати готовий unraid… але вирішив, що трохи додаткового досвіду не зашкодить. 
+
+
+#### дискове сховище
+
+перші враження від бекплейна [olmaster c3804](https://www.aliexpress.com/i/32791168648.html): якість не вражає (лотки вимагають значної уваги при встромлянні, діоди статусу дуже різної яскравости тощо), але принаймні все працює, для домашнього використання придатне.
+
+далі має бути азбац про те, чому mergerfs та snapraid, а ще щось серйозніше, як zfs. якщо коротко: тому що «простота є необхідною передумовою надійности»<sup>†</sup>. так і не знайшов притомної детальної підказки з налаштування proxmox + mergerfs + snapraid в тенетах, доведеться експериментувати.
+
+
+##### додавання дисків
+
+як виявилося, два диски 2,5" по 500 гб я вже мав (у зовнішніх кишенях usb 3.0), ще два придбав задешево (30$ разом) на kijiji, для початку вистачить. на вибробу взяв три:
+
+```
+$ lsblk -o NAME,SIZE,MOUNTPOINT,TYPE,HCTL,UUID,MODEL
+NAME     SIZE MOUNTPOINT TYPE HCTL       UUID                                 MODEL
+sda    223.6G            disk 0:0:0:0                                         KINGSTON_SA400S37240G
+├─sda1 212.3G /          part            9d261e2b-c995-44a5-b747-57ce2bf361a4 
+└─sda2   3.7G [SWAP]     part            92f80dee-b4bc-4ee4-99f7-75ed3c1450de 
+sdb    465.8G            disk 6:0:0:0                                         ST500LM021-1KJ152
+└─sdb1 465.8G            part            cdbae3f0-0090-44d4-b045-ed720ff46be2 
+sdc    465.8G            disk 7:0:0:0                                         ST500LM000-1EJ162
+└─sdc1 465.8G            part            fcc2e2fe-ceeb-407f-9f5d-18257709a201 
+sdd    465.8G            disk 9:0:0:0                                         Hitachi_HTS545050A7E380
+├─sdd1     1K            part                                                 
+├─sdd2 368.1G            part            5E443E8C47513021                     
+├─sdd5  31.3G            part            4f3f0bab-c8c6-4b41-9358-05e862d0940e 
+├─sdd6  15.6G            part            c4210848-94ca-4c36-a090-8c2106f902dc 
+└─sdd7  50.8G            part            3453a526-aeff-41f4-9a14-401cb3e487cd 
+```
+
+sda — системний ssd, решта три — диски в бекплейні; два з них готові, а sdd [потребує переформатування](https://wiki.archlinux.org/index.php/Fdisk#Create_a_partition_table_and_partitions): видаляю всі розділи, створюю та форматую новий ext4 з міткою _Data3_:
+
+```
+# fdisk /dev/sdd
+...
+# mkfs.ext4 -L Data3 /dev/sdd1
+```
+
+тепер гарно:
+
+```
+lsblk -o NAME,SIZE,MOUNTPOINT,TYPE,LABEL,HCTL,UUID,MODEL
+NAME     SIZE MOUNTPOINT  TYPE LABEL  HCTL       UUID                                 MODEL
+...
+sdb    465.8G             disk        6:0:0:0                                         ST500LM021-1KJ152
+└─sdb1 465.8G             part Data1             cdbae3f0-0090-44d4-b045-ed720ff46be2 
+sdc    465.8G             disk        7:0:0:0                                         ST500LM000-1EJ162
+└─sdc1 465.8G             part Data2             fcc2e2fe-ceeb-407f-9f5d-18257709a201 
+sdd    465.8G             disk        9:0:0:0                                         Hitachi_HTS545050A7E380
+└─sdd1 465.8G             part Data3             77445685-2502-4cfb-94d4-f2de315b0500 
+ 
+```
+
+готую директорію, куди монтуватимуться диски даних:
+
+```
+# mkdir /mnt/disk/1
+# for ((i=1; i,=6; i++)); do mkdir /mnt/disk/data$i ; done
+```
+
+додаю щось таке до fstab (не забути резервну копію перед редагуванням), щоби монтувати диски в бекплейні за мітками розділів (label) — не найкращий варіант зазвичай, але для змінних дисків має бути простіший за uuid:
+
+```
+# Storage backplane for 6 SATA disks
+# Mount is by volume label (not PARTLABEL though),must avoid duplicates
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+LABEL=Data1     /mnt/disk/1     ext4    defaults        0       2
+LABEL=Data2     /mnt/disk/2     ext4    defaults        0       2
+LABEL=Data3     /mnt/disk/3     ext4    defaults        0       2
+LABEL=Data4     /mnt/disk/4     ext4    defaults        0       2
+LABEL=Data5     /mnt/disk/5     ext4    defaults        0       2
+LABEL=Data6     /mnt/disk/6     ext4    defaults        0       2
+```
+
+монтування на випробу (згодом монтуватиметься автоматично під час завантаження системи):
+
+```
+# mount -a
+mount: /mnt/disk/4: can't find LABEL=Data4.
+mount: /mnt/disk/5: can't find LABEL=Data5.
+mount: /mnt/disk/6: can't find LABEL=Data6.
+```
+
+видно, що диски 4-6 не змонтувалися — логічно, бо їх немає в бекплейні (можна додати опції `nofail,x-systemd.device-timeout=9`). перевірка, що змонтувалося:
+
+```
+lsblk -o NAME,SIZE,MOUNTPOINT,TYPE,LABEL,HCTL,UUID,MODEL
+NAME     SIZE MOUNTPOINT  TYPE LABEL  HCTL       UUID                                 MODEL
+... 
+sdb    465.8G             disk        6:0:0:0                                         ST500LM021-1KJ152
+└─sdb1 465.8G /mnt/disk/1 part Data1             cdbae3f0-0090-44d4-b045-ed720ff46be2 
+sdc    465.8G             disk        7:0:0:0                                         ST500LM000-1EJ162
+└─sdc1 465.8G /mnt/disk/2 part Data2             fcc2e2fe-ceeb-407f-9f5d-18257709a201 
+sdd    465.8G             disk        9:0:0:0                                         Hitachi_HTS545050A7E380
+└─sdd1 465.8G /mnt/disk/3 part Data3             77445685-2502-4cfb-94d4-f2de315b0500 
+```
+
+або так:
+
+```
+mount -l -t ext4
+...
+/dev/sdb1 on /mnt/disk/1 type ext4 (rw,relatime) [Data1]
+/dev/sdc1 on /mnt/disk/2 type ext4 (rw,relatime) [Data2]
+/dev/sdd1 on /mnt/disk/3 type ext4 (rw,relatime) [Data3]
+```
+
+##### mergerfs
+
+...
+
+#### snapraid
+
+...
+
 
 далі буде…
+
+<sup>†</sup> вислів [едсгера дейкстри](https://uk.wikipedia.org/wiki/Едсгер_Дейкстра)
