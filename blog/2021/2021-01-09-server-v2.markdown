@@ -14,15 +14,26 @@ tags:
 
 звідси два сценарії крутяться в голові: проапгрейдити цей старенький [hp compaq dc5800]({% post_url 2019/2019-07-05-blog-post %}), додавши другий диск для копіювання всього вмісту owncloud? або зібрати заміну на базі [hp compaq 8100 elite](https://support.hp.com/rs-en/document/c02030592), що впав мені до рук днями? теж старий мотлох, але [intel core i5-650 замість pentium e5200](http://cpuboss.com/cpus/Intel-Pentium-E5200-vs-Intel-Core-i5-650) і ddr3 1333 ггц замість ddr2 800 ггц, плюс можна гратися з налаштуванням, не ламаючи того, що є зараз, і мігрувати, коли готовий.
 
+#### зміст
+
+* [проєкт](#проєкт)
+* [витрати](#витрати)
+* [встановлення базової системи](#встановлення-базової-системи)
+* [дискове сховище](#дискове-сховище)
+  * [додавання дисків](#додавання-дисків)
+  * [mergerfs](#mergerfs)
+  * [smart](#smart)
+  * [snapraid](#snapraid)
+
 
 #### проєкт
 
-* [x] викинути оптичний дисковод, звільнивши місце для бекплейна на 6 дисків sata 2,5" (вже придбав для цього дешевий китайський [olmaster c3804](https://www.aliexpress.com/i/32791168648.html)) для простого доступу до дисків;
+* [x] викинути оптичний дисковод, звільнивши місце для бекплейна на 6 дисків sata 2,5" (вже придбав для цього дешевий китайський [olmaster c3804](https://www.aliexpress.com/i/32791168648.html), чи oimaster? біс їх розбереш) для простого доступу до дисків;
 * [ ] забити бекплейн дешевими дисками; 
 * [ ] вирішити щось із дублюванням чи резервним копіюванням: zfs? btrfs? чи просто ext4+mergefs+snapraid? чи навіть просто два розділи lvm в програмному raid0?;
 * [ ] спробувати [nextcloud](https://nextcloud.com/athome/) замість owncloud (бо розвинутіший набір аплетів, який майже може замінити google колись);
 * [ ] налаштувати автогасіння сервера від ups під час відключення електрики;
-* [ ] (опційно) налаштувати резервне копіювання до aws?
+* [ ] (опційно) налаштувати резервне копіювання до aws?
 * [ ] (опційно) спробувати підняти всі сервіси на «голому» debian (або proxmox'і) за допомогою лише ansible?
 
 ![бекплейн olmaster c3804 на 6 дисків sata 2,5"](/assets/images/2021/2021-01-09-server-v2_01.jpg)
@@ -65,14 +76,14 @@ tags:
 
 #### дискове сховище
 
-перші враження від бекплейна [olmaster c3804](https://www.aliexpress.com/i/32791168648.html): якість не вражає (лотки вимагають значної уваги при встромлянні, діоди статусу дуже різної яскравости тощо), але принаймні все працює, для домашнього використання придатне.
+перші враження від бекплейна [olmaster c3804](https://www.aliexpress.com/i/32791168648.html): якість не вражає (лотки вимагають значної уваги при встромлянні, діоди статусу дуже різної яскравости тощо), але принаймні все наче працює, для домашнього використання придатне.
 
-далі має бути азбац про те, чому mergerfs та snapraid, а ще щось серйозніше, як zfs. якщо коротко: тому що «простота є необхідною передумовою надійности»<sup>†</sup>. так і не знайшов притомної детальної підказки з налаштування proxmox + mergerfs + snapraid в тенетах, доведеться експериментувати.
+далі має бути азбац про те, чому mergerfs та snapraid, а не щось серйозніше, як zfs. якщо коротко: тому що «простота є необхідною передумовою надійности»<sup>†</sup>. так і не знайшов притомної детальної підказки з налаштування proxmox + mergerfs + snapraid в тенетах, доведеться експериментувати.
 
 
 ##### додавання дисків
 
-як виявилося, два диски 2,5" по 500 гб я вже мав (у зовнішніх кишенях usb 3.0), ще два придбав задешево (30$ разом) на kijiji, для початку вистачить. на вибробу взяв три:
+як виявилося, один диск 2,5" на 500 гб я вже мав (у зовнішній кишені usb 3.0), ще два придбав задешево (30$ разом) на kijiji, для початку вистачить.
 
 ```
 $ lsblk -o NAME,SIZE,MOUNTPOINT,TYPE,HCTL,UUID,MODEL
@@ -169,28 +180,6 @@ mount -l -t ext4
 /dev/sdd1 on /mnt/disk/3 type ext4 (rw,relatime) [Data3]
 ```
 
-##### smart
-
-після підключення дисків варто перевірити звіти smart. по-перше — короткий тест для `sdb`, `sdc` та `sdd`:
-
-```
-# for X in b c d; do echo -n "/dev/sd${X}: "; sudo smartctl -t short /dev/sd${X} | grep "complete after"; done
-/dev/sdb: Test will complete after Sun Jan 31 09:32:05 2021 EST
-/dev/sdc: Test will complete after Sun Jan 31 09:33:05 2021 EST
-/dev/sdd: Test will complete after Sun Jan 31 09:33:06 2021 EST
-```
-
-результати невтішні для hitachi (`sdd`) — добре, що я витяг диск із зовнішнього накопичувача з резервним архівом світлин, мав би неминучий сюрприз:
-
-```
-# for X in b c d; do echo -n "/dev/sd${X}: "; sudo smartctl --health /dev/sd${X} | grep "test result"; done
-/dev/sdb: SMART overall-health self-assessment test result: PASSED
-/dev/sdc: SMART overall-health self-assessment test result: PASSED
-/dev/sdd: SMART overall-health self-assessment test result: FAILED!
-```
-
-для випроби диск згодиться: цікаво буде скористатися snapraid'ом для спроби відновлення, коли «гавкне».
-
 
 ##### mergerfs
 
@@ -258,6 +247,49 @@ $ rm /mnt/storage/dd* ; dd if=/dev/zero of=/mnt/storage/dd_test_throughput.img b
 # <file system> <mount point>   <type>          <options>       <dump>  <pass>
 /mnt/disk*      /mnt/storage    fuse.mergerfs   defaults,allow_other,use_ino,nonempty,direct_io,fsname=mergerfs,minfreespace=20G   0       0
 ```
+
+
+##### smart
+
+після підключення дисків варто перевірити звіти smart. по-перше — короткий тест для `sdb`, `sdc` та `sdd`:
+
+```
+# for X in b c d; do echo -n "/dev/sd${X}: "; sudo smartctl -t short /dev/sd${X} | grep "complete after"; done
+/dev/sdb: Test will complete after Sun Jan 31 09:32:05 2021 EST
+/dev/sdc: Test will complete after Sun Jan 31 09:33:05 2021 EST
+/dev/sdd: Test will complete after Sun Jan 31 09:33:06 2021 EST
+```
+
+результати невтішні для hitachi (`sdd`) — добре, що я витяг диск із зовнішнього накопичувача з резервним архівом світлин, мав би неминучий сюрприз:
+
+```
+# for X in b c d; do echo -n "/dev/sd${X}: "; sudo smartctl --health /dev/sd${X} | grep "test result"; done
+/dev/sdb: SMART overall-health self-assessment test result: PASSED
+/dev/sdc: SMART overall-health self-assessment test result: PASSED
+/dev/sdd: SMART overall-health self-assessment test result: FAILED!
+```
+
+для випроби диск згодиться: цікаво буде скористатися snapraid'ом для спроби відновлення, коли «гавкне». тим часом — нагода погратися ще трохи зі `smartctl` з набору `smartmontools` (хороші [підказки](https://www.smartmontools.org/wiki/TocDoc) є у вікі).
+
+спробую перевірити весь диск:
+
+```
+# umount /dev/sdd1
+# badblocks -v /dev/sdd > /tmp/badblocks-sdd.txt
+```
+
+добу потому: `badblocks` ще крутиться, знайшов 18 тис. «битих» блоків =( продовження процедури не має сенсу: нічого потрібного на диску немає, тож замість badblocks/fsck краще перестворити файлову систему заново з опцією `-c`, або навіть краще `-cc` для перевірки/маркування блоків:
+
+```
+# mkfs.ext4 -cc -L Data3 /dev/sdd1
+...
+Testing with pattern 0xff: 1.42% done, 20:49:50 elapsed. (62/0/0)
+```
+
+тут, `(62/0/0)` означає: 62 помилки читання, 0 помилок запису, 0 помилок… це вже третій прохід, і це зовсім не 18 тис. проблемних блоків. підозрюю, що проблема може бути не в дисках, а в дешевому китайському бекплейні, або в картці pcie -> sata… або в недостатньому живленні?
+
+дивно, бо я перезавантажив сервер (все змонтувалося як слід), перезапустив тест smart (усі три диски ― passed), запустив у циклі запис/видалення файлів на всю ніч — і цього разу все працює без проблем. 
+
 
 #### snapraid
 
