@@ -29,8 +29,8 @@ tags:
 #### проєкт
 
 * [x] викинути оптичний дисковод, звільнивши місце для бекплейна на 6 дисків sata 2,5" (вже придбав для цього дешевий китайський [olmaster c3804](https://www.aliexpress.com/i/32791168648.html), чи oimaster? біс їх розбереш) для простого доступу до дисків;
-* [ ] забити бекплейн дешевими дисками; 
-* [ ] вирішити щось із дублюванням чи резервним копіюванням: zfs? btrfs? чи просто ext4+mergefs+snapraid? чи навіть просто два розділи lvm в програмному raid0?;
+* [x] забити бекплейн дешевими дисками; 
+* [x] вирішити щось із дублюванням чи резервним копіюванням: zfs? btrfs? чи просто ext4+mergefs+snapraid? чи навіть просто два розділи lvm в програмному raid0?;
 * [ ] спробувати [nextcloud](https://nextcloud.com/athome/) замість owncloud (бо розвинутіший набір аплетів, який майже може замінити google колись);
 * [ ] налаштувати автогасіння сервера від ups під час відключення електрики;
 * [ ] (опційно) налаштувати резервне копіювання до aws?
@@ -47,8 +47,9 @@ tags:
 * адаптер живлення sata до molex для бекплейна (amazon) = 10,34$
 * пам'ять 4×4 гб (amazon) = 105,75$
 * системний ssd 240 гб kingston a400 ([amazon](https://www.amazon.ca/-/fr/Kingston-A400-SATA-SA400S37-240G/dp/B01N5IB20Q)) = 45,95$
-* диски «зі сміттярки» 
+* диски «зі сміттярки»
   * 2×500 гб seagate momentus thin 2,5" sata (kijiji) = 30,00$
+  * 4×500 гб hitachi travelstar 2,5" sata (kijiji) = 60,00$
 
 вартість повна (з доставкою і податками) в канадійських доларах (cad).
 
@@ -76,108 +77,163 @@ tags:
 
 #### дискове сховище
 
-перші враження від бекплейна [olmaster c3804](https://www.aliexpress.com/i/32791168648.html): якість не вражає (лотки вимагають значної уваги при встромлянні, діоди статусу дуже різної яскравости тощо), але принаймні все наче працює, для домашнього використання придатне.
+перші враження від бекплейна [olmaster c3804](https://www.aliexpress.com/i/32791168648.html): якість не вражає (лотки вимагають значної уваги при встромлянні, діоди статусу дуже різної яскравости тощо), але для домашнього використання має бути придатне.
 
-далі має бути азбац про те, чому mergerfs та snapraid, а не щось серйозніше, як zfs. якщо коротко: тому що «простота є необхідною передумовою надійности»<sup>†</sup>. так і не знайшов притомної детальної підказки з налаштування proxmox + mergerfs + snapraid в тенетах, доведеться експериментувати.
+далі має бути азбац про вибір архітектури для файлосховища; зокрема — чому mergerfs та snapraid, а не щось серйозніше, як zfs. якщо коротко: тому що «простота є необхідною передумовою надійности»<sup>†</sup>. так і не знайшов притомної детальної підказки з налаштування proxmox + mergerfs + snapraid в тенетах, доведеться експериментувати.
 
 
 ##### додавання дисків
 
-як виявилося, один диск 2,5" на 500 гб я вже мав (у зовнішній кишені usb 3.0), ще два придбав задешево (30$ разом) на kijiji, для початку вистачить.
+на kijiji придбав шість накопичувачів sata 2,5" по 500 гб (15 $/диск) на kijiji; ще один уже мав у зовнішній кишені usb 3.0 — залишу на випадок заміни.
 
 ```
-$ lsblk -o NAME,SIZE,MOUNTPOINT,TYPE,HCTL,UUID,MODEL
-NAME     SIZE MOUNTPOINT TYPE HCTL       UUID                                 MODEL
-sda    223.6G            disk 0:0:0:0                                         KINGSTON_SA400S37240G
-├─sda1 212.3G /          part            9d261e2b-c995-44a5-b747-57ce2bf361a4 
-└─sda2   3.7G [SWAP]     part            92f80dee-b4bc-4ee4-99f7-75ed3c1450de 
-sdb    465.8G            disk 6:0:0:0                                         ST500LM021-1KJ152
-└─sdb1 465.8G            part            cdbae3f0-0090-44d4-b045-ed720ff46be2 
-sdc    465.8G            disk 7:0:0:0                                         ST500LM000-1EJ162
-└─sdc1 465.8G            part            fcc2e2fe-ceeb-407f-9f5d-18257709a201 
-sdd    465.8G            disk 9:0:0:0                                         Hitachi_HTS545050A7E380
-├─sdd1     1K            part                                                 
-├─sdd2 368.1G            part            5E443E8C47513021                     
-├─sdd5  31.3G            part            4f3f0bab-c8c6-4b41-9358-05e862d0940e 
-├─sdd6  15.6G            part            c4210848-94ca-4c36-a090-8c2106f902dc 
-└─sdd7  50.8G            part            3453a526-aeff-41f4-9a14-401cb3e487cd 
+$ lsblk -o NAME,SIZE,TYPE,HCTL,MODEL,SERIAL,LABEL,MOUNTPOINT
+NAME     SIZE TYPE HCTL       MODEL                 SERIAL           LABEL  MOUNTPOINT
+sda    223.6G disk 0:0:0:0    KINGSTON_SA400S37240G 50026B7783A6A3BB        
+├─sda1 212.3G part                                                   System /
+└─sda2   3.7G part                                                          [SWAP]
+sdb    465.8G disk 6:0:0:0    HGST_HTS725050A7E630  TF755AWHJ90N3M          
+sdc    465.8G disk 2:0:0:0    ST500LM021-1KJ152     W621S841                
+sdd    465.8G disk 7:0:0:0    HGST_HTS725050A7E630  TF755AWHJ8EKSM          
+sde    465.8G disk 1:0:0:0    ST500LM000-1EJ162     W371AHNV                
+sdf    465.8G disk 8:0:0:0    HGST_HTS725050A7E630  TF755AWHH65J0K          
+sdg    465.8G disk 9:0:0:0    HGST_HTS725050A7E630  TF655AWJ15V7BL
 ```
 
-sda — системний ssd, решта три — диски в бекплейні; два з них готові, а sdd [потребує переформатування](https://wiki.archlinux.org/index.php/Fdisk#Create_a_partition_table_and_partitions): видаляю всі розділи, створюю та форматую новий ext4 з міткою _Data3_:
+`hctl` ― ідентифікатор фізичного підключення у форматі scsi, в моєму випадку 0..2 — роз'єми sata на материнській платі, 6..9 — на додатковому адаптері pcie до sata… може знадбитися, як спосіб ідентифікувати диски та кишеньки бекплейна; мої піключені так:
 
 ```
-# fdisk /dev/sdd
+┌───────┬───────┐
+│6:0:0:0│7:0:0:0│
+├───────┼───────┤
+│8:0:0:0│9:0:0:0│
+├───────┼───────┤
+│1:0:0:0│2:0:0:0│
+└───────┴───────┘
+```
+
+але для автоматичного монтування в `fstab` не можна використовувати htcl, тому варто давати дискам якісь впорядковані мітки: п'ять дисків (`data1`..`data5`) міститимуть дані, доступні (через mergerfs) як одна тека (`storage`), а шостий (`parity1`) — слугуватиме сховищем контрольної суми (parity) для snapraid. схема монтування:
+
+```
+/mnt
+ ├─disk
+ │ ├─data1
+ │ │ …
+ │ ├─data5
+ │ └─parity1
+ └─storage
+```
+
+створюю по одному розділу на кожному диску, форматую ext4 з відповідною міткою:
+
+```
+# fdisk /dev/sdb    # 6:0:0:0
+# mkfs.ext4 -m 1 -L Data1 /dev/sdb1
 ...
-# mkfs.ext4 -L Data3 /dev/sdd1
+# fdisk /dev/sdd    # 7:0:0:0
+# mkfs.ext4 -m 1 -L Data2 /dev/sdd1
+...
+# fdisk /dev/sdc    # 2:0:0:0
+# mkfs.ext4 -m 0 -T largefile4 -L Parity1  /dev/sdc1
 ```
 
-тепер гарно:
+результат: п'ять дисків з мітками `data1`..`5` і один — `parity1`:
 
 ```
-lsblk -o NAME,SIZE,MOUNTPOINT,TYPE,LABEL,MODEL
-NAME     SIZE MOUNTPOINT  TYPE LABEL  MODEL
-…
-sdb    465.8G             disk        ST500LM021-1KJ152
-└─sdb1 465.8G             part Data1  
-sdc    465.8G             disk        ST500LM000-1EJ162
-└─sdc1 465.8G             part Data2  
-sdd    465.8G             disk        Hitachi_HTS545050A7E380
-└─sdd1 465.8G             part Data3 
- 
+$ lsblk -o NAME,SIZE,TYPE,HCTL,MODEL,SERIAL,LABEL,MOUNTPOINT
+NAME     SIZE TYPE HCTL       MODEL                 SERIAL           LABEL   MOUNTPOINT
+sda    223.6G disk 0:0:0:0    KINGSTON_SA400S37240G 50026B7783A6A3BB         
+├─sda1 212.3G part                                                   System  /
+└─sda2   3.7G part                                                           [SWAP]
+sdb    465.8G disk 6:0:0:0    HGST_HTS725050A7E630  TF755AWHJ90N3M           
+└─sdb1 465.8G part                                                   Data1   
+sdc    465.8G disk 2:0:0:0    ST500LM021-1KJ152     W621S841                 
+└─sdc1 465.8G part                                                   Parity1 
+sdd    465.8G disk 7:0:0:0    HGST_HTS725050A7E630  TF755AWHJ8EKSM           
+└─sdd1 465.8G part                                                   Data2   
+sde    465.8G disk 1:0:0:0    ST500LM000-1EJ162     W371AHNV                 
+└─sde1 465.8G part                                                   Data5   
+sdf    465.8G disk 8:0:0:0    HGST_HTS725050A7E630  TF755AWHH65J0K           
+└─sdf1 465.8G part                                                   Data3   
+sdg    465.8G disk 9:0:0:0    HGST_HTS725050A7E630  TF655AWJ15V7BL           
+└─sdg1 465.8G part                                                   Data4
 ```
 
-готую директорію, куди монтуватимуться диски даних:
+готую директорії для монтування дисків:
 
 ```
-# mkdir /mnt/disk/1
-# for ((i=1; i,=6; i++)); do mkdir /mnt/disk/data$i ; done
+# mkdir /mnt/disk/data{1,2,3,4,5}
+# mkdir /mnt/disk/parity1
 ```
 
-додаю щось таке до fstab (не забути резервну копію перед редагуванням), щоби монтувати диски в бекплейні за мітками розділів (label) — не найкращий варіант зазвичай, але для змінних дисків має бути простіший за uuid:
+додаю щось таке до fstab (не забути резервну копію перед редагуванням), щоби монтувати диски в бекплейні за мітками розділів (`label`):
 
 ```
 # Storage backplane for 6 SATA disks
 # Mount is by volume label (not PARTLABEL though),must avoid duplicates
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
-LABEL=Data1     /mnt/disk/1     ext4    defaults        0       2
-LABEL=Data2     /mnt/disk/2     ext4    defaults        0       2
-LABEL=Data3     /mnt/disk/3     ext4    defaults        0       2
-LABEL=Data4     /mnt/disk/4     ext4    defaults        0       2
-LABEL=Data5     /mnt/disk/5     ext4    defaults        0       2
-LABEL=Data6     /mnt/disk/6     ext4    defaults        0       2
+LABEL=Data1     /mnt/disk/data1     ext4    defaults,nofail,x-systemd.device-timeout=9        0       2
+LABEL=Data2     /mnt/disk/data2     ext4    defaults,nofail,x-systemd.device-timeout=9        0       2
+LABEL=Data3     /mnt/disk/data3     ext4    defaults,nofail,x-systemd.device-timeout=9        0       2
+LABEL=Data4     /mnt/disk/data4     ext4    defaults,nofail,x-systemd.device-timeout=9        0       2
+LABEL=Data5     /mnt/disk/data5     ext4    defaults,nofail,x-systemd.device-timeout=9        0       2
+LABEL=Parity1   /mnt/disk/parity1   ext4    defaults,nofail,x-systemd.device-timeout=9        0       2
 ```
 
-монтування на випробу (згодом монтуватиметься автоматично під час завантаження системи):
+монтування на випробу (згодом монтуватиметься автоматично під час завантаження системи), і перевірка:
 
 ```
 # mount -a
-mount: /mnt/disk/4: can't find LABEL=Data4.
-mount: /mnt/disk/5: can't find LABEL=Data5.
-mount: /mnt/disk/6: can't find LABEL=Data6.
+$ lsblk -o NAME,SIZE,TYPE,HCTL,MODEL,SERIAL,LABEL,MOUNTPOINT
+NAME     SIZE TYPE HCTL       MODEL                 SERIAL           LABEL   MOUNTPOINT
+sda    223.6G disk 0:0:0:0    KINGSTON_SA400S37240G 50026B7783A6A3BB         
+├─sda1 212.3G part                                                   System  /
+└─sda2   3.7G part                                                           [SWAP]
+sdb    465.8G disk 6:0:0:0    HGST_HTS725050A7E630  TF755AWHJ90N3M           
+└─sdb1 465.8G part                                                   Data1   /mnt/disk/data1
+sdc    465.8G disk 2:0:0:0    ST500LM021-1KJ152     W621S841                 
+└─sdc1 465.8G part                                                   Parity1 /mnt/disk/parity1
+sdd    465.8G disk 7:0:0:0    HGST_HTS725050A7E630  TF755AWHJ8EKSM           
+└─sdd1 465.8G part                                                   Data2   /mnt/disk/data2
+sde    465.8G disk 1:0:0:0    ST500LM000-1EJ162     W371AHNV                 
+└─sde1 465.8G part                                                   Data5   /mnt/disk/data5
+sdf    465.8G disk 8:0:0:0    HGST_HTS725050A7E630  TF755AWHH65J0K           
+└─sdf1 465.8G part                                                   Data3   /mnt/disk/data3
+sdg    465.8G disk 9:0:0:0    HGST_HTS725050A7E630  TF655AWJ15V7BL           
+└─sdg1 465.8G part                                                   Data4   /mnt/disk/data4
 ```
 
-видно, що диски 4-6 не змонтувалися — логічно, бо їх немає в бекплейні (можна додати опції `nofail,x-systemd.device-timeout=9`). перевірка, що змонтувалося:
+##### smart
+
+після підключення дисків варто перевірити звіти smart. по-перше — короткий тест для шести дисків у бекплейні (`/dev/sdX`):
 
 ```
-lsblk -o NAME,SIZE,MOUNTPOINT,TYPE,LABEL,MODEL
-NAME     SIZE MOUNTPOINT  TYPE LABEL  MODEL
-…
-sdb    465.8G             disk        ST500LM021-1KJ152
-└─sdb1 465.8G /mnt/disk/1 part Data1  
-sdc    465.8G             disk        ST500LM000-1EJ162
-└─sdc1 465.8G /mnt/disk/2 part Data2  
-sdd    465.8G             disk        Hitachi_HTS545050A7E380
-└─sdd1 465.8G /mnt/disk/3 part Data3 
-```
-
-або так:
+# for X in b c d e f g; do echo -n "/dev/sd${X}: "; smartctl -t short /dev/sd${X} | grep "complete after"; done
+/dev/sdb: Test will complete after Thu Feb  4 23:16:48 2021 EST
+/dev/sdc: Test will complete after Thu Feb  4 23:15:48 2021 EST
+/dev/sdd: Test will complete after Thu Feb  4 23:16:50 2021 EST
+/dev/sde: Test will complete after Thu Feb  4 23:16:50 2021 EST
+/dev/sdf: Test will complete after Thu Feb  4 23:16:51 2021 EST
+/dev/sdg: Test will complete after Thu Feb  4 23:16:53 2021 EST
 
 ```
-mount -l -t ext4
-...
-/dev/sdb1 on /mnt/disk/1 type ext4 (rw,relatime) [Data1]
-/dev/sdc1 on /mnt/disk/2 type ext4 (rw,relatime) [Data2]
-/dev/sdd1 on /mnt/disk/3 type ext4 (rw,relatime) [Data3]
+
+за якийсь час (дві хвилини для сучасних hdd) перевіряю результат:
+
+```
+# for X in b c d e f g; do echo -n "/dev/sd${X}: "; smartctl -H /dev/sd${X} | grep "result"; done
+/dev/sdb: SMART overall-health self-assessment test result: PASSED
+/dev/sdc: SMART overall-health self-assessment test result: PASSED
+/dev/sdd: SMART overall-health self-assessment test result: PASSED
+/dev/sde: SMART overall-health self-assessment test result: PASSED
+/dev/sdf: SMART overall-health self-assessment test result: PASSED
+/dev/sdg: SMART overall-health self-assessment test result: PASSED
+```
+
+наразі все гаразд. якщо знадобиться переглянути детальний звіт для котрогось із дисків:
+
+```
+# smartctl -a /dev/sdb
 ```
 
 
@@ -189,109 +245,53 @@ mount -l -t ext4
 # apt-get update && apt-get install mergerfs
 ```
 
-створити теку, куди «об'єднаються» розділи на трьох дисках у бекплейні:
+тека, куди «об'єднаються» розділи на п'ятьох дисках `dataX` у бекплейні:
 
 ```
 # mkdir /mnt/storage
+```
+
+даю доступ усім користувачам:
+
+```
 # chmod -R a+rwx /mnt/storage
 ```
 
-пробую:
-
-```
-# sudo mergerfs -o allow_other,use_ino,nonempty /mnt/disk/\* /mnt/storage
-```
-
-для перевірки можна щось записати до `/mnt/storage`, і, залежно від стратегії розподілу mergerfs, фізично це опиниться на одному з трьох дисків, — і навпаки, `/mnt/storage` дає доступ до всього, що є на трьох дисках.
-
-випробую швидкість:
-
-```
-$ dd if=/dev/zero of=/mnt/storage/dd_test_throughput.img bs=100M count=1 oflag=dsync status=progress
-…
-104857600 bytes (105 MB, 100 MiB) copied, 1392.09 s, 75.3 kB/s
-
-```
-що?! 75 кб/сек — це казна-що; чому? запис просто на диски (`/mnt/disk/*`) показує 70-110 мб/сек так само із `oflag=dsync`:
-
-```
-$ rm /mnt/storage/dd* && dd if=/dev/zero of=/mnt/disk/1/dd_test_throughput.img bs=100M count=1 oflag=dsync status=progress
-…
-104857600 bytes (105 MB, 100 MiB) copied, 0.932364 s, 112 MB/s
-
-```
-
-`oflag=dsync` змушує dd оминати кеш і чекати фізичного запису після кожного блоку. [сторінка mergerfs](https://github.com/trapexit/mergerfs#benchmarking) пропонує інший режим для випроби швидкодії (`oflag=nocache conv=fdatasync`), і тут все не так погано — 63 мб/сек:
-
-```
-$ rm /mnt/storage/dd* && dd if=/dev/zero of=/mnt/storage/dd_test_throughput.img bs=1M count=1024 oflag=nocache conv=fdatasync status=progress
-915406848 bytes (915 MB, 873 MiB) copied, 4 s, 229 MB/s
-…
-1073741824 bytes (1.1 GB, 1.0 GiB) copied, 16.9268 s, 63.4 MB/s
-```
-
-перемонтував збірку mergerfs з опцією `direct_io` — отримав 2,3 мб/с:
-
-```
-$ sudo mergerfs -o defaults,allow_other,use_ino,nonempty,direct_io /mnt/disk/\* /mnt/storage
-$ rm /mnt/storage/dd* ; dd if=/dev/zero of=/mnt/storage/dd_test_throughput.img bs=100M count=1 oflag=dsync status=progress
-104857600 bytes (105 MB, 100 MiB) copied, 45 s, 2.3 MB/s
-…
-104857600 bytes (105 MB, 100 MiB) copied, 45.4328 s, 2.3 MB/s
-```
-
-не вражає… але реальні сценарії (копіювання файлів з ssd на /mnt/storage) показують значно кращу швидкість. можна додати збірку до fstab:
+додаю автомонтування до `/etc/fstab`:
 
 ```
 # MergerFS pool              
-# <file system> <mount point>   <type>          <options>       <dump>  <pass>
-/mnt/disk*      /mnt/storage    fuse.mergerfs   defaults,allow_other,use_ino,nonempty,direct_io,fsname=mergerfs,minfreespace=20G   0       0
+# <file system>   <mount point>   <type>          <options>       <dump>  <pass>
+/mnt/disk/data*   /mnt/storage    fuse.mergerfs   defaults,allow_other,use_ino,nonempty,direct_io,fsname=mergerfs,minfreespace=20G   0       0
 ```
 
-
-##### smart
-
-після підключення дисків варто перевірити звіти smart. по-перше — короткий тест для `sdb`, `sdc` та `sdd`:
+монтую:
 
 ```
-# for X in b c d; do echo -n "/dev/sd${X}: "; sudo smartctl -t short /dev/sd${X} | grep "complete after"; done
-/dev/sdb: Test will complete after Sun Jan 31 09:32:05 2021 EST
-/dev/sdc: Test will complete after Sun Jan 31 09:33:05 2021 EST
-/dev/sdd: Test will complete after Sun Jan 31 09:33:06 2021 EST
+# mount -a
 ```
 
-результати невтішні для hitachi (`sdd`) — добре, що я витяг диск із зовнішнього накопичувача з резервним архівом світлин, мав би неминучий сюрприз:
+за [підказкою на сайті mergerfs](https://github.com/trapexit/mergerfs#benchmarking), перевірю швидкодію, згенерувавши сто гігабайтових файлів до `/mnt/storage`:
 
 ```
-# for X in b c d; do echo -n "/dev/sd${X}: "; sudo smartctl --health /dev/sd${X} | grep "test result"; done
-/dev/sdb: SMART overall-health self-assessment test result: PASSED
-/dev/sdc: SMART overall-health self-assessment test result: PASSED
-/dev/sdd: SMART overall-health self-assessment test result: FAILED!
+for ((i=1; i<=100; i++)); do echo "File: test_${i}.tmp..."; dd if=/dev/zero of=/mnt/storage/test_${i}.tmp bs=1M count=1024 oflag=nocache conv=fdatasync status=progress; done
 ```
 
-для випроби диск згодиться: цікаво буде скористатися snapraid'ом для спроби відновлення, коли «гавкне». тим часом — нагода погратися ще трохи зі `smartctl` з набору `smartmontools` (хороші [підказки](https://www.smartmontools.org/wiki/TocDoc) є у вікі).
-
-спробую перевірити весь диск:
+у сусідньому терміналі можна спостерігати за наповненням окремих дисків `data1`..`5`, та об'єднаної теки `/mnt/storage` та розподіл записаних файлів по фізичних дисках:
 
 ```
-# umount /dev/sdd1
-# badblocks -v /dev/sdd > /tmp/badblocks-sdd.txt
+$ watch -n 10 "df -h -t ext4 -t fuse.mergerfs; ls -x /mnt/disk/data*"
 ```
-
-добу потому: `badblocks` ще крутиться, знайшов 18 тис. «битих» блоків =( продовження процедури не має сенсу: нічого потрібного на диску немає, тож замість badblocks/fsck краще перестворити файлову систему заново з опцією `-c`, або навіть краще `-cc` для перевірки/маркування блоків:
-
-```
-# mkfs.ext4 -cc -L Data3 /dev/sdd1
-...
-Testing with pattern 0xff: 1.42% done, 20:49:50 elapsed. (62/0/0)
-```
-
-тут, `(62/0/0)` означає: 62 помилки читання, 0 помилок запису, 0 помилок… це вже третій прохід, і це зовсім не 18 тис. проблемних блоків. підозрюю, що проблема може бути не в дисках, а в дешевому китайському бекплейні, або в картці pcie -> sata… або в недостатньому живленні?
-
-дивно, бо я перезавантажив сервер (все змонтувалося як слід), перезапустив тест smart (усі три диски ― passed), запустив у циклі запис/видалення файлів на всю ніч — і цього разу все працює без проблем. 
 
 
 #### snapraid
+
+репозиторії debian не містять snapraid, і здається, що всенький інтернет користується підказкою зі [збирання snapraid із сирців у контейнері docker](https://perfectmediaserver.com/installation/manual-install/#snapraid). не найгірший варіант. знадобляться `git` та `docker`:
+
+```
+# apt-get update
+# apt-get install docker git
+```
 
 ...
 

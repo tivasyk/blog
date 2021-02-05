@@ -13,10 +13,9 @@ tags:
 залип… але набридло переглядати на мудрофоні, захотілося «картинки в картинці» просто на стільниці — переваги дистанційної роботи під час пандемії. тож просто залишу це тут, ще знадобиться.
 
 ```
-> S="04"; E="14"; mpv --ontop --no-border "http://vihostdgs57.com/video/cb3fce79875b993a92746f2b4457ae9d/serials/The.B
-ig.Bang.Theory/s${S}/The.Big.Bang.Theory.S${S}E${E}.mp4"
+> S="04"; E="14"; mpv --ontop --no-border "http://vihostdgs57.com/video/cb3fce79875b993a92746f2b4457ae9d/serials/The.Big.Bang.Theory/s${S}/The.Big.Bang.Theory.S${S}E${E}.mp4"
 ```
 
-посилання запозичив, подлубавшись у коді html [на moviestape](http://moviestape.net/katalog_serialiv/melodramy/5498-teorija-velykogo-vybuhu.html). не знаю, чи варто взяти перелік сезонів/епізодів та затягти все wget'ом просто собі на owncloud...
+посилання запозичив, подлубавшись у коді html [на moviestape](http://moviestape.net/katalog_serialiv/melodramy/5498-teorija-velykogo-vybuhu.html). не знаю, чи варто взяти перелік сезонів/епізодів та затягти все wget'ом просто собі на owncloud... ні, не варто.
 
 ![зображення](/assets/images/2021/2021-01-29-bigbang.jpg)
