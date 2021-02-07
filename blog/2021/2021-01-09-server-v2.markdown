@@ -21,8 +21,8 @@ tags:
 * [встановлення базової системи](#встановлення-базової-системи)
 * [дискове сховище](#дискове-сховище)
   * [додавання дисків](#додавання-дисків)
-  * [mergerfs](#mergerfs)
   * [smart](#smart)
+  * [mergerfs](#mergerfs)
   * [snapraid](#snapraid)
 
 
@@ -293,7 +293,95 @@ $ watch -n 10 "df -h -t ext4 -t fuse.mergerfs; ls -x /mnt/disk/data*"
 # apt-get install docker git
 ```
 
-...
+всю важку роботу робить контейнер:
+
+```
+$ mkdir ~/tmp && cd ~/tmp
+$ git clone https://github.com/IronicBadger/docker-snapraid
+$ cd docker-snapraid
+$ chmod +x build.sh
+$ sudo ./build.sh
+```
+
+якщо все минуло добре, згенерований пакунок для debian лежить у теці `~/doker-snapraid/build`, можна встановлювати:
+
+```
+$ sudo dpkg -i ~/docker-snapraid/bild/snapraid-from-source.deb
+```
+
+перевірка:
+
+```
+$ snapraid --version
+snapraid v11.5 by Andrea Mazzoleni, http://www.snapraid.it
+```
+
+якщо все гаразд, можна видалити `~/tmp/docker-snapraid`. конфігурація snapraid (`/etc/snapraid.conf`):
+
+```
+# Parity file(s)
+parity /mnt/disk/parity1/snapraid.parity
+#
+# Data disks/storage
+data d1 /mnt/disk/data1
+data d2 /mnt/disk/data2
+data d3 /mnt/disk/data3
+data d4 /mnt/disk/data4
+data d5 /mnt/disk/data5
+#
+# Content files (multiple copies)
+content /var/.snapraid.content
+content /mnt/disk/data1/.snapraid.content
+content /mnt/disk/data2/.snapraid.content
+content /mnt/disk/data3/.snapraid.content
+content /mnt/disk/data4/.snapraid.content
+content /mnt/disk/data5/.snapraid.content
+#
+# Exclude from parity calculation
+exclude /lost+found/
+exclude /tmp/
+```
+
+після цього, нарешті, можна зробити те, заради чого все й задумано — згенерувати дані парності на диску `/mnt/parity1` для відновлення:
+
+```
+$ sudo snapraid sync
+```
+
+на порожніх дисках `data1`―`5` все відбувається дуже швидко. snapraid жаліється, що з п'ятьма дисками варто тримати два диски parity (на випадок відмови двох дисків у бекплейні), але тоді в мене залишиться чотири диски даних… а для них рекомендовано один parity… це як задача про гарну й розумну мавпу, але зациклена =)
+
+snapraid не встановлює сервісів і не автоматизує сам нічого в cron'і — це можна зробити самотужки, але краще скористатися готовим рішенням: [snapraid-runner](https://github.com/Chronial/snapraid-runner) (детальна [підказка](https://perfectmediaserver.com/installation/manual-install/#automating-parity-calculation)):
+
+```
+# git clone https://github.com/Chronial/snapraid-runner.git /opt/snapraid-runner
+# cp /opt/snapraid-runner/snapraid-runner.conf.example /opt/snapraid-runner/snapraid-runner.conf
+```
+
+основні зміни до конфігурації `/opt/snapraid-runner/snapraid-runner.conf`:
+
+```
+[snapraid]
+executable = /usr/local/bin/snapraid
+config = /etc/snapraid.conf
+touch = true
+; далі опційно
+deletethreshold = 250
+[scrub]
+enabled = true
+```
+
+перевірка (url для інтеграції з [healthchecks.io](https://healthchecks.io) треба згенерувати окремо):
+
+```
+# python3 /opt/snapraid-runner/snapraid-runner.py -c /opt/snapraid-runner/snapraid-runner.conf && curl -fsS --retry 3 https://hc-ping.com/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx > /dev/null
+```
+
+наостанок — cron для snapraid-runner (щоночі о 03:00):
+
+```
+# Snapraid management with snapraid-runner
+00 03 * * * python3 /opt/snapraid-runner/snapraid-runner.py -c /opt/snapraid-runner/snapraid-runner.conf && curl -fsS --retry 3 https://hc-ping.com/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx > /dev/null
+```
 
 
 далі буде…
